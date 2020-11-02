@@ -73,27 +73,25 @@ export default function navbar() {
             <div className="navbar-item has-dropdown is-hoverable px-2 py-2 mx-2">
               <a className="navbar-link">
                 <figure className="image is-48x48 has-image-centered">
-                  <img className="is-rounded" src={user.profileImage} alt={user.username} />
+                  <img
+                    className="is-rounded"
+                    src={user.profileImage}
+                    alt={user.username}
+                  />
                 </figure>
               </a>
               <div className="navbar-dropdown is-right ">
                 <Link href="/u/[user]/" as={`/u/${user.username}/`}>
                   <a className="navbar-item">Profile</a>
                 </Link>
-                <Link href="/u/settings/">
-                  <a className="navbar-item">Settings</a>
-                </Link>
                 <Link href="/u/[user]/posts/" as={`/u/${user.username}/posts/`}>
                   <a className="navbar-item">Posts</a>
                 </Link>
+                <Link href="/dashboard">
+                  <a className="navbar-item">Dashboard</a>
+                </Link>
                 <hr className="navbar-divider" />
-                {user.role === "admin" || user.role === "editor" ? (
-                  <Link href="/dashboard">
-                    <a className="navbar-item">Super Dashboard</a>
-                  </Link>
-                ) : (
-                  ""
-                )}
+
                 <Link href="/logout">
                   <a className="navbar-item">Logout</a>
                 </Link>

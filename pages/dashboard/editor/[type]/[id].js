@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-// import StarryEditor from "../../../../components/starryEditor/editor";
 import dynamic from "next/dynamic";
 
 const DynamicComponentWithNoSSR = dynamic(
@@ -21,7 +20,7 @@ const postEditor = () => {
     publish_date: "",
     featured_image: '',
     introduction: "",
-    content_raw: null,
+    content_raw: " ",
     content_html: "",
     tags: [],
     type: type,
@@ -37,7 +36,6 @@ const postEditor = () => {
   return (
     <div>
       <DynamicComponentWithNoSSR post={post} setPost={setPost} />
-      {/* <StarryEditor /> */}
     </div>
   );
 };

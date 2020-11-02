@@ -15,60 +15,55 @@ import {
 import AuthWrapper from "./authWrapper";
 export default function dashboardLayout({ children }) {
   const router = useRouter();
-  const currentRoute = router.asPath.split("/").reverse()[1];
-  console.log(currentRoute);
+  const route = router.asPath.split("/").reverse()[1];
+  const [currentRoute, setCurrentRoute] = useState(route);
   const { globalState, setGlobalState } = useContext(GlobalContext);
-  const [isCollapsed, setIsCollapsed] = useState(true);
   return (
     <AuthWrapper>
-      <div className="columns is-mobile">
-        <nav
-          className={`column ${isCollapsed ? "is-1-mobile" : "is-2-mobile"}`}
-        >
-          {/* <button className="button" onClick={()=>setIsCollapsed(!isCollapsed)}>Menu</button> */}
+      <div className="">
+        <nav className="dashboard-nav">
           <ul>
             <li className={`back-home`}>
               <Link href="/">
                 <a>
-                  <span class="icon">
+                  <span className="sidebar-icon">
                     <FontAwesomeIcon icon={faHome} />
                   </span>
-                  <span>Homee</span>
                 </a>
               </Link>
             </li>
-            <li>
+            <li className={currentRoute === "dashboard" ? "active" : ""}>
               <Link href="/dashboard">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faTachometerAlt} size="2x" />
+                  <FontAwesomeIcon icon={faTachometerAlt} />
                 </a>
               </Link>
             </li>
-            <li>
+            <li className={currentRoute === "posts" ? "active" : ""}>
               <Link href="/dashboard/posts/">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faThumbtack} size="2x" />
+                  <FontAwesomeIcon icon={faThumbtack} />
                 </a>
               </Link>
             </li>
-            <li>
+            <li className={currentRoute === "pages" ? "active" : ""}>
               <Link href="/dashboard/pages/">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faFile} size="2x" />
+                  <FontAwesomeIcon icon={faFile} />
                 </a>
               </Link>
             </li>
-            <li>
+            <li className={currentRoute === "tags" ? "active" : ""}>
               <Link href="/dashboard/tags/">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faTags} size="2x" />
+                  <FontAwesomeIcon icon={faTags} />
                 </a>
               </Link>
             </li>
-            <li>
+            <li className={currentRoute === "setting" ? "active" : ""}>
               <Link href="/dashboard/setting/">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faCog} size="2x" />
+                  <FontAwesomeIcon icon={faCog} />
                 </a>
               </Link>
             </li>
@@ -76,22 +71,31 @@ export default function dashboardLayout({ children }) {
             <li className="sidebar-logout">
               <Link href="/logout/">
                 <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faSignOutAlt} size="2x" />
+                  <FontAwesomeIcon icon={faSignOutAlt} />
                 </a>
               </Link>
             </li>
           </ul>
         </nav>
-        <main className={`column ${isCollapsed ? "is-11" : "is-10"}`}>
-          {children}
-        </main>
+        <main className="dashboard-content">{children}</main>
         <style jsx>{`
+          .dashboard-nav {
+            width: 66px;
+            z-index: 99;
+          }
+          .dashboard-content {
+            margin-left: 70px;
+          }
+
           nav {
+            fill: #fff;
             border-right: 2px solid #f5f5f5;
             display: flex;
             justify-content: center;
           }
           ul {
+            padding: 12px;
+            background-color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -99,21 +103,24 @@ export default function dashboardLayout({ children }) {
             position: fixed;
             justify-content: center;
           }
-          .active {
-            border-right: 3px solid #2996da;
+          li:hover{
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+            transition: .5s;
           }
+
           .active a {
             color: #2996da;
           }
           .sidebar-icon {
-            color: #95a5a6;
-            margin: 20px 10px;
+            font-size: 1.5em;
+            border-radius: 50%;
+            padding: 5px;
+            color: #fff;
+            margin: 10px 10px;
             display: inline-block;
           }
-
-          .back-home {
-            margin-bottom: auto;
-          }
+      
           .sidebar-logout {
             margin-top: auto;
           }

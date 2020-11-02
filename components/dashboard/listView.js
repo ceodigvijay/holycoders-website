@@ -40,6 +40,13 @@ export default function listView({ data, isTagPage, type = "post" }) {
           </div>
         )}
       </div>
+      {listToIterate.length === 0 ? (
+        <div className="has-text-centered title is-5">
+          Nothing Here (Pagination below is a bug:())
+        </div>
+      ) : (
+        ""
+      )}
       {listToIterate.map((element) => {
         return (
           <>

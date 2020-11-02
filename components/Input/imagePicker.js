@@ -28,7 +28,7 @@ export default function imagePicker(props) {
             />
           </svg>
           <p className="upload-text">
-            Drag your featured image here or click in this area.
+            Drag your Featured Image or Click Here.
           </p>
         </form>
       ) : (
@@ -56,8 +56,8 @@ export default function imagePicker(props) {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 520px;
-          height: 300px;
+          width: 720px;
+          height: 400px;
           border: 2px solid #eee;
         }
 
@@ -79,7 +79,7 @@ export default function imagePicker(props) {
           text-align: center;
           font-family: Arial;
         }
-        .featured-image{
+        .featured-image {
           display: block;
           margin: 0 auto;
         }

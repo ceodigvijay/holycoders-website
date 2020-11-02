@@ -294,9 +294,7 @@ export default function starryEditor(props) {
                   });
                 }}
                 readOnly={false}
-                defaultValue={
-                  post.content_raw ? post.content_raw : "Write from here"
-                }
+                defaultValue={post.content_raw}
               />
             </div>
             <div className="column"></div>
