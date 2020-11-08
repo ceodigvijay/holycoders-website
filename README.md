@@ -1,9 +1,5 @@
-## axios res status check only if it exixts [frontend]
-only letters and numbers in username and slugs
-breadcrumb html implementation
-login type in user collection, if social login then disable password change
-featued field in posts
+Remove email, password based auth.
 
-publish without save error
+change account ownership-> enter new email-> must have google, fb, twitter, github access with that email- > login with new email, click change if anythong fails rollback.
 
 # Backup and restore

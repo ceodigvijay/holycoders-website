@@ -71,9 +71,17 @@ function MyApp({ Component, pageProps }) {
     },
     (error) => {
       console.log(error);
-      switch (error.response.status) {
+      switch (error.response.status ? error.response.status : 500) {
         case 401:
           console.log("You need to login to acceess");
+          if (
+            typeof window !== "undefined" &&
+            error.response.data.exception &&
+            error.response.data.exception === "authTokenMissing"
+          ) {
+            setUserValue(null);
+            localStorage.removeItem("hc_user");
+          }
           router.push("/login");
           break;
         case 404:

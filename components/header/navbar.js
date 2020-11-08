@@ -28,11 +28,15 @@ export default function navbar() {
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
           <span className="navbar-item">
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog">
+              <a>Blog</a>
+            </Link>
           </span>
 
           <span className="navbar-item">
-            <Link href="/news">News</Link>
+            <Link href="/course/">
+              <a>Courses</a>
+            </Link>
           </span>
 
           <div className="navbar-item has-dropdown is-hoverable">
@@ -102,6 +106,12 @@ export default function navbar() {
         </div>
       </div>
       <style jsx>{`
+        .navbar {
+          background-color: transparent;
+        }
+        a {
+          color: inherit !important;
+        }
         .navbar-item img {
           max-height: 48px;
         }

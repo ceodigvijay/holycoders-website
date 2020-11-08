@@ -32,6 +32,7 @@ const postEditor = () => {
     code_injection_head: "",
     code_injection_foot: "",
     show_comments: true,
+    featured: false,
   });
   return (
     <div>

@@ -39,9 +39,9 @@
     "react-sidebar": "^3.0.2",
     "react-tag-autocomplete": "^6.1.0",
     "react-textarea-autosize": "^8.2.0",
+    "remark-frontmatter": "^3.0.0",
     "rich-markdown-editor": "^11.0.2",
     "sass": "^1.26.10",
-    "sharp": "^0.25.4",
     "styled-components": "^5.2.0",
     "swr": "^0.2.3"
   },

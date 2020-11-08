@@ -36,7 +36,9 @@ export default function allPosts() {
         data = res.data;
       } catch (error) {
         addNotification({
-          message: "Some error in fetching the posts. Please contact us.",
+          message: error.response.data.message
+            ? error.response.data.message
+            : "Some error in fetching the posts. Please contact us.",
           type: "error",
         });
       }

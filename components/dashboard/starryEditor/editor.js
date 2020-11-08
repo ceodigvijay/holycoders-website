@@ -6,8 +6,11 @@ import Link from "next/link";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { getAdminPostById, publishPost } from "../../../lib/index";
-import { handleImageUpload } from "./utils";
+import {
+  getAdminPostById,
+  publishPost,
+  handleImageUpload,
+} from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import moment from "moment";
 import TextareaAutosize from "react-textarea-autosize";
@@ -59,8 +62,8 @@ export default function starryEditor(props) {
   async function handleFeaturedImageUpload(e) {
     e.preventDefault();
     try {
-      const imageArr = await handleImageUpload(e.target.files[0]);
-      setPost({ ...post, featured_image: imageArr[2] });
+      const imageUrl = await handleImageUpload(e.target.files[0]);
+      setPost({ ...post, featured_image: imageUrl });
     } catch (error) {
       addNotification({
         message: "Some error occured in uploading the image.",
@@ -200,7 +203,9 @@ export default function starryEditor(props) {
             </span>
           </div>
           <div className="header-left">
-            {post.status !== "published" && post.post_id ? (
+            {post.status === "draft" &&
+            post.post_id &&
+            post.post_id !== "new" ? (
               <button
                 onClick={(e) => handlePostPublish(e)}
                 className="button is-success is-light is-medium"
