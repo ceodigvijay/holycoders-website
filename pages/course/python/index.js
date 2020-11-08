@@ -2,8 +2,8 @@ import React from "react";
 import importAll from "../../../utils/getAllPosts";
 import CourseLayout from "../../../components/layouts/course/courseLayout.js";
 
-export default function Layout({ children, meta }) {
-  const pythonChapters = importAll(require.context(`./`, true, /\.mdx$/));
+export default function Layout({ children="", meta={} }) {
+  // const pythonChapters = importAll(require.context(`./`, true, /\.mdx$/));
   const courseDetails = {
     author: {
       name: "Digvijay Singh",
@@ -17,8 +17,9 @@ export default function Layout({ children, meta }) {
   console.log(children);
   console.log(meta);
   return (
-    <CourseLayout meta={meta} allChapters={pythonChapters} courseDetails={courseDetails}>
-      {children ? children : "Click On Chapters to start learning"}
-    </CourseLayout>
+    // <CourseLayout meta={meta} allChapters={pythonChapters} courseDetails={courseDetails}>
+    //   {children ? children : "Click On Chapters to start learning"}
+    // </CourseLayout>
+    <div>sdf</div>
   );
 }
