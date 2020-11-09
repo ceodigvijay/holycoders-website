@@ -49,7 +49,7 @@ function Home({ data }) {
         <PostCollectionPage data={data} showPagination={false} />
         <div className="has-text-centered">
           <Link href="/blog">
-            <a className="button is-primary">View More ..</a>
+            <a className="button is-primary">View More .</a>
           </Link>
         </div>
       </section>
