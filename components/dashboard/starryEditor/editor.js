@@ -28,6 +28,10 @@ export default function starryEditor(props) {
   const { post, setPost } = props;
   var currentPostID = router.query.id;
   const [isOpen, setOpen] = useState(false);
+  //Instead of multiple states only one state which keeps track on loading b/c only one button shown
+  const [loadingData, setLoadingData] = useState({
+    saveInProgress: false,
+  });
 
   useEffect(() => {
     async function getData() {
@@ -85,6 +89,7 @@ export default function starryEditor(props) {
     }
     // e.preventDefault();
     try {
+      setLoadingData({ ...loadingData, saveInProgress: true });
       const res = await axios({
         method: method,
         url: url,
@@ -116,6 +121,7 @@ export default function starryEditor(props) {
           type: "error",
         });
       }
+      setLoadingData({ ...loadingData, saveInProgress: false });
     } catch (e) {
       const errorMessage =
         e.response && e.response.data && e.response.data.message
@@ -125,6 +131,7 @@ export default function starryEditor(props) {
         message: errorMessage,
         type: "error",
       });
+      setLoadingData({ ...loadingData, saveInProgress: false });
     }
   }
 
@@ -218,7 +225,9 @@ export default function starryEditor(props) {
             ) : (
               <button
                 onClick={(e) => handlePostUpdate(e)}
-                className="button  is-success is-light is-medium"
+                className={`button  is-success is-medium ${
+                  loadingData.saveInProgress ? "is-loading" : "is-light"
+                } `}
               >
                 <span className="icon">
                   <FontAwesomeIcon icon={faRocket} color="#36a666" />

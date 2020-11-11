@@ -12,7 +12,11 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
   allChapters.forEach((post) => {
     if (post.module.meta.sequence) {
       const link =
-        "/course/python/" + post.link.substr(1).replace(".mdx", "") + "/";
+        "/course/" +
+        courseDetails.courseName +
+        "/" +
+        post.link.substr(1).replace(".mdx", "") +
+        "/";
 
       chapters[post.module.meta.sequence] = {
         link: link,
@@ -24,10 +28,9 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
   const currentChapterIndex = chapters.findIndex(
     (x) => x.link === router.asPath
   );
-  console.log(meta);
   return (
     <GlobalLayout>
-      {meta ? (
+      {meta && meta.title ? (
         <Seo
           title={meta.title}
           metaTitle={meta.metaTitle}
@@ -41,13 +44,13 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
         ""
       )}
 
-      <main className="mx-6 my-4">
+      <main className="mx-5 my-4">
         <div className="columns">
           <div className="column is-one-quarter panel">
             {/* <div className="py-6 has-text-centered">Score: 500</div> */}
             <SideNav chapters={chapters} />
           </div>
-          <div className="column mx-4">
+          <div className="column mx-4 panel">
             {/* BreadCrub */}
             <nav className="breadcrumb" aria-label="breadcrumbs">
               <ul>
@@ -67,7 +70,9 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
               </ul>
             </nav>
             {/* BreakCrumb Ends */}
-            <h1 className="title is-1 has-text-centered">{meta.title}</h1>
+            <h1 className="title is-1 has-text-centered">
+              {meta && meta.title ? meta.title : courseDetails.courseTitle}
+            </h1>
             <div className="content">{children}</div>
             <nav
               className="columns pagination is-centered my-6"

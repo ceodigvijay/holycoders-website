@@ -6,7 +6,7 @@ export default function navbar() {
   const { user } = useContext(UserContext);
   console.log(user);
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
           HolyCoders
@@ -42,7 +42,7 @@ export default function navbar() {
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
 
-            <div className="navbar-dropdown">
+            <div className="navbar-dropdown is-boxed">
               <Link href="/tags/">
                 <a className="navbar-item">Tags</a>
               </Link>

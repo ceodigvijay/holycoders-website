@@ -1,5 +1,5 @@
-$primary: #00CC94;
-
+$primary: #36a666;
+//Secondary: #10111D;
 //BlockQuote
 $content-blockquote-border-left: 5px solid $primary;
 $content-blockquote-background-color: #f8f8f8;
@@ -8,17 +8,19 @@ $content-blockquote-background-color: #f8f8f8;
 // @import '../bootstrap/scss/bootstrap.scss';
 
 //Remove Chrome Focus outline
-*,*:focus,*:hover{
-  outline:none;
+*,
+*:focus,
+*:hover {
+  outline: none;
 }
 
 /*Styline*/
-blockquote{
+blockquote {
   border-radius: 5px;
 }
 // body {
-  // background-image: url(/content/images/bg.png);
-  // background-color: #e7e7e7;
+// background-image: url(/content/images/bg.png);
+// background-color: #e7e7e7;
 // }
 // Styline
 code .number {
@@ -38,7 +40,7 @@ code .number {
   margin-left: auto;
   margin-right: auto;
 }
-
+//Current Outline Editor Styling
 .ProseMirror {
   padding: 30px 10px;
   border: 1px solid #d5d5d5;
@@ -46,6 +48,8 @@ code .number {
   min-height: 200px;
   font-size: 20px;
 }
+
+//NProgress Styling
 #nprogress {
   pointer-events: none;
 }
@@ -60,7 +64,6 @@ code .number {
   height: 2px;
 }
 
-/* Fancy blur effect */
 #nprogress .peg {
   display: block;
   position: absolute;
@@ -75,7 +78,6 @@ code .number {
   transform: rotate(3deg) translate(0px, -4px);
 }
 
-/* Remove these to get rid of the spinner */
 #nprogress .spinner {
   display: block;
   position: fixed;
@@ -125,7 +127,9 @@ code .number {
   }
 }
 
-// lOGIN SIGNUP
+//NProgress Styling
+
+// Login And Signup Page Styling
 
 .auth {
   text-align: center;
@@ -153,8 +157,9 @@ code .number {
     border-radius: 6px;
   }
 }
+// Login And Signup Page Styling Ends
 
-//Blog Page
+//Blog Page Styling
 .blog-card {
   margin: 10px;
   border: 1px solid #dce6f3;
@@ -190,7 +195,7 @@ code .number {
   margin: 0 auto;
 }
 
-// Toasts
+// Toast messages
 .hc_toast {
   ul {
     padding: 10px;
@@ -229,9 +234,9 @@ code .number {
     background-color: transparent;
   }
 }
-//page also need this styling not only post
-//Global
-//Content
+//Toast Messages Ends
+
+//Toolbar Styling
 .utility-container {
   display: flex;
   flex-direction: column;
@@ -251,103 +256,8 @@ code .number {
     }
   }
 }
+//Toolbar Styling Ends
 
-// Blog Cards
-
-.article-card {
-  max-width: 600px;
-  margin: 30px auto;
-  border: 2px solid #36a666;
-  border-radius: 10px;
-  &__image {
-    // max-width: 360px;
-    // max-height: 200px;
-    display: block;
-    border-radius: 10px;
-  }
-  &__tags {
-    text-align: left;
-  }
-  &__tag {
-    background-color: #d5d5d5;
-    padding: 5px 10px;
-    border-radius: 6px;
-    margin: 0 10px;
-  }
-  &__content {
-    padding: 10px;
-  }
-  &__meta {
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    font-size: 1.2rem;
-  }
-  &__left {
-    img {
-      margin: 0 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-    p {
-      time {
-        color: #a8a8a8;
-        display: block;
-      }
-      display: inline-block;
-    }
-  }
-  &__tags {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__date {
-    // display: block;
-  }
-  h1 {
-    text-align: center;
-    font-size: 3.5rem;
-    margin: 20px auto;
-  }
-  .description {
-    text-align: center;
-    font-size: 1rem;
-    color: #5a5a5a;
-  }
-  &__right {
-    text-align: right;
-  }
-  &__likes {
-    margin: 0 10px;
-  }
-  &__bookmark {
-    margin: 0 10px;
-  }
-  &__readtime {
-    color: #a8a8a8;
-  }
-}
-.hc_toast_container {
-  text-align: center;
-}
-// .hc_toast {
-//   z-index: 999;
-//   position: absolute;
-//   top: 30px;
-//   max-width: 500px;
-//   background-color: #fff;
-//   padding: 10px;
-//   border-radius: 5px;
-//   margin-left: auto;
-//   margin-right: auto;
-//   left: 0;
-//   right: 0;
-// }
-// :root{
-//   filter: invert(90%)
-// }
 // React Tags
 .react-tags {
   max-width: 300px;
@@ -372,12 +282,8 @@ code .number {
   padding: 6px 0 0 6px;
   border: 1px solid #d1d1d1;
   border-radius: 1px;
-
-  /* shared font styles */
   font-size: 1em;
   line-height: 1.2;
-
-  /* clicking anywhere will focus the input */
   cursor: text;
 }
 
@@ -416,33 +322,23 @@ code .number {
 
 .react-tags__search {
   display: inline-block;
-
-  /* match tag layout */
   padding: 7px 2px;
   margin-bottom: 6px;
-
-  /* prevent autoresize overflowing the container */
   max-width: 100%;
 }
 
 @media screen and (min-width: 30em) {
   .react-tags__search {
-    /* this will become the offsetParent for suggestions */
     position: relative;
   }
 }
 
 .react-tags__search-input {
-  /* prevent autoresize overflowing the container */
   max-width: 100%;
-
-  /* remove styles and layout from this element */
   margin: 0;
   padding: 0;
   border: 0;
   outline: none;
-
-  /* match the font styles */
   font-size: inherit;
   line-height: inherit;
 }
@@ -499,20 +395,9 @@ code .number {
   cursor: auto;
 }
 
-// Global
-// input,
-// textarea {
-//   display: block;
-//   margin: 20px auto;
-//   border: 2px solid #d5d5d5;
-//   border-radius: 5px;
-//   width: 100%;
-//   padding: 10px;
-//   font-size: 16px;
-//   font-weight: 400;
-// }
+//React Tags Styling Ends Here
 
-//Bookmark and like animation
+//Bookmark and like button animation
 .cbutton {
   position: relative;
   display: inline-block;
@@ -601,8 +486,9 @@ code .number {
   }
 }
 
-// Prism Js
-/* Prism Js Styles */
+//Bookmark and like button animation Ends
+
+//  Prism Js Styles
 /**
  * atom-dark theme for `prism.js`
  * Based on Atom's `atom-dark` theme: https://github.com/atom/atom-dark-syntax
@@ -747,3 +633,5 @@ pre[class*="language-"] {
 .token.italic {
   font-style: italic;
 }
+
+// Prism Js Styling Ends Here

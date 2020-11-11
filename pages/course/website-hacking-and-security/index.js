@@ -9,15 +9,19 @@ export default function Layout({ children, meta }) {
       name: "Digvijay Singh",
       profile: "https://holycoders.com/u/digvijay1/",
     },
-    dateCreated: "03/11/2020",
-    courseName: "python",
-    courseTitle: "Python for Beginners - The Ultimate Guide"
+    dateCreated: "13/11/2020",
+    courseName: "website-hacking-and-security",
+    courseTitle: "Learn Website Hacking from Scratch and Ways to secure them.",
   };
   console.log("children");
   console.log(children);
   console.log(meta);
   return (
-    <CourseLayout meta={meta} allChapters={pythonChapters} courseDetails={courseDetails}>
+    <CourseLayout
+      meta={meta}
+      allChapters={pythonChapters}
+      courseDetails={courseDetails}
+    >
       {children ? children : "Click On Chapters to start learning"}
     </CourseLayout>
   );
