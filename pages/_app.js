@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
     });
     console.log(newArr);
     console.log("Deleted " + toastId);
-    // setNotifications(newArr);
+    setNotifications(newArr);
   };
 
   const addNotification = ({ message, type }) => {
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
       ...notifications,
       { message: message, type: type, id: toastId },
     ]);
-    // //Remove Toast after x seconds
+    //Remove Toast after x seconds
     // setTimeout(() => {
     //   _removeNotification(toastId);
     // }, 3000);
@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }) {
       console.log(error);
       switch (error.response.status ? error.response.status : 500) {
         case 401:
-          console.log("You need to login to acceess");
+          //If Auth token is missing (removed by expiry) then remove user value from localstorage
           if (
             typeof window !== "undefined" &&
             error.response.data.exception &&
@@ -82,7 +82,6 @@ function MyApp({ Component, pageProps }) {
             setUserValue(null);
             localStorage.removeItem("hc_user");
           }
-          router.push("/login");
           break;
         case 404:
           console.log("Not found");

@@ -4,7 +4,7 @@ export default function heroHead() {
   return (
     <section className="hero" style={{ minHeight: "90vh" }}>
       <div className="hero-body">
-        <div className="container columns is-vcentered">
+        <div className="columns is-vcentered">
           <div className="column is-half">
             <h1 className="title is-2">
               Join the{" "}
@@ -19,13 +19,11 @@ export default function heroHead() {
             </div>
           </div>
           <div className="column is-half text-center">
-              <HomePageIcon width="500" height="500"/>
+            <HomePageIcon width="500" height="500" />
           </div>
         </div>
       </div>
-      <style jsx>{`
-       
-      `}</style>
+      <style jsx>{``}</style>
     </section>
   );
 }

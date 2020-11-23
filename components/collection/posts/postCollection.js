@@ -62,8 +62,11 @@ export default function postCollection({ data }) {
                   {post.tags.length !== 0 ? "#" + post.tags[0].name : "No tag"}
                 </div>
                 <Link
-                  href={"/[category]/[slug]"}
-                  as={"/" + post.category + "/" + post.slug}
+                  href={
+                    post.type === "page"
+                      ? `/${post.slug}`
+                      : `/${post.category}/${post.slug}`
+                  }
                 >
                   <a className="title is-5 is-block is-centered">
                     {post.title}

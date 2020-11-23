@@ -2,19 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import Layout from "../layouts/layout";
 import { useRouter } from "next/router";
 import GlobalContext from "../../contexts/globalContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Like from "../buttons/like";
-import Bookmark from "../buttons/bookmark";
 import Comments from "./comments/comments";
-// import ReadingProgress from "./readingProgress";
 import Seo from "../seo/posts/index";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faComment } from "@fortawesome/free-regular-svg-icons";
-import { getPostReactions } from "../../lib/index";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
-
+import Toolbar from "./toolbar";
 const fullArticle = ({
   _id,
   tags,
@@ -27,6 +20,7 @@ const fullArticle = ({
   bookmarks,
   published_at,
   updated_at,
+  type,
   author,
   meta_title,
   meta_description,
@@ -35,7 +29,6 @@ const fullArticle = ({
 } = {}) => {
   //For like button add temporary state to likeIncremented if yes push update after
   // 3 seconds and set it to false, if user tries to leave display unsaved work
-  const [toolbarData, setToolbarData] = useState(null);
   const router = useRouter();
   const postContentRef = React.createRef();
   // const { slug } = router.query;
@@ -53,28 +46,18 @@ const fullArticle = ({
       );
     },
     image: ({ src, alt }) => {
-      return <Image src={src} alt={alt} unsized />;
+      return <Image src={src} alt={alt} width="720px" height="400px" />;
     },
   };
 
-  // const syncDynamicData = () => {
-  //   setTimeout(async () => {
-  //     console.log("Post Toolbar data Sync Started");
-  //     const reactions = await getPostReactions(_id);
-  //     setToolbarData(reactions.data);
-  //     console.log(reactions);
-  //   }, 5000);
-  //   console.log("Sync likes, bookmarks with slug and userId");
-  // };
-  // if (!toolbarData && _id) {
-  //   syncDynamicData();
-  // }
   return (
     <Layout>
       <article>
         <Seo
           title={title}
           featuredImage={featured_image}
+          introduction={introduction}
+          type={type}
           tags={tags ? tags : []}
           author={author}
           publishedAt={published_at}
@@ -85,18 +68,17 @@ const fullArticle = ({
           slug={slug}
         />
         <header className="article-header my-6">
-          {/* <button
+          <button
             onClick={() =>
               addNotification({
-                message:
-                  "Successfully logged in with some long and long text message and fonts",
-                type: "Error",
+                message: "Successfully logged in." + Date.now().toString(36),
+                type: "success",
               })
             }
             className="button mx-4"
           >
             Set Notification
-          </button> */}
+          </button>
           <span className="meta">
             <time dateTime="date time Insert here">5 months ago</time>
             <span className="bull">&#8226;</span>
@@ -122,12 +104,7 @@ const fullArticle = ({
           <aside className="toc-container"></aside>
         </section>
         <div className="content-container columns my-5">
-          <div className="column">For left</div>
-          {/* <div
-            className="column is-three-fifths content is-medium"
-            ref={postContentRef}
-            dangerouslySetInnerHTML={{ __html: content_html }}
-          /> */}
+          <div className="column">{_id ? <Toolbar postId={_id} /> : ""}</div>
           <div className="column is-three-fifths content is-medium">
             <p className="mb-6">
               <i className="mr-2">Summary: </i> {introduction}
@@ -135,29 +112,20 @@ const fullArticle = ({
             <ReactMarkdown renderers={renderers} children={content_raw} />
           </div>
           <div className="column">
-            {"for right "}
-            {/* {toolbarData ? (
-              <div className="utility-container">
-                <Like
-                  postID={_id}
-                  likesCount={toolbarData.totalLikes}
-                  userHasLiked={toolbarData.hasLiked}
-                />
-                <Bookmark
-                  postID={_id}
-                  bookmarkCount={toolbarData.totalBookmarks}
-                  userHasbookmarked={toolbarData.hasBookmarked}
-                />
-                <FontAwesomeIcon className="icon is-medium" icon={faComment} />
-                <FontAwesomeIcon
-                  color="#00acee"
-                  className="icon is-medium"
-                  icon={faTwitter}
-                />
-              </div>
-            ) : (
-              ""
-            )} */}
+            <Image
+              src="/content/images/dummy/laid1.png"
+              alt="ad"
+              width="280"
+              height="250"
+              className="article-rights-img "
+            />
+            <Image
+              src="/content/images/dummy/laid3.png"
+              alt="ad"
+              width="280"
+              height="250"
+              className="article-rights-img my-6"
+            />
           </div>
         </div>
 
@@ -178,7 +146,6 @@ const fullArticle = ({
           {/* <Comments contentId={_id} contentType={"post"} /> */}
         </section>
       </article>
-      <style jsx>{``}</style>
     </Layout>
   );
 };

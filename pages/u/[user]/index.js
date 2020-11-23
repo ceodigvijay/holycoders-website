@@ -11,7 +11,7 @@ import Layout from "../../../components/layouts/layout";
 import { Tag } from "../../../components/index";
 import { getUserByUsername, followUser } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
-
+import PageSEO from "../../../components/seo/page";
 function user({ user, meta, error }) {
   const { addNotification } = useContext(GlobalContext);
 
@@ -39,6 +39,11 @@ function user({ user, meta, error }) {
         error
       ) : (
         <div className="columns">
+          <PageSEO
+            slug={`u/${user.username}`}
+            title={`${user.name} - User at HolyCoders`}
+            description={`${user.bio}`}
+          />
           <div className="column is-two-fifths ">
             <div className="mx-4 my-4 profile-card">
               <div className="has-text-centered block">
@@ -232,6 +237,5 @@ export async function getServerSideProps(context) {
   }
   return { props: { user: data.user, meta: data.meta, error: error } };
 }
-
 
 export default user;

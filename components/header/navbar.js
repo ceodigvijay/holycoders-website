@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import UserContext from "../../contexts/globalContext";
+import { useRouter } from "next/router";
 
 export default function navbar() {
+  const router = useRouter();
+  const currentPath = router.asPath.split("/")[1];
   const { user } = useContext(UserContext);
   console.log(user);
   return (
-    <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="/">
+        <a
+          className={`navbar-item ${currentPath === "" ? "active" : ""}`}
+          href="/"
+        >
           HolyCoders
         </a>
 
@@ -25,19 +31,27 @@ export default function navbar() {
         </a>
       </div>
 
-      <div id="navbarBasicExample" className="navbar-menu">
+      <div className="navbar-menu">
         <div className="navbar-start">
-          <span className="navbar-item">
-            <Link href="/blog">
-              <a>Blog</a>
-            </Link>
-          </span>
+          <Link href="/blog">
+            <a
+              className={`navbar-item ${
+                currentPath === "blog" ? "active" : ""
+              }`}
+            >
+              Blog
+            </a>
+          </Link>
 
-          <span className="navbar-item">
-            <Link href="/course/">
-              <a>Courses</a>
-            </Link>
-          </span>
+          <Link href="/learn/">
+            <a
+              className={`navbar-item ${
+                currentPath === "learn" ? "active" : ""
+              }`}
+            >
+              Courses
+            </a>
+          </Link>
 
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
@@ -55,26 +69,26 @@ export default function navbar() {
 
         <div className="navbar-end">
           {!user ? (
-            <div className="navbar-item">
+            <div className="navbar-item navbar-auth">
               <div className="buttons">
                 <span className="button is-primary">
-                  <Link href="/join">
-                    <a className="has-text-white	">
-                      <strong>Signup</strong>
+                  <Link href="/login/">
+                    <a>
+                      <strong>Log in</strong>
                     </a>
                   </Link>
                 </span>
-                <span className="button is-light">
-                  <Link href="/login">
-                    <a className="has-text-grey-dark">
-                      <strong>Log in</strong>
+                <span className="button is-white">
+                  <Link href="/join/">
+                    <a className="has-text-primary">
+                      <strong>Signup</strong>
                     </a>
                   </Link>
                 </span>
               </div>
             </div>
           ) : (
-            <div className="navbar-item has-dropdown is-hoverable px-2 py-2 mx-2">
+            <div className="navbar-item has-dropdown is-hoverable navbar-auth">
               <a className="navbar-link">
                 <figure className="image is-48x48 has-image-centered">
                   <img
@@ -84,7 +98,7 @@ export default function navbar() {
                   />
                 </figure>
               </a>
-              <div className="navbar-dropdown is-right ">
+              <div className="navbar-dropdown is-right is-boxed">
                 <Link href="/u/[user]/" as={`/u/${user.username}/`}>
                   <a className="navbar-item">Profile</a>
                 </Link>
@@ -105,15 +119,11 @@ export default function navbar() {
           )}
         </div>
       </div>
-      <style jsx>{`
-        .navbar {
-          background-color: transparent;
-        }
-        a {
-          color: inherit !important;
-        }
-        .navbar-item img {
-          max-height: 48px;
+      <style jsx global>{`
+         {
+          /* body{
+          background-color: #F3F7FC;
+        } */
         }
       `}</style>
     </nav>

@@ -9,15 +9,23 @@ export default function bookmark({
   bookmarkCount = 0,
   userHasbookmarked = false,
 }) {
-  const { addNotification } = useContext(GlobalContext);
+  const { addNotification, user, globalState, setGlobalState } = useContext(
+    GlobalContext
+  );
   const [bookmarkCounter, setBookmarkCounter] = useState(bookmarkCount);
   const [bookmarked, setBookmarked] = useState(userHasbookmarked);
 
   const handleClick = async (isBookmarked) => {
+    if (!user) {
+      setGlobalState({ ...globalState, showLoginPopup: true });
+      return;
+    }
     if (postID) {
       try {
         const results = await reactOnPost("save", postID, isBookmarked);
         if (results.data.ok) {
+          setBookmarked(!bookmarked);
+
           isBookmarked
             ? setBookmarkCounter(bookmarkCounter + 1)
             : setBookmarkCounter(bookmarkCounter - 1);
@@ -38,7 +46,6 @@ export default function bookmark({
           type="checkbox"
           id="bookmark-button"
           onChange={(e) => {
-            setBookmarked(!bookmarked);
             handleClick(!bookmarked);
           }}
         />

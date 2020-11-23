@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { Button } from "../../index";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactTags from "react-tag-autocomplete";
-import DatePicker from "react-datepicker";
 import { searchTags } from "../../../lib/index";
 import moment from "moment";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExclamationTriangle,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import GlobalContext from "../../../contexts/globalContext";
+import Datetime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
+
 export default function sidebar(props) {
+  const { user } = useContext(GlobalContext);
   const { post, setPost } = props;
   const [suggestions, setSuggestions] = useState([]);
   const [date, setDate] = useState(
@@ -14,26 +20,26 @@ export default function sidebar(props) {
       ? moment(post.publish_date).format("DD/MM/YYYY HH:mm")
       : ""
   );
-  const setInputDate = (passedDate) => {
-    if (passedDate.split("/").join("").length > 4) {
-      if (passedDate.split("/").join("").length === 8) {
-        passedDate += " ";
-      } else if (passedDate.split("/").join("").length === 11) {
-        passedDate += ":";
-      }
-      if (passedDate.split("/").join("").length === 14) {
-        var newPostDate = moment(passedDate, "DD/MM/YYYY HH:mm").utc().format();
-        console.log(newPostDate);
-        setPost({ ...post, publish_date: newPostDate });
-      }
-    } else if (
-      passedDate.split("/").join("").length % 2 == 0 &&
-      passedDate.split("/").join("").length !== 0
-    ) {
-      passedDate += "/";
-    }
-    setDate(passedDate);
-  };
+  // const setInputDate = (passedDate) => {
+  //   if (passedDate.split("/").join("").length > 4) {
+  //     if (passedDate.split("/").join("").length === 8) {
+  //       passedDate += " ";
+  //     } else if (passedDate.split("/").join("").length === 11) {
+  //       passedDate += ":";
+  //     }
+  //     if (passedDate.split("/").join("").length === 14) {
+  //       var newPostDate = moment(passedDate, "DD/MM/YYYY HH:mm").utc().format();
+  //       console.log(newPostDate);
+  //       setPost({ ...post, publish_date: newPostDate });
+  //     }
+  //   } else if (
+  //     passedDate.split("/").join("").length % 2 == 0 &&
+  //     passedDate.split("/").join("").length !== 0
+  //   ) {
+  //     passedDate += "/";
+  //   }
+  //   setDate(passedDate);
+  // };
 
   async function getTags(query) {
     try {
@@ -62,7 +68,11 @@ export default function sidebar(props) {
       >
         Check State
       </button>
+      <label htmlFor="se_url" className="my-2">
+        Slug
+      </label>
       <input
+        id="se_url"
         type="text"
         placeholder="URL of the Post"
         value={post.slug || ""}
@@ -70,18 +80,28 @@ export default function sidebar(props) {
           setPost({ ...post, slug: e.target.value });
         }}
       />
-      <label for="publish-time">Format DD/MM/YYYY HH:mm</label>
-      <input
-        id="publish-time"
-        type="text"
-        maxLength="16"
-        placeholder="DD/MM/YYYY HH:MM"
-        value={date || ""}
-        onChange={(e) => {
-          setInputDate(e.target.value);
-        }}
-      />
-
+      {/* Show Publish Time only when user is editor or admin */}
+      {user && ["admin", "editor"].includes(user.role) ? (
+        <>
+          <label for="publish-time">Enter the Publish time</label>
+          <Datetime
+            className="se-datetime"
+            value={
+              post.publish_date
+                ? moment(post.publish_date).format("DD/MM/YYYY HH:mm")
+                : ""
+            }
+            dateFormat="DD/MM/YYYY"
+            timeFormat="HH:mm"
+            onChange={(e) => {
+              console.log(e.toISOString());
+              setPost({ ...post, publish_date: e.toISOString() });
+            }}
+          />
+        </>
+      ) : (
+        ""
+      )}
       <ReactTags
         ref={reactTags}
         tags={post.tags}
@@ -146,24 +166,47 @@ export default function sidebar(props) {
         value={post.canonical_link}
         onChange={(e) => setPost({ ...post, canonical_link: e.target.value })}
       />
-      <textarea
-        placeholder="Header Code Injection"
-        value={post.code_injection_head}
-        onChange={(e) =>
-          setPost({ ...post, code_injection_head: e.target.value })
-        }
-      />
-      <textarea
-        placeholder="Footer Code Injection"
-        value={post.code_injection_head}
-        onChange={(e) =>
-          setPost({ ...post, code_injection_foot: e.target.value })
-        }
-      />
-      <button className="button is-danger is-outlined">
-        <FontAwesomeIcon icon={faTrashAlt} size="2x" /> Delete
-      </button>
-      <style jsx>
+      {user && user.role === "admin" ? (
+        <>
+          <textarea
+            placeholder="Header Code Injection"
+            value={post.code_injection_head}
+            onChange={(e) =>
+              setPost({ ...post, code_injection_head: e.target.value })
+            }
+          />
+          <textarea
+            placeholder="Footer Code Injection"
+            value={post.code_injection_head}
+            onChange={(e) =>
+              setPost({ ...post, code_injection_foot: e.target.value })
+            }
+          />
+        </>
+      ) : (
+        ""
+      )}
+
+      <div className="field is-grouped mt-6">
+        <p className="control">
+          <button className="button is-warning">
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={faExclamationTriangle} />
+            </span>
+            <span>Revert to Draft</span>
+          </button>
+        </p>
+        <p className="control">
+          <button className="button is-danger" onClick={props.deletePost}>
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </span>
+            <span>Move to Trash</span>
+          </button>
+        </p>
+      </div>
+
+      <style global jsx>
         {`
           .select {
             margin: 5px 0 20px 0;

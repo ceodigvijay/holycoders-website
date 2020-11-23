@@ -9,6 +9,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoginIcon from "../icons/login.js";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faFacebookF,
+  faGithub,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function Layout({ children, home }) {
   const { globalState, setGlobalState } = useContext(GlobalContext);
@@ -18,7 +25,7 @@ export default function Layout({ children, home }) {
   };
   return (
     <div>
-      <header>
+      <header className="header">
         {home ? (
           <>
             <Navbar />
@@ -30,7 +37,11 @@ export default function Layout({ children, home }) {
       </header>
       <main>{children}</main>
       {/* Modal */}
-      <div className={`modal ${globalState.showLoginPopup ? "is-active" : ""}`}>
+      <div
+        className={`modal fadeInScale ${
+          globalState.showLoginPopup ? "is-active" : ""
+        }`}
+      >
         <div
           className="modal-background"
           onClick={(e) => closeLoginPopup(e)}
@@ -67,69 +78,98 @@ export default function Layout({ children, home }) {
         ></button>
       </div>
       {/* Footer */}
-      <footer className="footer has-background-primary mt-6">
-        <div className="has-text-centered has-text-white">
-          <h2 className="title is-2 has-text-white">HolyCoders</h2>
-          <div className="columns">
-            <div className="column">
-              <h3 className="title is-4 has-text-white">About Us</h3>
-              <p className="has-text-center">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-            <div className="column">
-              <h3 className="title is-4 has-text-white">Important</h3>
-              <ul>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-              </ul>
-            </div>
-            <div className="column">
-              <h3 className="title is-4 has-text-white">Important</h3>
-              <ul>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-                <li>
-                  <a href="#">Link</a>
-                </li>
-              </ul>
-            </div>
-            <div className="column">
-              <h3 className="title is-4 has-text-white">Subscribe</h3>
-
-              <div className="control has-icons-left has-icons-left">
-                <input
-                  className="input is-medium"
-                  type="email"
-                  placeholder="Email"
-                />
-                <span className="icon is-small is-left">
-                  <FontAwesomeIcon icon={faEnvelopeOpen} />
-                </span>
-              </div>
-              <a className="button is-success is-rounded mt-2">Subscribe</a>
-            </div>
+      <footer className="footer mt-6">
+        <div className="footer__social has-text-centered px-4 py-6 mb-6 panel">
+          <h2 className="title is-3">Find Us on Social Networks</h2>
+          <button className="button is-facebook mx-4">
+            <span className="icon">
+              <FontAwesomeIcon icon={faFacebookF} />
+            </span>
+            <span>Facebook</span>
+          </button>
+          <button className="button is-github mx-4">
+            <span className="icon">
+              <FontAwesomeIcon icon={faGithub} />
+            </span>
+            <span>Github</span>
+          </button>
+          <button className="button is-twitter mx-4">
+            <span className="icon">
+              <FontAwesomeIcon icon={faTwitter} />
+            </span>
+            <span>Twitter</span>
+          </button>
+          <button className="button is-instagram mx-4">
+            <span className="icon">
+              <FontAwesomeIcon icon={faInstagram} />
+            </span>
+            <span>Instagram</span>
+          </button>
+        </div>
+        <div className="columns my-6">
+          <div className="column">
+            <h3 className="title is-4 ">About Us</h3>
+            <p className="has-text-center">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
           </div>
+          <div className="column">
+            <h3 className="title is-4 ">Information</h3>
+            <ul>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#">Sitemap</a>
+              </li>
+
+              <li>
+                <a href="#">Disclosure</a>
+              </li>
+              <li>
+                <a href="#">About Us</a>
+              </li>
+            </ul>
+          </div>
+          <div className="column">
+            <h3 className="title is-4 ">Navigate</h3>
+            <ul>
+              <li>
+                <a href="#">Blog</a>
+              </li>
+              <li>
+                <a href="#">Courses</a>
+              </li>
+              <li>
+                <a href="#">Login</a>
+              </li>
+              <li>
+                <a href="#">Signup</a>
+              </li>
+            </ul>
+          </div>
+          <div className="column">
+            <h3 className="title is-4 ">Quick Links</h3>
+            <ul>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+              <li>
+                <a href="#">Signup</a>
+              </li>
+              <li>
+                <a href="#">Report an Issue</a>
+              </li>
+              <li>
+                <a href="#">Website Hacking and Prevention Course</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-copyright has-text-centered py-4 panel mt-6">
+          Copyright {new Date().getFullYear()} &nbsp; &bull; &nbsp; Created by
+          Digvijay Singh with ❤️ in 🇮🇳
         </div>
       </footer>
       {/* {!home && (
@@ -140,6 +180,50 @@ export default function Layout({ children, home }) {
         </div>
       )} */}
       <style jsx>{`
+        .modal {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          visibility: hidden;
+        }
+        .modal .modal-background {
+          -webkit-transition: all 0.3s;
+          -o-transition: all 0.3s;
+          transition: all 0.3s;
+          opacity: 0;
+        }
+        .modal.is-active {
+          visibility: visible;
+        }
+        .modal.is-active .modal-background {
+          opacity: 1;
+        }
+        .modal.modal-full-screen .modal-background {
+          background-color: #fff;
+        }
+        .modal.modal-full-screen .modal-content {
+          width: 100%;
+          height: 100%;
+          max-height: 100vh;
+          margin: 0;
+          background-color: #fff;
+        }
+        .modal.fadeInScale .modal-content {
+          -webkit-transform: scale(0.7);
+          -o-transform: scale(0.7);
+          transform: scale(0.7);
+          opacity: 0;
+          -webkit-transition: all 0.3s;
+          -o-transition: all 0.3s;
+          transition: all 0.3s;
+        }
+        .modal.fadeInScale.is-active .modal-content {
+          -webkit-transform: scale(1);
+          -o-transform: scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
         .login-modal {
           border-radius: 5px;
         }
@@ -158,6 +242,20 @@ export default function Layout({ children, home }) {
         }
         .footer a {
           color: inherit;
+        }
+        .footer__social {
+          border-radius: 5px;
+          border: 1px dotted #36a666;
+          background-color: #fff;
+        }
+        .button {
+          border-radius: 5px;
+        }
+        .footer-copyright {
+          font-weight: 500;
+          background-color: #36a666;
+          color: #fff;
+          border-radius: 5px;
         }
       `}</style>
     </div>

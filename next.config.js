@@ -14,28 +14,56 @@ const withMDX = require("@next/mdx")({
 
 // // module.exports = withBundleAnalyzer({})
 
+// module.exports = {
+//   trailingSlash: true,
+//   async rewrites() {
+//     return [
+//       {
+//         source: "/sitemap/",
+//         destination: "/api/sitemap/",
+//       },
+//     ];
+//   },
+// };
+
 module.exports = {
-  trailingSlash: true,
-  async rewrites() {
-    return [
-      {
-        source: "/sitemap/",
-        destination: "/api/sitemap/",
-      },
-    ];
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      require("./scripts/courseSitemap.js");
+      console.log("Creating Sitemap");
+    }
+
+    return config;
   },
 };
 
 module.exports = withMDX({
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      require("./scripts/courseSitemap.js");
+      console.log("Creating Sitemap");
+    }
+
+    return config;
+  },
   pageExtensions: ["js", "jsx", "mdx"],
 
   trailingSlash: true,
   async rewrites() {
     return [
       {
-        source: "/sitemap/",
+        source: "/post-sitemap/",
         destination: "/api/sitemap/",
+      },
+      {
+        source: "/sitemap/",
+        destination: "/sitemap.xml/",
+      },
+      {
+        source: "/course-sitemap/",
+        destination: "/course-sitemap.xml/",
       },
     ];
   },
+  poweredByHeader: false,
 });

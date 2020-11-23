@@ -10,6 +10,7 @@ import {
   getAdminPostById,
   publishPost,
   handleImageUpload,
+  deletePost,
 } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import moment from "moment";
@@ -140,7 +141,7 @@ export default function starryEditor(props) {
     let res;
     try {
       var currentStatus =
-        moment(post.publish_date, "DD/MM/YYYY HH:mm").toDate() > new Date()
+        moment(post.publish_date).toDate() > new Date()
           ? "future"
           : "published";
       res = await publishPost(post.post_id, post, currentStatus);
@@ -153,9 +154,23 @@ export default function starryEditor(props) {
     }
     console.log(res);
     if (res && res.status === 200 && res.data) {
-      setPost({ ...post, status: "published" });
+      setPost({
+        ...post,
+        status: res.data.status ? res.data.status : "published",
+      });
       addNotification({
-        message: "Published the post",
+        message:
+          post.type === "post"
+            ? `<p>Published the Post ${
+                res.data.status === "published"
+                  ? `<br /><a href="/${post.category}/${post.slug}" target="_blank" rel="noopener noreferrer">View Page</a>`
+                  : ""
+              }</p>`
+            : `<p>Published the Page<br />${
+                res.data.status === "published"
+                  ? `<a href="/${post.slug}" target="_blank" rel="noopener noreferrer">View Post</a>`
+                  : ""
+              }</p>`,
         type: "success",
       });
     } else {
@@ -174,7 +189,24 @@ export default function starryEditor(props) {
     }
   }
 
-  return currentPostID && currentPostID !== "new" && !post.slug ? (
+  async function handlePostDelete() {
+    try {
+      const response = await deletePost(post.post_id);
+      if (response.data.ok) {
+        addNotification({
+          message: "Successfully Moved the Post to Trash.",
+          type: "success",
+        });
+      }
+    } catch (error) {
+      addNotification({
+        message: "Some error in deleting the post.",
+        type: "error",
+      });
+    }
+  }
+
+  return currentPostID && currentPostID !== "new" && !post.post_id ? (
     <Spinner />
   ) : (
     <>
@@ -184,7 +216,13 @@ export default function starryEditor(props) {
             position: "relative",
           },
         }}
-        sidebar={<SidebarComponents post={post} setPost={setPost} />}
+        sidebar={
+          <SidebarComponents
+            post={post}
+            setPost={setPost}
+            deletePost={handlePostDelete}
+          />
+        }
         open={isOpen}
         onSetOpen={(open) => setOpen(open)}
         styles={{ sidebar: { background: "white" } }}

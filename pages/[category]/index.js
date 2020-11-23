@@ -1,12 +1,32 @@
-import React from 'react'
-import Layout from "../../components/layouts/layout";
+import React from "react";
+import FullArticle from "../../components/blog/fullArticle";
+import { getPostBySlug } from "../../lib/index";
+import axios from 'axios'
+const Post = (data) => {
+  if (data && data.title) {
+    return <FullArticle {...data} />;
+  }
+  return "Loading";
+};
 
-export default function index() {
-    return (
-        <Layout>
-            Category
-        </Layout>
-    )
-}
-//TODO: request allpages from same route. Adjust it to take post and page as post, on server side/
-// check using if else only.
+export const getStaticProps = async (ctx) => {
+  const res = await getPostBySlug(ctx.params.category);
+  const postData = res.data;
+  return {
+    props: postData,
+  };
+};
+
+export const getStaticPaths = async () => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/slugs?type=page`);
+  const paths = res.data.map((post) => {
+    return { params: { category: post.slug } };
+  });
+  // const paths = [{ params: { slug: "post-slug-1", category: "general" } }];
+  return {
+    fallback: false,
+    paths: paths,
+  };
+};
+
+export default Post;

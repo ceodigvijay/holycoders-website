@@ -6,7 +6,7 @@ import UserContext from "../contexts/globalContext";
 import { getAllPosts } from "../lib/index";
 import PostCollectionPage from "../components/collection/posts/collectionPage";
 import Link from "next/link";
-
+import PageSEO from "../components/seo/page";
 function Home({ data }) {
   const { user, setUser, notification, setNotificationValue } = useContext(
     UserContext
@@ -25,22 +25,19 @@ function Home({ data }) {
 
   return (
     <Layout home>
-      <Head>
-        <title>HolyCoders - Programming Tutorials, News and Case Studies</title>
-        <link
-          rel="canonical"
-          href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/`}
-        />
-      </Head>
-      <section>
-        <form
+      <PageSEO
+        title="HolyCoders - Programming Tutorials, News and Case Studies"
+        description="Holycoders is a programming blog dedicated to simplify learning for coders."
+      />
+      <section className="featured-column py-6">
+        {/* <form
           action="http://127.0.0.1:3000/api/image"
           method="post"
           enctype="multipart/form-data"
         >
           <input type="file" name="avatar" />
           <input type="submit" value="submit" />
-        </form>
+        </form> */}
         <h2 className="has-text-centered is-3 title">Explore Topics</h2>
         <FeaturedNav />
       </section>

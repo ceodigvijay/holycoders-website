@@ -9,20 +9,21 @@ export default function collectionPage({ data, showPagination }) {
   const changePage = (pageNumber) => {
     if (pageNumber < 1 || pageNumber > pageCount) {
       alert("No Page Like that");
-    } else if (router.asPath.split("/").reverse()[1] === "blog" || router.asPath.split("/").reverse()[1]==="posts") {
-      console.log(router.pathname);
-      router.push(router.pathname+"/page/[pagenum]/", router.asPath + "page/" + pageNumber + "/");
-    } else {
+    } else if (router.asPath.split("/").reverse()[2] === "page") {
       var newRoute = router.asPath.split("/");
       console.log(router.asPath.split("/").slice(0, -2).join("/"));
       router.push(
         router.pathname,
         router.asPath.split("/").slice(0, -2).join("/") + "/" + pageNumber + "/"
       );
+    } else {
+      console.log(router.pathname);
+      router.push(
+        router.pathname + "/page/[pagenum]/",
+        router.asPath + "page/" + pageNumber + "/"
+      );
     }
   };
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === pageCount;
   return (
     <>
       <PostCollection data={data} />

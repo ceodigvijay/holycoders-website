@@ -1,10 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlobalContext from "../../contexts/globalContext";
 import { add, remove } from "./utils";
 
 const Toast = () => {
   const { notification, setNotificationValue } = useContext(GlobalContext);
+
+  useEffect(() => {
+    console.log(notification);
+    console.log('notification');
+    const interval = setInterval(() => {
+        if (notification.length) {
+            setNotificationValue(remove(notification, 0))
+        }
+    }, 4000);
+    return () => {
+        clearInterval(interval);
+    }
+});
   const getBg = (type) => {
     switch (type.toLowerCase()) {
       case "success":
@@ -23,21 +36,24 @@ const Toast = () => {
         return "#333";
     }
   };
-  
+
   return (
     <div className="hc_toast">
       <ul style={{ zIndex: 999999 }}>
-        <AnimatePresence initial={false}>
+        <AnimatePresence >
           {notification.map((value, id) => (
             <motion.li
-              key={id}
+              key={value.id}
               style={{ backgroundColor: getBg(value.type), color: "#fff" }}
               positionTransition
-              initial={{ opacity: 0, y: 50, scale: 0.3 }}
+              initial={{ opacity: 0, y: 100, scale: 0.3 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
             >
-              <span className="toast-message">{value.message}</span>
+              <div
+                dangerouslySetInnerHTML={{ __html: value.message }}
+                className="toast-message"
+              />
               <button
                 onClick={() => setNotificationValue(remove(notification, id))}
                 className="close delete is-large"

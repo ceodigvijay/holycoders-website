@@ -1,9 +1,12 @@
 import React from "react";
-import { NextSeo, ArticleJsonLd } from "next-seo";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
+import cleanString from "../../../utils/cleanxss";
 export default function Seo({
   title,
   featuredImage,
+  introduction,
+  type,
   tags,
   metaTitle,
   metaDescription,
@@ -13,53 +16,77 @@ export default function Seo({
   category,
   slug,
 }) {
+  //Iterate through tag array of objects and extract names
   const tagNames = tags.map((element) => {
-    return element.name;
+    return cleanString(element.name);
   });
-  const newMetaTitle = metaTitle
-    ? metaTitle.replace(/"/g, "&quot;").replace(/'/g, "&apos;")
-    : title.replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+  //Meta title or fallback to title of the Page
+  const newMetaTitle = metaTitle ? cleanString(metaTitle) : cleanString(title);
+
+  //Meta description fallback to -> introduction fallback to -> empty string.
   const newMetaDescription = metaDescription
-    ? metaDescription.replace(/"/g, "&quot;").replace(/'/g, "&apos;")
-    : undefined;
-  const url = `https://holycoders.com/${category}/${slug}/`;
-  const jslonld = `{
+    ? cleanString(metaDescription)
+    : introduction
+    ? cleanString(introduction)
+    : "";
+
+  //If post type is page then domain/slug else domain/category/slug
+  const url =
+    type === "page"
+      ? `https://holycoders.com/${cleanString(slug)}/`
+      : `https://holycoders.com/${category}/${cleanString(slug)}/`;
+
+  const jslonld = `
+  {
     "@context": "http://schema.org",
     "@type": "Article",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "${url}"
-    },
-    "headline": "${newMetaTitle}",
-    "datePublished": "${publishedAt}",
-    "dateModified": "${updatedAt}",
-    ${featuredImage ? `"image":"https://holycoders.com${featuredImage}", ` : ""}
-    "author": {
-      "@type": "Person",
-      "name": "${author[0].name}"
-    },
     "publisher": {
       "@type": "Organization",
       "name": "HolyCoders",
+      "url": "https://holycoders.com/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://holycoders.com/icon.svg"
+        "url": "https://holycoders.com/logo.svg",
+        "caption": "HolyCoders"
       }
+     },
+    "author": {
+      "@type": "Person",
+      "name": "${cleanString(author[0].name)}",
+      "url": "https://holycoders.com/u/${cleanString(author[0].username)}/"
     },
+    "headline": "${newMetaTitle}",
+    "url": "${url}",
+    "datePublished": "${publishedAt}",
+    "dateModified": "${updatedAt}",
+    ${
+      featuredImage
+        ? `"image":{
+      "@type": "ImageObject",
+      "url":"https://holycoders.com${cleanString(featuredImage)}"
+     }, `
+        : ""
+    }
     ${newMetaDescription ? `"description":"${newMetaDescription}", ` : ""}
+    "keywords": "${tagNames.join(", ")}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "${url}"
+    } 
   }`;
+
   return (
     <>
       <NextSeo
         openGraph={{
           title: newMetaTitle,
-          description: metaDescription ? metaDescription : "",
+          description: newMetaDescription ? newMetaDescription : "",
           url: url,
           type: "article",
           article: {
             publishedTime: publishedAt,
             modifiedTime: updatedAt,
-            authors: [`https://holycoders.com/author/${author.username}/`],
+            authors: [`https://holycoders.com/u/${author[0].username}/`],
             tags: tagNames,
           },
           images: [
@@ -71,15 +98,12 @@ export default function Seo({
         }}
       />
       <Head>
-        {metaDescription ? (
-          <meta name="description" content={metaDescription} />
+        {newMetaDescription ? (
+          <meta name="description" content={newMetaDescription} />
         ) : (
           ""
         )}
-        <link
-          rel="canonical"
-          href={`https://holycoders.com/${category}/${slug}/`}
-        />
+        <link rel="canonical" href={url} />
         <title>{metaTitle ? metaTitle : title}</title>
 
         <script

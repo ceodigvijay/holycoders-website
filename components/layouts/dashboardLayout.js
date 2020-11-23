@@ -11,6 +11,7 @@ import {
   faCog,
   faSignOutAlt,
   faHome,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import AuthWrapper from "./authWrapper";
 export default function dashboardLayout({ children }) {
@@ -36,6 +37,13 @@ export default function dashboardLayout({ children }) {
               <Link href="/dashboard">
                 <a className="sidebar-icon">
                   <FontAwesomeIcon icon={faTachometerAlt} />
+                </a>
+              </Link>
+            </li>
+            <li className={currentRoute === "favourites" ? "active" : ""}>
+              <Link href="/dashboard/favourites/">
+                <a className="sidebar-icon">
+                  <FontAwesomeIcon icon={faStar} />
                 </a>
               </Link>
             </li>
@@ -84,7 +92,7 @@ export default function dashboardLayout({ children }) {
             z-index: 99;
           }
           .dashboard-content {
-            margin-left: 70px;
+            margin-left: 78px;
           }
 
           nav {
@@ -110,7 +118,7 @@ export default function dashboardLayout({ children }) {
           }
 
           .active a {
-            color: #2996da;
+            color: #36a666;
           }
           .sidebar-icon {
             font-size: 1.5em;

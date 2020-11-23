@@ -13,9 +13,7 @@ export default function Layout({ children, meta }) {
     courseName: "website-hacking-and-security",
     courseTitle: "Learn Website Hacking from Scratch and Ways to secure them.",
   };
-  console.log("children");
-  console.log(children);
-  console.log(meta);
+
   return (
     <CourseLayout
       meta={meta}
@@ -26,3 +24,29 @@ export default function Layout({ children, meta }) {
     </CourseLayout>
   );
 }
+
+
+
+
+
+
+// <div className="container columns is-vcentered">
+//         <div className="column  is-three-fifths px-5 py-6">
+//           <h1 className="title is-1 has-text-grey-dark">
+//             Website Hacking and Preventions - Security Best Practices.
+//           </h1>
+//           <button className="button is-primary is-large mx-2">
+//             Start For Free
+//           </button>
+//           <button className="button is-large mx-2">View Details</button>
+//         </div>
+//         <div className="column px-4 py-2">
+//           <Image
+//             src="/content/images/course/websecurity/featured.svg"
+//             width="600px"
+//             height="600px"
+//             alt="Website hacking and prevention"
+//           />
+//         </div>
+//       </div>
+      

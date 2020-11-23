@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "../../../components/layouts/layout";
 import { getAllPosts } from "../../../lib/index";
 import PostCollectionPage from "../../../components/collection/posts/collectionPage";
-
-const Blog = ({ data }) => {
+import PageSEO from "../../../components/seo/page";
+const Blog = ({ data, page }) => {
   /*
   Format of data is
   data{
@@ -14,6 +14,11 @@ const Blog = ({ data }) => {
   */
   return (
     <Layout>
+      <PageSEO
+        slug={`blog/page/${page}`}
+        title={`Blog Page ${page} - HolyCoders`}
+        description="Holycoders blog is collection of all the articles of all categories over the website."
+      />
       <PostCollectionPage data={data} />
     </Layout>
   );
@@ -30,7 +35,9 @@ export async function getStaticProps(ctx) {
   return {
     props: {
       data,
+      page: ctx.params.pagenum,
     },
+    revalidate: 10,
   };
 }
 

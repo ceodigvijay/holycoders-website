@@ -24,7 +24,7 @@ export const getStaticPaths = async () => {
   });
   // const paths = [{ params: { slug: "post-slug-1", category: "general" } }];
   return {
-    fallback: false,
+    fallback: true,
     paths: paths,
   };
 };

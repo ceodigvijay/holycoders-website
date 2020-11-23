@@ -1,17 +1,118 @@
 $primary: #36a666;
-//Secondary: #10111D;
+$secondary: #24252c;
 //BlockQuote
 $content-blockquote-border-left: 5px solid $primary;
 $content-blockquote-background-color: #f8f8f8;
-// @import "../styles/css/bulma.min.css";
+
+$link: $primary;
+
+$navbar-dropdown-arrow: #fff;
+$navbar-dropdown-item-hover-background-color: $primary;
+//Footer Padding
+$footer-padding: 3rem 1.5rem 1rem;
 @import "../styles/bulma.sass";
-// @import '../bootstrap/scss/bootstrap.scss';
 
 //Remove Chrome Focus outline
 *,
 *:focus,
 *:hover {
   outline: none;
+}
+//Header
+
+.header {
+  padding: 10px 0px;
+}
+.navbar {
+  border-radius: 5px;
+  margin: 0px 10px;
+  background-color: #36a666;
+  box-shadow: 0 0.4em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+.navbar-item {
+  margin-right: 20px;
+  padding: 15px;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border: 2px solid transparent;
+  transition: background-color 0.4s linear;
+}
+.navbar-item:hover:not(.navbar-auth),
+.navbar .active {
+  border: 2px solid $primary;
+  border-radius: 5px;
+  color: $primary !important;
+  background-color: #fff !important;
+}
+.navbar-link:hover {
+  border-radius: 5px;
+}
+.navbar-dropdown .navbar-item:hover {
+  border: 2px solid #fff;
+}
+.navbar-dropdown .navbar-item {
+  color: $primary !important;
+}
+
+.navbar a {
+  color: inherit;
+}
+.navbar-item img {
+  max-height: 48px;
+}
+
+//Header and Navbar Ends Here
+
+//Helper Classes
+.is-facebook {
+  background-color: #4267b2;
+  color: #fff;
+}
+.is-github {
+  background-color: #333;
+  color: #fff;
+}
+.is-twitter {
+  background-color: #1da1f2;
+  color: #fff;
+}
+.is-instagram {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  color: #fff;
+}
+.is-github:hover,
+.is-instagram:hover,
+.is-twitter:hover,
+.is-facebook:hover {
+  color: #fff;
+}
+//Blog Header
+.blog-header {
+  border: 1px dotted $primary;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.blog-header .subtitle {
+  font-weight: 300;
+}
+
+//Ads on Article Page Right side
+.article-rights-img,
+.course-left {
+  display: block;
+  border-radius: 10px;
+  position: sticky;
+  top: 10px;
 }
 
 /*Styline*/
@@ -43,7 +144,7 @@ code .number {
 //Current Outline Editor Styling
 .ProseMirror {
   padding: 30px 10px;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #f7f7f7;
   border-radius: 5px;
   min-height: 200px;
   font-size: 20px;
@@ -161,6 +262,7 @@ code .number {
 
 //Blog Page Styling
 .blog-card {
+  height: 100%;
   margin: 10px;
   border: 1px solid #dce6f3;
   border-radius: 10px;

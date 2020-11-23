@@ -1,10 +1,15 @@
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faUpload,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext } from "react";
 import { searchTags } from "../../../lib/index";
 import ReactTags from "react-tag-autocomplete";
-import { updateUser } from "../../../lib/index";
-import GlobalContext from '../../../contexts/globalContext'
+import { updateUser, checkUsername } from "../../../lib/index";
+import GlobalContext from "../../../contexts/globalContext";
 export default function profile({ user, setUser }) {
   const [userProjects, setUserProjects] = useState([]);
   const [showEmailVerify, setShowEmailVerify] = useState(false);
@@ -16,6 +21,13 @@ export default function profile({ user, setUser }) {
     description: "",
   });
   const [suggestions, setSuggestions] = useState([]);
+  const [dataValidation, setDataValidation] = useState({
+    startedTypingName: false,
+    startedTypingUsername: false,
+    usernameValid: false,
+    startedTypingPassword: false,
+    passwordValid: false,
+  });
   const deleteProject = (index) => {
     var newUserProjects = [...user.projects];
     newUserProjects.splice(index, 1);
@@ -25,16 +37,48 @@ export default function profile({ user, setUser }) {
   const saveUpdates = async () => {
     try {
       const response = await updateUser(user);
-      if(response.data.ok){
+      if (response.data.ok) {
+        console.log(response.data);
+        //Update Username in local storage
+        if (typeof window !== "undefined" && localStorage.getItem("hc_user")) {
+          const newLocalStorageData = JSON.parse(
+            localStorage.getItem("hc_user")
+          );
+          await localStorage.setItem(
+            "hc_user",
+            JSON.stringify({
+              ...newLocalStorageData,
+              username: response.data.username,
+            })
+          );
+        }
         addNotification({
           message: "Details Updated Successfully.",
-          type: "Success"
-        })
+          type: "Success",
+        });
       }
     } catch (error) {
       console.log(error);
+      addNotification({
+        message:
+          "Some error occured. Please Contact us if you face any problem.",
+        type: "error",
+      });
     }
   };
+  async function checkUsernameAvailability(username) {
+    try {
+      var resData = await checkUsername(username);
+      const available = resData.data.available;
+      setDataValidation({
+        ...dataValidation,
+        startedTypingUsername: true,
+        usernameValid: available,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async function getTags(query) {
     try {
       const res = await searchTags(query, 5);
@@ -89,7 +133,7 @@ export default function profile({ user, setUser }) {
         </div>
       </div>
       {/* Username */}
-      <fieldset disabled>
+      {/* <fieldset>
         <div class="field">
           <label class="label">Username</label>
           <div class="control">
@@ -97,11 +141,36 @@ export default function profile({ user, setUser }) {
               class="input"
               type="text"
               placeholder="e.g digvijay007"
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
               value={user.username}
             />
           </div>
         </div>
-      </fieldset>
+      </fieldset> */}
+      <div className="control has-icons-left has-icons-right ">
+        <input
+          className="input"
+          type="text"
+          onChange={(e) => {
+            checkUsernameAvailability(e.target.value);
+            setUser({ ...user, username: e.target.value });
+          }}
+          value={user.username}
+          name="username"
+          placeholder="Username"
+        />
+        <span className="icon is-small is-left">
+          <FontAwesomeIcon icon={faUser} />
+        </span>
+        {dataValidation.startedTypingUsername &&
+        dataValidation.usernameValid ? (
+          <span className="icon is-small is-right">
+            <FontAwesomeIcon icon={faCheckCircle} color="#36a666" />
+          </span>
+        ) : (
+          ""
+        )}
+      </div>
       {/* Skills */}
       <ReactTags
         tags={user.skills}
@@ -224,7 +293,7 @@ export default function profile({ user, setUser }) {
         </div>
       </div>
       {/* Password */}
-      <div class="field">
+      {/* <div class="field">
         <label class="label">Change Password</label>
         <div class="control">
           <input
@@ -242,7 +311,7 @@ export default function profile({ user, setUser }) {
             onChange={(e) => setUser({ ...user, password: e.target.value })}
           />
         </div>
-      </div>
+      </div> */}
       {/* Social */}
       {/* Website */}
       <div class="field my-4">
