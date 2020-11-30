@@ -189,14 +189,25 @@ export default function starryEditor(props) {
     }
   }
 
+  //Move posts to trash and delete posts with trash status
   async function handlePostDelete() {
     try {
       const response = await deletePost(post.post_id);
+      console.log(response);
       if (response.data.ok) {
-        addNotification({
-          message: "Successfully Moved the Post to Trash.",
-          type: "success",
-        });
+        if (post.status === "trash") {
+          addNotification({
+            message: "Successfully Deleted The Post.",
+            type: "success",
+          });
+          router.push("/dashboard/posts/");
+        } else {
+          addNotification({
+            message: "Successfully Moved the Post to Trash.",
+            type: "success",
+          });
+          setPost({ ...post, status: "trash" });
+        }
       }
     } catch (error) {
       addNotification({

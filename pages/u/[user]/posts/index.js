@@ -1,33 +1,57 @@
-import React, { useContext } from "react";
-import AllPosts from "../../../../components/user/posts/allPosts";
+import React, { useState, useEffect } from "react";
 import Layout from "../../../../components/layouts/layout";
-import Link from "next/link";
-import GlobalContext from "../../../../contexts/globalContext";
 import { getUserPublishedPosts } from "../../../../lib/index";
-export default function index({data, error}) {
-  const { addNotification, user } = useContext(GlobalContext);
+import PostCollectionPage from "../../../../components/collection/posts/postCollection";
+
+export default function index({ data, error, username }) {
+  const [nextPage, setNextPage] = useState(2);
+  const [position, setPosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [bookmarks, setBookmarks] = useState(
+    data && data.bookmarks ? data.bookmarks : []
+  );
+  const [allPosts, setAllPosts] = useState(
+    data && data.posts ? data.posts : []
+  );
+  useEffect(() => {
+    window.scrollTo(0, position);
+  });
+  const loadMorePosts = async () => {
+    setIsLoading(true);
+    if (typeof window !== undefined) {
+      setPosition(window.pageYOffset);
+    }
+    try {
+      const res = await getUserPublishedPosts(username, nextPage, 12);
+      console.log(res);
+      const { posts, meta } = res.data;
+      setNextPage(meta.currentPage + 1);
+      console.log(posts);
+      setAllPosts([...allPosts, ...posts]);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
   return (
     <Layout>
-      {user ? (
-        <div className="is-centered has-text-centered">
-          <Link
-            href="/u/[user]/editor/[type]/[id]/"
-            as={`/u/${user.username}/editor/post/new/`}
-          >
-            <a className="button is-primary my-6 p-6 is-medium">New Post</a>
-          </Link>
-        </div>
-      ) : (
-        ""
-      )}
-
-      <AllPosts data={data} page={"userPosts"} />
+      <PostCollectionPage posts={allPosts} bookmarks={bookmarks} />
+      <div className="has-text-centered my-6">
+        <button
+          onClick={loadMorePosts}
+          className={`button is-primary is-outlined ${
+            isLoading ? "is-loading" : ""
+          }`}
+        >
+          Load More
+        </button>
+      </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps(context) {
-  const queryUser = context.query.user;
+export async function getStaticProps(context) {
+  const queryUser = context.params.user;
 
   let data = null;
   let error = null;
@@ -42,5 +66,12 @@ export async function getServerSideProps(context) {
       error = "Some error Occured";
     }
   }
-  return { props: { data: data, error: error } };
+  return { props: { data: data, error: error, username: queryUser } };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
 }

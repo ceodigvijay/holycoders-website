@@ -1,8 +1,17 @@
 import React from "react";
 import Layout from "../components/layouts/layout";
+import PageSEO from "../components/seo/page";
+
 function disclosure() {
   return (
     <Layout>
+      <PageSEO
+        slug="disclosure"
+        title="Disclosure - HolyCoders"
+        description="We promote some sponsored content on this website which we think may
+        be useful for our readers and help them in learning new things in a
+        better way. We may receive some commission on that."
+      />
       <h1 className="title is-1 has-text-centered my-6">Disclosure</h1>
       <div className="content my-6 mx-4 px-6 subtitle is-5">
         <p>
@@ -20,7 +29,9 @@ function disclosure() {
           We are disclosing this information because we want you to be informed
           with all the necessary information about this site.
         </p>
-        <p className="has-text-centered my-6 subtitle is-4">We Respect Your Trust and Maintain Transparency.</p>
+        <p className="has-text-centered my-6 subtitle is-4">
+          We Respect Your Trust and Maintain Transparency.
+        </p>
       </div>
       <style jsx>{`
         .content {

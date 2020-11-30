@@ -4,7 +4,7 @@ import Layout from "../components/layouts/layout";
 import FeaturedNav from "../components/index/featuredNav";
 import UserContext from "../contexts/globalContext";
 import { getAllPosts } from "../lib/index";
-import PostCollectionPage from "../components/collection/posts/collectionPage";
+import PostCollectionPage from "../components/collection/posts/postCollection";
 import Link from "next/link";
 import PageSEO from "../components/seo/page";
 function Home({ data }) {
@@ -27,7 +27,7 @@ function Home({ data }) {
     <Layout home>
       <PageSEO
         title="HolyCoders - Programming Tutorials, News and Case Studies"
-        description="Holycoders is a programming blog dedicated to simplify learning for coders."
+        description="Holycoders is a programming blog dedicated to simplify learning for coders. You can learn and share your knowledge with the community."
       />
       <section className="featured-column py-6">
         {/* <form
@@ -43,7 +43,11 @@ function Home({ data }) {
       </section>
       <section>
         <h2 className="has-text-centered is-3 title">Latest from blog</h2>
-        <PostCollectionPage data={data} showPagination={false} />
+        <PostCollectionPage
+          bookmarks={data.bookmarks}
+          posts={data.posts}
+          showPagination={false}
+        />
         <div className="has-text-centered">
           <Link href="/blog">
             <a className="button is-primary">View More .</a>
@@ -64,7 +68,6 @@ function Home({ data }) {
   );
 }
 
-// export async function getServerSideProps(ctx) {
 export async function getStaticProps(ctx) {
   let data;
   try {
@@ -77,6 +80,7 @@ export async function getStaticProps(ctx) {
     props: {
       data,
     },
+    revalidate: 3600,
   };
 }
 

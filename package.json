@@ -46,7 +46,7 @@
     "rich-markdown-editor": "^11.0.2",
     "sass": "^1.26.10",
     "styled-components": "^5.2.0",
-    "swr": "^0.2.3"
+    "swr": "^0.3.8"
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.0.0",

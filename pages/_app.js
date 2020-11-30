@@ -52,6 +52,7 @@ function MyApp({ Component, pageProps }) {
       typeof window !== "undefined" &&
       localStorage.getItem("hc_user")
     ) {
+      //TODO: If not found check using verify and set again
       setUserValue(JSON.parse(localStorage.getItem("hc_user")));
     }
   }, []);
@@ -107,6 +108,9 @@ function MyApp({ Component, pageProps }) {
         setGlobalState: setGlobalState,
       }}
     >
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       {notifications.length != 0 ? <Toast /> : ""}
       <Component {...pageProps} />
     </GlobalContext.Provider>

@@ -4,6 +4,7 @@ import UserContext from "../../contexts/globalContext";
 import { useRouter } from "next/router";
 
 export default function navbar() {
+  const [navbarOpen, setNavbarOpen] = useState(false);
   const router = useRouter();
   const currentPath = router.asPath.split("/")[1];
   const { user } = useContext(UserContext);
@@ -20,7 +21,10 @@ export default function navbar() {
 
         <a
           role="button"
-          className="navbar-burger burger"
+          onClick={() => {
+            setNavbarOpen(!navbarOpen);
+          }}
+          className={`navbar-burger burger ${navbarOpen ? "is-active" : ""} `}
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -31,7 +35,7 @@ export default function navbar() {
         </a>
       </div>
 
-      <div className="navbar-menu">
+      <div className={`navbar-menu ${navbarOpen ? "is-active" : ""}`}>
         <div className="navbar-start">
           <Link href="/blog">
             <a
@@ -89,7 +93,7 @@ export default function navbar() {
             </div>
           ) : (
             <div className="navbar-item has-dropdown is-hoverable navbar-auth">
-              <a className="navbar-link">
+              <a className="navbar-link is-hidden-mobile is-hidden-tablet-only">
                 <figure className="image is-48x48 has-image-centered">
                   <img
                     className="is-rounded"

@@ -3,50 +3,12 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import GlobalContext from "../../../contexts/globalContext";
-
-function shadeColor(colorCode, amount) {
-  var usePound = false;
-
-  if (colorCode[0] == "#") {
-    colorCode = colorCode.slice(1);
-    usePound = true;
-  }
-
-  var num = parseInt(colorCode, 16);
-
-  var r = (num >> 16) + amount;
-
-  if (r > 255) {
-    r = 255;
-  } else if (r < 0) {
-    r = 0;
-  }
-
-  var b = ((num >> 8) & 0x00ff) + amount;
-
-  if (b > 255) {
-    b = 255;
-  } else if (b < 0) {
-    b = 0;
-  }
-
-  var g = (num & 0x0000ff) + amount;
-
-  if (g > 255) {
-    g = 255;
-  } else if (g < 0) {
-    g = 0;
-  }
-
-  return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
-}
-
-export default function postCollection({ data }) {
-  const bookmarks = data.bookmarks;
+import Image from "next/image";
+export default function postCollection({ bookmarks, posts }) {
   const { addNotification, user } = useContext(GlobalContext);
   return (
     <div className="columns is-multiline">
-      {data.posts.map((post) => (
+      {posts.map((post) => (
         <div className="column is-half ">
           <div
             className="card blog-card"
@@ -84,27 +46,45 @@ export default function postCollection({ data }) {
               >
                 <div className="media">
                   <div className="media-left">
-                    <figure className="image is-48x48">
-                      <img
-                        src="https://bulma.io/images/placeholders/48x48.png"
-                        alt="Placeholder image"
-                        className="is-rounded"
-                      />
-                    </figure>
+                    {post.author && post.author[0].profile_image ? (
+                      <figure className="image is-48x48">
+                        <Image
+                          src={post.author[0].profile_image}
+                          className="is-rounded"
+                          width="48px"
+                          height="48px"
+                        />
+                      </figure>
+                    ) : (
+                      <figure className="image is-48x48">
+                        <img
+                          src="https://bulma.io/images/placeholders/48x48.png"
+                          alt="Placeholder image"
+                          className="is-rounded"
+                        />
+                      </figure>
+                    )}
                   </div>
                   <div className="media-content">
-                    <p className="title is-6 mb-1 has-text-grey">
-                      {post.author && post.author[0].name
-                        ? post.author[0].name
-                        : post.author[0].username}
-                    </p>
+                    <Link
+                      href={`/u/${post.author ? post.author[0].username : ""}`}
+                    >
+                      <a className="title is-6 mb-1 has-text-grey">
+                        {post.author && post.author[0].name
+                          ? post.author[0].name
+                          : post.author[0].username}
+                      </a>
+                    </Link>
                     <p
                       className="has-text-gray has-text-grey"
                       style={{ fontSize: "0.95rem" }}
                     >
-                      {new Date(post.updated_at).toDateString().slice(4)}{" "}
+                      {new Date(post.updated_at).toDateString().slice(4)}
                       &nbsp;&bull; &nbsp;
-                      {post.reading_time / (60 * 1000)} min
+                      {post.reading_time
+                        ? post.reading_time / (60 * 1000)
+                        : "5"}
+                      min
                     </p>
                   </div>
                 </div>
@@ -124,24 +104,21 @@ export default function postCollection({ data }) {
                       </Link>
                     </>
                   ) : (
-                    <button class="button is-primary is-light">
+                    <button className="button is-primary is-light">
                       <FontAwesomeIcon
                         style={{ verticalAlign: "middle" }}
                         className="like-button icon is-medium 	"
                         icon={faBookmark}
                       />
-                      {bookmarks && bookmarks.includes(post._id)
-                        ? "Bookmarked"
-                        : "Save"}
+                      <span className="is-hidden-touch">
+                        {bookmarks && bookmarks.includes(post._id)
+                          ? "Bookmarked"
+                          : "Save"}
+                      </span>
                       <span style={{ margin: "0px 5px" }}>
                         {post.bookmarks}
                       </span>
                     </button>
-                    // <button class="button is-primary is-light">
-                    //   {post.category.replace(/\b[a-z]/g, (x) =>
-                    //     x.toUpperCase()
-                    //   )}
-                    // </button>
                   )}
                 </div>
               </footer>
@@ -149,6 +126,11 @@ export default function postCollection({ data }) {
           </div>
         </div>
       ))}
+      <style jsx>{`
+        .is-rounded {
+          border-radius: 50%;
+        }
+      `}</style>
     </div>
   );
 }

@@ -7,6 +7,7 @@ $content-blockquote-background-color: #f8f8f8;
 $link: $primary;
 
 $navbar-dropdown-arrow: #fff;
+$navbar-burger-color: #fff !important;
 $navbar-dropdown-item-hover-background-color: $primary;
 //Footer Padding
 $footer-padding: 3rem 1.5rem 1rem;
@@ -32,13 +33,54 @@ $footer-padding: 3rem 1.5rem 1rem;
 }
 .navbar-item {
   margin-right: 20px;
-  padding: 15px;
   color: #fff !important;
   font-weight: 600;
   font-size: 1.2rem;
   border: 2px solid transparent;
   transition: background-color 0.4s linear;
 }
+
+@media screen and (max-width: 1024px) {
+  .navbar-item {
+    color: $primary !important;
+  }
+  .navbar-brand .navbar-item {
+    border: 2px solid $primary;
+    border-radius: 5px;
+    color: $primary !important;
+    background-color: #fff !important;
+  }
+  .content-container {
+    .content {
+      p {
+        font-size: 1.1rem !important;
+      }
+    }
+  }
+}
+
+// Navbar Animation
+.navbar-menu {
+  animation: navAnimOpen 0.1s ease-out;
+  transform: translateZ(0);
+}
+
+@keyframes navAnimOpen {
+  0% {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    max-height: 396px;
+  }
+}
+// Navbar Animation Ends
 .navbar-item:hover:not(.navbar-auth),
 .navbar .active {
   border: 2px solid $primary;
@@ -54,6 +96,10 @@ $footer-padding: 3rem 1.5rem 1rem;
 }
 .navbar-dropdown .navbar-item {
   color: $primary !important;
+}
+
+.navbar-burger span {
+  height: 2px;
 }
 
 .navbar a {
@@ -109,6 +155,7 @@ $footer-padding: 3rem 1.5rem 1rem;
 //Ads on Article Page Right side
 .article-rights-img,
 .course-left {
+  cursor: pointer;
   display: block;
   border-radius: 10px;
   position: sticky;
@@ -293,8 +340,8 @@ code .number {
   }
 }
 
-.featured_image div {
-  margin: 0 auto;
+.featured_image {
+  text-align: center;
 }
 
 // Toast messages
@@ -315,8 +362,8 @@ code .number {
   }
 
   li {
-    width: 300px;
-    background: #2ecc71;
+    width: 320px;
+    background: #fff;
     margin: 10px;
     flex: 0 0 50px;
     position: relative;
@@ -333,7 +380,6 @@ code .number {
     top: 5px;
     right: 5px;
     border: none;
-    background-color: transparent;
   }
 }
 //Toast Messages Ends
@@ -367,6 +413,9 @@ code .number {
   padding: 10px;
   border: 1px solid #d5d5d5 !important;
   border-radius: 5px !important;
+}
+.basic-details .react-tags {
+  max-width: 100%;
 }
 .css-1ua1xqz {
   position: fixed !important;

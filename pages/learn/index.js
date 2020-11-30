@@ -4,23 +4,16 @@ import Layout from "../../components/layouts/layout";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import PageSEO from "../../components/seo/page";
+
 export default function index() {
   return (
     <Layout>
-      {/* <div className="content">
-        <ul>
-          <li>
-            <Link href="/learn/python/">
-              <a>Python</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/learn/website-hacking-and-security/">
-              <a>Website Hacking and Security</a>
-            </Link>
-          </li>
-        </ul>
-      </div> */}
+      <PageSEO
+        slug="learn"
+        title="Learn By Courses - HolyCoders"
+        description="Specially designed courses to learn new things easily. The courses contains chapters divided for learning complex things easily for both beginners and advanced programmers."
+      />
       <div className="course-card columns is-vcentered">
         <div className="column  is-three-fifths px-5 py-6">
           <h1 className="title is-1 has-text-grey-dark">

@@ -81,54 +81,91 @@ export default function Layout({ children, home }) {
       <footer className="footer mt-6">
         <div className="footer__social has-text-centered px-4 py-6 mb-6 panel">
           <h2 className="title is-3">Find Us on Social Networks</h2>
-          <button className="button is-facebook mx-4">
-            <span className="icon">
-              <FontAwesomeIcon icon={faFacebookF} />
-            </span>
-            <span>Facebook</span>
-          </button>
-          <button className="button is-github mx-4">
-            <span className="icon">
-              <FontAwesomeIcon icon={faGithub} />
-            </span>
-            <span>Github</span>
-          </button>
-          <button className="button is-twitter mx-4">
-            <span className="icon">
-              <FontAwesomeIcon icon={faTwitter} />
-            </span>
-            <span>Twitter</span>
-          </button>
-          <button className="button is-instagram mx-4">
-            <span className="icon">
-              <FontAwesomeIcon icon={faInstagram} />
-            </span>
-            <span>Instagram</span>
-          </button>
+          <div className="columns">
+            <div className="column">
+              <a
+                className="button is-facebook mx-4"
+                href="https://www.facebook.com/HolyCoders-103402337844119/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faFacebookF} />
+                </span>
+                <span>Facebook</span>
+              </a>
+            </div>
+            <div className="column">
+              <a
+                className="button is-github mx-4"
+                href="https://github.com/ceodigvijay"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faGithub} />
+                </span>
+                <span>Github</span>
+              </a>
+            </div>
+            <div className="column">
+              <a
+                className="button is-twitter mx-4"
+                href="https://twitter.com/holycoders"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faTwitter} />
+                </span>
+                <span>Twitter</span>
+              </a>
+            </div>
+            <div className="column">
+              <a
+                className="button is-instagram mx-4"
+                href="https://www.instagram.com/holy_coders/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faInstagram} />
+                </span>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
         </div>
         <div className="columns my-6">
           <div className="column">
             <h3 className="title is-4 ">About Us</h3>
             <p className="has-text-center">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Holycoders is a programming blog dedicated to simplify learning
+              for coders. You can learn new things easily explained with
+              examples and interactive tutorials.
             </p>
           </div>
           <div className="column">
             <h3 className="title is-4 ">Information</h3>
             <ul>
               <li>
-                <a href="#">Privacy Policy</a>
+                <Link href="/privacy-policy/">
+                  <a>Privacy Policy</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Sitemap</a>
+                <a href="/sitemap.xml">Sitemap</a>
               </li>
 
               <li>
-                <a href="#">Disclosure</a>
+                <Link href="/disclosure/">
+                  <a>Disclosure</a>
+                </Link>
               </li>
               <li>
-                <a href="#">About Us</a>
+                <Link href="/about/">
+                  <a>About Us</a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -136,16 +173,24 @@ export default function Layout({ children, home }) {
             <h3 className="title is-4 ">Navigate</h3>
             <ul>
               <li>
-                <a href="#">Blog</a>
+                <Link href="/blog/">
+                  <a>Blog</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Courses</a>
+                <Link href="/learn/">
+                  <a>Courses</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Login</a>
+                <Link href="/login/">
+                  <a>Login</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Signup</a>
+                <Link href="/join/">
+                  <a>Signup</a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -153,16 +198,24 @@ export default function Layout({ children, home }) {
             <h3 className="title is-4 ">Quick Links</h3>
             <ul>
               <li>
-                <a href="#">Contact</a>
+                <Link href="/contact/">
+                  <a>Contact</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Signup</a>
+                <Link href="/join/">
+                  <a>Signup</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Report an Issue</a>
+                <Link href="/report/">
+                  <a>Report an Issue</a>
+                </Link>
               </li>
               <li>
-                <a href="#">Website Hacking and Prevention Course</a>
+                <Link href="/learn/website-hacking-and-security/">
+                  <a>Website Hacking and Prevention Course</a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -247,6 +300,12 @@ export default function Layout({ children, home }) {
           border-radius: 5px;
           border: 1px dotted #36a666;
           background-color: #fff;
+        }
+        .footer__social button {
+          width: 120px;
+        }
+        .footer__social a {
+          color: #fff !important;
         }
         .button {
           border-radius: 5px;

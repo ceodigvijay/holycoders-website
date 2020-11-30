@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../../../components/layouts/layout";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import DashboardLayout from "../../../components/layouts/dashboardLayout";
+import GlobalContext from "../../../contexts/globalContext";
 
 export default function newPost() {
   const [tag, setTag] = useState({
@@ -16,6 +16,7 @@ export default function newPost() {
   });
   const router = useRouter();
   const { id } = router.query;
+  const { addNotification } = useContext(GlobalContext);
 
   useEffect(() => {
     async function getData() {
@@ -34,8 +35,12 @@ export default function newPost() {
           slug: res.data.slug,
           description: res.data.description ? res.data.description : "",
           meta_title: res.data.meta_title ? res.data.meta_title : "",
-          meta_description: res.data.meta_description ? res.data.meta_description : "",
-          featured_image: res.data.featured_image ? res.data.featured_image : "" ,
+          meta_description: res.data.meta_description
+            ? res.data.meta_description
+            : "",
+          featured_image: res.data.featured_image
+            ? res.data.featured_image
+            : "",
           hex_color: res.data.hex_color ? res.data.hex_color : "",
         });
       }
@@ -46,40 +51,55 @@ export default function newPost() {
   }, [id]);
 
   const handlePublish = async () => {
-    const res = await axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/admin/tags`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      data: tag,
-    });
-    if (res.status === 200 && res.data.ok === 1) {
+    try {
+      const res = await axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/admin/tags`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+        data: tag,
+      });
       console.log(res);
-      console.log(router.asPath.split("/"));
-      router.replace(
-        `/dashboard/tags/[id]`,
-        router.asPath.split("/").slice(0, -2).join("/") + "/" + res.data.id,
-        undefined,
-        { shallow: true }
-      );
+      if (res.status === 200 && res.data.ok === 1) {
+        console.log(router.asPath.split("/"));
+        router.replace(
+          `/dashboard/tags/[id]`,
+          router.asPath.split("/").slice(0, -2).join("/") + "/" + res.data.id,
+          undefined,
+          { shallow: true }
+        );
+      }
+    } catch (error) {
+      let message = "Some error Occured in Publishing the Tags.";
+      error && error.response && error.response.data.message
+        ? (message = error.response.data.message)
+        : "";
+      addNotification({ message: message, type: "error" });
     }
   };
 
   const handleUpdate = async () => {
-    const res = await axios({
-      method: "put",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/admin/tags/` + id,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      data: tag,
-    });
-    if (res.status === 200 && res.data.ok === 1) {
-      setTag({ ...tag, slug: res.data.slug });
-      console.log(res);
+    try {
+      const res = await axios({
+        method: "put",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/admin/tags/` + id,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+        data: tag,
+      });
+      if (res.status === 200 && res.data.ok === 1) {
+        setTag({ ...tag, slug: res.data.slug });
+      }
+    } catch (error) {
+      let message = "Some error Occured in Publishing the Tags.";
+      error && error.response && error.response.data.message
+        ? (message = error.response.data.message)
+        : "";
+      addNotification({ message: message, type: "error" });
     }
   };
   return (

@@ -68,20 +68,20 @@ const fullArticle = ({
           slug={slug}
         />
         <header className="article-header my-6">
-          <button
+          {/* <button
             onClick={() =>
               addNotification({
-                message: "Successfully logged in." + Date.now().toString(36),
-                type: "success",
+                message: "Successfully logged in with long and long message with long and Long text." + Date.now().toString(36),
+                type: "inf",
               })
             }
             className="button mx-4"
           >
             Set Notification
-          </button>
+          </button> */}
           <span className="meta">
             <time dateTime="date time Insert here">5 months ago</time>
-            <span className="bull">&#8226;</span>
+            <span className="bull mx-2">&#8226;</span>
             <span className="reading-time">10 minutes read</span>
           </span>
           <h1 className="title is-1">{title}</h1>
@@ -105,31 +105,32 @@ const fullArticle = ({
         </section>
         <div className="content-container columns my-5">
           <div className="column">{_id ? <Toolbar postId={_id} /> : ""}</div>
-          <div className="column is-three-fifths content is-medium">
+          <div className="column is-three-fifths content is-medium mx-3">
             <p className="mb-6">
               <i className="mr-2">Summary: </i> {introduction}
             </p>
             <ReactMarkdown renderers={renderers} children={content_raw} />
           </div>
-          <div className="column">
+          <div className="column has-text-centered">
             <Image
               src="/content/images/dummy/laid1.png"
               alt="ad"
               width="280"
               height="250"
-              className="article-rights-img "
+              className="article-rights-img"
             />
+            <div className="my-6"></div>
             <Image
               src="/content/images/dummy/laid3.png"
               alt="ad"
               width="280"
               height="250"
-              className="article-rights-img my-6"
+              className="article-rights-img"
             />
           </div>
         </div>
 
-        <div className="tags are-large container">
+        <div className="tags are-large container has-text-centered">
           <div style={{ margin: "0 auto" }}>
             {tags && Array.isArray(tags)
               ? tags.map((element) => {

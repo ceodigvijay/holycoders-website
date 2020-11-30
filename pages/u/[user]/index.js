@@ -4,7 +4,12 @@ import {
   faStackOverflow,
   faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
-import { faComment, faGlobe, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faExternalLinkAlt,
+  faGlobe,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext } from "react";
 import Layout from "../../../components/layouts/layout";
@@ -192,8 +197,19 @@ function user({ user, meta, error }) {
                   return (
                     <div className="block">
                       <div className="title is-6 has-text-centered">
-                        {element.title}
-                        <a href={element.demo}>Demo Link</a>
+                        <a
+                          href={element.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {element.title ? element.title : "Demo of Project"}
+                        </a>
+                        <span className="mx-2">
+                          <FontAwesomeIcon
+                            icon={faExternalLinkAlt}
+                            color="#d7d7d7"
+                          />
+                        </span>
                       </div>
                       <div className="subtitle is-6">{element.description}</div>
                     </div>

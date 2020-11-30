@@ -6,7 +6,7 @@ import UserContext from "../../../contexts/globalContext";
 
 function authGit() {
   const router = useRouter();
-  const { setUser, setNotificationValue } = useContext(UserContext);
+  const { setUser, addNotification } = useContext(UserContext);
 
   console.log(router.query.code);
   if (router.query.code) {
@@ -21,7 +21,7 @@ function authGit() {
       .then(async (res) => {
         await setUser(res.data);
       await localStorage.setItem("hc_user", JSON.stringify(res.data));
-      await setNotificationValue({
+      await addNotification({
         message: "Successfully logged in",
         type: "Success",
       });

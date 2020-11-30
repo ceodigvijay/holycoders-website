@@ -26,7 +26,7 @@ export default function collectionPage({ data, showPagination }) {
   };
   return (
     <>
-      <PostCollection data={data} />
+      <PostCollection bookmarks={data.bookmarks} posts={data.allPosts} />
       {showPagination === false ? (
         ""
       ) : (

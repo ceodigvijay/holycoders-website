@@ -14,7 +14,7 @@ const postEditor = () => {
   const { type, id } = router.query;
   const [post, setPost] = useState({
     parent_id: null,
-    post_id: id,
+    post_id: "",
     title: null,
     slug: null,
     publish_date: "",
@@ -34,6 +34,7 @@ const postEditor = () => {
     show_comments: true,
     featured: false,
   });
+  console.log(post);
   return (
     <div>
       <DynamicComponentWithNoSSR post={post} setPost={setPost} />

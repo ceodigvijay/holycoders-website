@@ -13,7 +13,11 @@ import GlobalContext from "../../../contexts/globalContext";
 export default function profile({ user, setUser }) {
   const [userProjects, setUserProjects] = useState([]);
   const [showEmailVerify, setShowEmailVerify] = useState(false);
-  const { addNotification } = useContext(GlobalContext);
+  const {
+    addNotification,
+    user: globalUserState,
+    setUser: setGlobalUserState,
+  } = useContext(GlobalContext);
 
   const [project, setProject] = useState({
     title: "",
@@ -51,6 +55,10 @@ export default function profile({ user, setUser }) {
               username: response.data.username,
             })
           );
+          setGlobalUserState({
+            ...globalUserState,
+            username: response.data.username,
+          });
         }
         addNotification({
           message: "Details Updated Successfully.",
@@ -58,12 +66,11 @@ export default function profile({ user, setUser }) {
         });
       }
     } catch (error) {
-      console.log(error);
-      addNotification({
-        message:
-          "Some error occured. Please Contact us if you face any problem.",
-        type: "error",
-      });
+      let message = "Some error Occured in Updating the Details.";
+      error && error.response && error.response.data.message
+        ? (message = error.response.data.message)
+        : "";
+      addNotification({ message: message, type: "error" });
     }
   };
   async function checkUsernameAvailability(username) {
@@ -96,320 +103,342 @@ export default function profile({ user, setUser }) {
   return (
     <div>
       {/* Profile Image */}
-      <div class="file is-centered is-boxed is-rounded">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume" />
-          <span class="file-cta">
-            <span class="file-icon">
+      <div className="file is-centered is-boxed is-rounded">
+        <label className="file-label">
+          <input className="file-input" type="file" name="resume" />
+          <span className="file-cta">
+            <span className="file-icon">
               <FontAwesomeIcon icon={faUpload} />
             </span>
-            <span class="file-label">Change your Profile Image</span>
+            <span className="file-label">Change your Profile Image</span>
           </span>
         </label>
       </div>
       {/* Cover Image */}
-      <div class="file is-centered is-boxed is-rounded my-4">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume" />
-          <span class="file-cta">
-            <span class="file-icon">
+      <div className="file is-centered is-boxed is-rounded my-4">
+        <label className="file-label">
+          <input className="file-input" type="file" name="resume" />
+          <span className="file-cta">
+            <span className="file-icon">
               <FontAwesomeIcon icon={faUpload} />
             </span>
-            <span class="file-label">Change your Cover Image</span>
+            <span className="file-label">Change your Cover Image</span>
           </span>
         </label>
       </div>
-      {/* Name */}
-      <div class="field my-4">
-        <label class="label">Name</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g Digvijay Singh"
-            value={user.name}
-            onChange={(e) => setUser({ ...user, name: e.target.value })}
-          />
-        </div>
-      </div>
-      {/* Username */}
-      {/* <fieldset>
-        <div class="field">
-          <label class="label">Username</label>
-          <div class="control">
+
+      <div className="basic-details px-2 py-2 my-6">
+        <h2 className="title is-4 has-text-centered">Basic Details</h2>
+        {/* Name */}
+        <div className="field my-4">
+          <label htmlFor="name" className="label">
+            Name
+          </label>
+          <div className="control">
             <input
-              class="input"
+              id="name"
+              className="input"
               type="text"
-              placeholder="e.g digvijay007"
-              onChange={(e) => setUser({ ...user, username: e.target.value })}
-              value={user.username}
+              placeholder="e.g Digvijay Singh"
+              value={user.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
             />
           </div>
         </div>
-      </fieldset> */}
-      <div className="control has-icons-left has-icons-right ">
-        <input
-          className="input"
-          type="text"
-          onChange={(e) => {
-            checkUsernameAvailability(e.target.value);
-            setUser({ ...user, username: e.target.value });
-          }}
-          value={user.username}
-          name="username"
-          placeholder="Username"
-        />
-        <span className="icon is-small is-left">
-          <FontAwesomeIcon icon={faUser} />
-        </span>
-        {dataValidation.startedTypingUsername &&
-        dataValidation.usernameValid ? (
-          <span className="icon is-small is-right">
-            <FontAwesomeIcon icon={faCheckCircle} color="#36a666" />
+        {/* Username */}
+        <label htmlFor="username" className="label">
+          Username
+        </label>
+        <div className="control has-icons-left has-icons-right ">
+          <input
+            id="username"
+            className="input"
+            type="text"
+            onChange={(e) => {
+              checkUsernameAvailability(e.target.value);
+              setUser({ ...user, username: e.target.value });
+            }}
+            value={user.username}
+            name="username"
+            placeholder="Username"
+          />
+          <span className="icon is-small is-left">
+            <FontAwesomeIcon icon={faUser} />
           </span>
-        ) : (
-          ""
-        )}
-      </div>
-      {/* Skills */}
-      <ReactTags
-        tags={user.skills}
-        suggestions={suggestions}
-        onInput={(e) => getTags(e)}
-        onDelete={(i) => {
-          const skills = user.skills.slice(0);
-          skills.splice(i, 1);
-          setUser({ ...user, skills });
-        }}
-        onAddition={(skill) => {
-          const skills = [...user.skills, skill];
-          setUser({ ...user, skills });
-        }}
-      />
-      {/* Projects */}
-      {user.projects.map((el, index) => {
-        return (
-          <div key={el.title}>
-            <div>{el.title}</div>
-            <div>{el.demo}</div>
-            <div>{el.description}</div>
-            <button
-              className="button is-danger"
-              onClick={() => deleteProject(index)}
-            >
-              Delete
-            </button>
-          </div>
-        );
-      })}
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g TODO List"
-            onChange={(e) => setProject({ ...project, title: e.target.value })}
-            value={project.title}
-          />
+          {dataValidation.startedTypingUsername &&
+          dataValidation.usernameValid ? (
+            <span className="icon is-small is-right">
+              <FontAwesomeIcon icon={faCheckCircle} color="#36a666" />
+            </span>
+          ) : (
+            ""
+          )}
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Demo Link</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://amazingsite.com/user/project"
-            value={project.demo}
-            onChange={(e) => setProject({ ...project, demo: e.target.value })}
-          />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Description</label>
-        <div class="control">
-          <textarea
-            class="textarea"
-            placeholder="Some details about your project."
-            value={project.description}
-            onChange={(e) =>
-              setProject({ ...project, description: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <button
-        className="button my-2 is-primary"
-        onClick={() => {
-          var newUserProjects = [...user.projects];
-          newUserProjects.push(project);
-          setUser({ ...user, projects: newUserProjects });
-          setProject({
-            title: "",
-            demo: "",
-            description: "",
-          });
-        }}
-      >
-        Add
-      </button>
+        {/* Skills */}
+        <label className="label my-2">Skills</label>
+        <ReactTags
+          tags={user.skills}
+          suggestions={suggestions}
+          onInput={(e) => getTags(e)}
+          onDelete={(i) => {
+            const skills = user.skills.slice(0);
+            skills.splice(i, 1);
+            setUser({ ...user, skills });
+          }}
+          onAddition={(skill) => {
+            const skills = [...user.skills, skill];
+            setUser({ ...user, skills });
+          }}
+        />
 
-      {/* Bio */}
-      <div class="field my-4">
-        <label class="label">Bio</label>
-        <div class="control">
-          <textarea
-            class="textarea"
-            placeholder="About yourself :)"
-            value={user.bio}
-            onChange={(e) => setUser({ ...user, bio: e.target.value })}
-          />
+        {/* Email */}
+        <div className="field my-4">
+          <label className="label">Email</label>
+          <div className="control">
+            <input
+              className="input"
+              type="email"
+              placeholder="e.g. diggi1234@somemail.com"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+            />
+          </div>
+        </div>
+        {/* Bio */}
+        <div className="field my-4">
+          <label className="label">Bio</label>
+          <div className="control">
+            <textarea
+              className="textarea"
+              placeholder="About yourself :)"
+              value={user.bio}
+              onChange={(e) => setUser({ ...user, bio: e.target.value })}
+            />
+          </div>
+        </div>
+        {/* Current Work */}
+        <div className="field my-4">
+          <label className="label">Current Work</label>
+          <div className="control">
+            <textarea
+              className="textarea"
+              placeholder="Some details of what/where you are currently working."
+              value={user.currentWork}
+              onChange={(e) =>
+                setUser({ ...user, currentWork: e.target.value })
+              }
+            />
+          </div>
         </div>
       </div>
-      {/* Current Work */}
-      <div class="field my-4">
-        <label class="label">Current Work</label>
-        <div class="control">
-          <textarea
-            class="textarea"
-            placeholder="Some details of what/where you are currently working."
-            value={user.currentWork}
-            onChange={(e) => setUser({ ...user, currentWork: e.target.value })}
-          />
+
+      {/* Projects */}
+      <div
+        className="project-section my-5 px-2"
+        style={{ border: "1px solid #d2d2d2", borderRadius: "5px" }}
+      >
+        <h2 className="title is-4 has-text-centered my-2">Projects</h2>
+        {user.projects.map((el, index) => {
+          return (
+            <div key={el.title} className="my-6 has-text-centered">
+              <h2 className="title is-4 my-2 has-text-grey-dark">
+                {el.title}
+                <button
+                  className="delete is-danger mx-4 has-background-danger"
+                  onClick={() => deleteProject(index)}
+                >
+                  Delete
+                </button>
+              </h2>
+              <div>
+                <span className="mr-3">Link to the Project:</span>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`${el.demo}`}
+                >
+                  {el.demo}
+                </a>
+              </div>
+
+              <div>{el.description}</div>
+            </div>
+          );
+        })}
+        <div className="field">
+          <label className="label">Name</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g TODO List"
+              onChange={(e) =>
+                setProject({ ...project, title: e.target.value })
+              }
+              value={project.title}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Demo Link</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://amazingsite.com/user/project"
+              value={project.demo}
+              onChange={(e) => setProject({ ...project, demo: e.target.value })}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Description</label>
+          <div className="control">
+            <textarea
+              className="textarea"
+              placeholder="Some details about your project."
+              value={project.description}
+              onChange={(e) =>
+                setProject({ ...project, description: e.target.value })
+              }
+            />
+          </div>
+        </div>
+        <div className="has-text-centered">
+          <button
+            className="button my-2 is-primary is-light"
+            onClick={() => {
+              var newUserProjects = [...user.projects];
+              newUserProjects.push(project);
+              setUser({ ...user, projects: newUserProjects });
+              setProject({
+                title: "",
+                demo: "",
+                description: "",
+              });
+            }}
+          >
+            Add
+          </button>
         </div>
       </div>
-      {/* Email */}
-      <div class="field my-4">
-        <label class="label">Email</label>
-        <div class="control">
-          <input
-            class="input"
-            type="email"
-            placeholder="e.g. diggi1234@somemail.com"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-          />
-        </div>
-      </div>
-      {/* Password */}
-      {/* <div class="field">
-        <label class="label">Change Password</label>
-        <div class="control">
-          <input
-            class="input"
-            type="password"
-            placeholder="Current password"
-            value={user.oldPassword}
-            onChange={(e) => setUser({ ...user, oldPassword: e.target.value })}
-          />
-          <input
-            class="input my-4"
-            type="password"
-            placeholder="New password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-          />
-        </div>
-      </div> */}
+
       {/* Social */}
       {/* Website */}
-      <div class="field my-4">
-        <label class="label">Website</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://holycoders.com"
-            value={user.social.website}
-            onChange={(e) =>
-              setUser({
-                ...user,
-                social: { ...user.social, website: e.target.value },
-              })
-            }
-          />
+      <div className="social my-6 px-2">
+        <h2 className="title is-4 has-text-centered mt-4">Social</h2>
+        <div className="field my-4">
+          <label className="label">Website</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://holycoders.com"
+              value={user.social.website}
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  social: { ...user.social, website: e.target.value },
+                })
+              }
+            />
+          </div>
+        </div>
+        {/* Facebook */}
+        <div className="field my-4">
+          <label className="label">Facebook</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://facebook.com/privacy-lover"
+              value={user.social.facebook}
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  social: { ...user.social, facebook: e.target.value },
+                })
+              }
+            />
+          </div>
+        </div>
+        {/* Twitter */}
+        <div className="field my-4">
+          <label className="label">Twitter</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://twitter.com/username"
+              value={user.social.twitter}
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  social: { ...user.social, twitter: e.target.value },
+                })
+              }
+            />
+          </div>
+        </div>
+        {/* GitHub */}
+        <div className="field my-4">
+          <label className="label">GitHub</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://github.com/username"
+              value={user.social.github}
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  social: { ...user.social, github: e.target.value },
+                })
+              }
+            />
+          </div>
+        </div>
+        {/* StackOverflow */}
+        <div className="field my-4">
+          <label className="label">Stack Overflow</label>
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="e.g https://stackoverflow.com/username"
+              value={user.social.stackoverflow}
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  social: { ...user.social, stackoverflow: e.target.value },
+                })
+              }
+            />
+          </div>
         </div>
       </div>
-      {/* Facebook */}
-      <div class="field my-4">
-        <label class="label">Facebook</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://facebook.com/privacy-lover"
-            value={user.social.facebook}
-            onChange={(e) =>
-              setUser({
-                ...user,
-                social: { ...user.social, facebook: e.target.value },
-              })
-            }
-          />
-        </div>
-      </div>
-      {/* Twitter */}
-      <div class="field my-4">
-        <label class="label">Twitter</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://twitter.com/username"
-            value={user.social.twitter}
-            onChange={(e) =>
-              setUser({
-                ...user,
-                social: { ...user.social, twitter: e.target.value },
-              })
-            }
-          />
-        </div>
-      </div>
-      {/* GitHub */}
-      <div class="field my-4">
-        <label class="label">GitHub</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://github.com/username"
-            value={user.social.github}
-            onChange={(e) =>
-              setUser({
-                ...user,
-                social: { ...user.social, github: e.target.value },
-              })
-            }
-          />
-        </div>
-      </div>
-      {/* StackOverflow */}
-      <div class="field my-4">
-        <label class="label">Stack Overflow</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="e.g https://stackoverflow.com/username"
-            value={user.social.stackoverflow}
-            onChange={(e) =>
-              setUser({
-                ...user,
-                social: { ...user.social, stackoverflow: e.target.value },
-              })
-            }
-          />
-        </div>
-      </div>
+
       {/* End Social */}
-      <button
-        className="button is-primary is-centered is-2x"
-        onClick={() => saveUpdates()}
-      >
-        Save
-      </button>
+      <div className="has-text-centered">
+        <button
+          className="button is-primary is-medium is-centered is-2x"
+          onClick={() => saveUpdates()}
+        >
+          Save Settings
+        </button>
+      </div>
+
+      <style jsx>{`
+        .label {
+          color: hsl(0, 0%, 60%);
+          font-weight: 600;
+        }
+        .social,
+        .basic-details {
+          border: 1px solid #d2d2d2;
+          border-radius: 5px;
+        }
+      `}</style>
     </div>
   );
 }

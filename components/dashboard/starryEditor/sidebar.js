@@ -201,7 +201,9 @@ export default function sidebar(props) {
             <span className="icon is-small">
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>
-            <span>Move to Trash</span>
+            <span>
+              {post.status === "trash" ? "Delete Post" : "Move to Trash"}
+            </span>
           </button>
         </p>
       </div>
