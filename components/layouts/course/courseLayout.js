@@ -66,7 +66,7 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
           publishedAt={courseDetails.date}
           updatedAt={meta.date}
           author={courseDetails.author}
-          url={process.env.NEXT_PUBLIC_FRONTEND_URL + router.asPath}
+          url={"https://holycoders.com" + router.asPath}
         />
       ) : (
         ""

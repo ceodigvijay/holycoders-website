@@ -20,6 +20,7 @@ update posts at 1 hr interval and pages 1 day interval
 # Default profile image from auth signup
 # Launch CheckList
 - Fix morgan "dev" state in server.js
+- Fix sitemap url in robots.txt
 - Clear logs
 - Noindex remove
 - Check all sitemaps

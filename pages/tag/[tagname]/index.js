@@ -74,7 +74,7 @@ export default function index({ data, tagname }) {
 }
 
 export async function getStaticProps(context) {
-  const queryTag = context.params.tag;
+  const queryTag = context.params.tagname;
 
   let data = null;
   let error = null;
