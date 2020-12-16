@@ -11,13 +11,11 @@ export default function collectionPage({ data, showPagination }) {
       alert("No Page Like that");
     } else if (router.asPath.split("/").reverse()[2] === "page") {
       var newRoute = router.asPath.split("/");
-      console.log(router.asPath.split("/").slice(0, -2).join("/"));
       router.push(
         router.pathname,
         router.asPath.split("/").slice(0, -2).join("/") + "/" + pageNumber + "/"
       );
     } else {
-      console.log(router.pathname);
       router.push(
         router.pathname + "/page/[pagenum]/",
         router.asPath + "page/" + pageNumber + "/"

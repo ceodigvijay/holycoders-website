@@ -14,7 +14,6 @@ function logout() {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res.data);
         setUser(null);
       })
       .catch((error) => {
@@ -41,9 +40,7 @@ function logout() {
             </button>
           </>
         ) : (
-          <h1 className="title is-3 has-text-grey">
-            Logged out :(.
-          </h1>
+          <h1 className="title is-3 has-text-grey">Logged out :(.</h1>
         )}
       </div>
 

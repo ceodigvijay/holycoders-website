@@ -34,7 +34,6 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
       console.log(error);
     }
   }, [currentPath]);
-  console.log("-----------------Course Meta Details--------------------");
   let chapters = [];
   allChapters.forEach((post) => {
     if (post.module.meta.sequence) {

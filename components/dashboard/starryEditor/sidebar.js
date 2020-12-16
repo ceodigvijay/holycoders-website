@@ -20,31 +20,10 @@ export default function sidebar(props) {
       ? moment(post.publish_date).format("DD/MM/YYYY HH:mm")
       : ""
   );
-  // const setInputDate = (passedDate) => {
-  //   if (passedDate.split("/").join("").length > 4) {
-  //     if (passedDate.split("/").join("").length === 8) {
-  //       passedDate += " ";
-  //     } else if (passedDate.split("/").join("").length === 11) {
-  //       passedDate += ":";
-  //     }
-  //     if (passedDate.split("/").join("").length === 14) {
-  //       var newPostDate = moment(passedDate, "DD/MM/YYYY HH:mm").utc().format();
-  //       console.log(newPostDate);
-  //       setPost({ ...post, publish_date: newPostDate });
-  //     }
-  //   } else if (
-  //     passedDate.split("/").join("").length % 2 == 0 &&
-  //     passedDate.split("/").join("").length !== 0
-  //   ) {
-  //     passedDate += "/";
-  //   }
-  //   setDate(passedDate);
-  // };
 
   async function getTags(query) {
     try {
       const res = await searchTags(query, 5);
-      console.log(res);
       var data = res.data;
       data.map((element) => {
         element.id = element._id;
@@ -58,16 +37,6 @@ export default function sidebar(props) {
   const reactTags = React.createRef();
   return (
     <div className="sidebar">
-      <button
-        onClick={() => {
-          console.log(post);
-          // console.log(post.publish_date > new Date());
-          console.log(date);
-          console.log(moment(date, "DD/MM/YYYY HH:mm").utc().format());
-        }}
-      >
-        Check State
-      </button>
       <label htmlFor="se_url" className="my-2">
         Slug
       </label>

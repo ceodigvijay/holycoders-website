@@ -18,7 +18,6 @@ export default function sideNav({ chapters }) {
         }
         if (courseObject[courseName]) {
           setCourseData(courseObject[courseName]);
-          console.log(courseObject[courseName]);
         }
       }
     } catch (error) {

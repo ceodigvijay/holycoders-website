@@ -25,15 +25,6 @@ function MyApp({ Component, pageProps }) {
     showLoginPopup: false,
   });
 
-  const _removeNotification = (toastId) => {
-    const newArr = notifications.filter((el) => {
-      return el.id !== toastId;
-    });
-    console.log(newArr);
-    console.log("Deleted " + toastId);
-    setNotifications(newArr);
-  };
-
   const addNotification = ({ message, type }) => {
     var toastId = Date.now().toString(16);
     setNotifications([
@@ -62,7 +53,6 @@ function MyApp({ Component, pageProps }) {
       return request;
     },
     (error) => {
-      console.log(error);
       return Promise.reject(error);
     }
   );
@@ -71,7 +61,6 @@ function MyApp({ Component, pageProps }) {
       return response;
     },
     (error) => {
-      console.log(error);
       switch (error.response.status ? error.response.status : 500) {
         case 401:
           //If Auth token is missing (removed by expiry) then remove user value from localstorage
@@ -85,10 +74,8 @@ function MyApp({ Component, pageProps }) {
           }
           break;
         case 404:
-          console.log("Not found");
           break;
         case 500:
-          console.log("Ah! snap. Server crashed.");
           break;
         default:
           break;

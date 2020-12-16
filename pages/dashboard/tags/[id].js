@@ -61,9 +61,7 @@ export default function newPost() {
         withCredentials: true,
         data: tag,
       });
-      console.log(res);
       if (res.status === 200 && res.data.ok === 1) {
-        console.log(router.asPath.split("/"));
         router.replace(
           `/dashboard/tags/[id]`,
           router.asPath.split("/").slice(0, -2).join("/") + "/" + res.data.id,

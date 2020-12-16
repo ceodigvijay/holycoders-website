@@ -9,8 +9,6 @@ const Toast = () => {
   const { notification, setNotificationValue } = useContext(GlobalContext);
 
     useEffect(() => {
-      console.log(notification);
-      console.log('notification');
       const interval = setInterval(() => {
           if (notification.length) {
               setNotificationValue(remove(notification, 0))

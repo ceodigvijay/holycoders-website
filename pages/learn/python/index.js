@@ -13,9 +13,6 @@ export default function Layout({ children, meta }) {
     courseName: "python",
     courseTitle: "Python for Beginners - The Ultimate Guide"
   };
-  console.log("children");
-  console.log(children);
-  console.log(meta);
   return (
     <CourseLayout meta={meta} allChapters={pythonChapters} courseDetails={courseDetails}>
       {children ? children : "Click On Chapters to start learning"}

@@ -8,7 +8,6 @@ import { GitHubLoginButton, GoogleLoginButton } from "../index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoginIcon from "../icons/login.js";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
   faFacebookF,
@@ -183,13 +182,8 @@ export default function Layout({ children, home }) {
                 </Link>
               </li>
               <li>
-                <Link href="/login/">
-                  <a>Login</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/join/">
-                  <a>Signup</a>
+                <Link href="/enter/">
+                  <a>Go to Dashboard</a>
                 </Link>
               </li>
             </ul>

@@ -68,7 +68,8 @@ export default function starryEditor(props) {
     e.preventDefault();
     try {
       const imageUrl = await handleImageUpload(e.target.files[0]);
-      setPost({ ...post, featured_image: imageUrl });
+      console.log(imageUrl);
+      setPost({ ...post, featured_image: imageUrl.location });
     } catch (error) {
       addNotification({
         message: "Some error occured in uploading the image.",
@@ -101,7 +102,6 @@ export default function starryEditor(props) {
         withCredentials: true,
         data: { ...post, type: type },
       });
-      console.log(res);
       if (res && res.status === 200 && res.data) {
         setPost({ ...post, slug: res.data.slug });
         if (currentPostID === "new") {
@@ -146,13 +146,11 @@ export default function starryEditor(props) {
           : "published";
       res = await publishPost(post.post_id, post, currentStatus);
     } catch (error) {
-      console.log(error);
       addNotification({
         message: "Some error occured in publishing the post.",
         type: "error",
       });
     }
-    console.log(res);
     if (res && res.status === 200 && res.data) {
       setPost({
         ...post,
@@ -193,7 +191,6 @@ export default function starryEditor(props) {
   async function handlePostDelete() {
     try {
       const response = await deletePost(post.post_id);
-      console.log(response);
       if (response.data.ok) {
         if (post.status === "trash") {
           addNotification({
@@ -239,128 +236,144 @@ export default function starryEditor(props) {
         styles={{ sidebar: { background: "white" } }}
         pullRight={true}
       >
-        <header className="top-toolbar">
-          <div className="header-left buttons has-addons">
-            {/* <Link href="/u/[user]/posts" as={`/u/${user.username}/posts`}> */}
-            <Link href="/dashboard/posts">
-              <a className="button is-medium is-light">
-                <span className="icon">
-                  <FontAwesomeIcon
-                    icon={faChevronLeft}
-                    style={{ verticalAlign: "middle" }}
-                  />
-                </span>
-                <span>Posts</span>
-              </a>
-            </Link>
-            <span className="button is-medium is-white has-text-grey-light">
-              {post.status.replace(/\b[a-z]/g, (x) => x.toUpperCase()) ||
-                "draft-e"}
-            </span>
-          </div>
-          <div className="header-left">
-            {post.status === "draft" &&
-            post.post_id &&
-            post.post_id !== "new" ? (
-              <button
-                onClick={(e) => handlePostPublish(e)}
-                className="button is-success is-light is-medium"
-              >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faRocket} />
-                </span>
-                <span>Publish</span>
-              </button>
-            ) : (
-              <button
-                onClick={(e) => handlePostUpdate(e)}
-                className={`button  is-success is-medium ${
-                  loadingData.saveInProgress ? "is-loading" : "is-light"
-                } `}
-              >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faRocket} color="#36a666" />
-                </span>
-                {post.status === "draft" ? (
-                  <span>Save Draft</span>
-                ) : (
-                  <span>Update</span>
-                )}
-              </button>
-            )}
-
-            <button
-              onClick={() => setOpen(true)}
-              border="1px solid #d5d5d5"
-              className="button is-medium ml-5"
-            >
-              <span className="icon">
-                <FontAwesomeIcon icon={faSlidersH} />
+        <div className="">
+          <header className="top-toolbar">
+            <div className="header-left buttons has-addons">
+              {/* <Link href="/u/[user]/posts" as={`/u/${user.username}/posts`}> */}
+              <Link href="/dashboard/posts">
+                <a className="button is-medium is-light">
+                  <span className="icon">
+                    <FontAwesomeIcon
+                      icon={faChevronLeft}
+                      style={{ verticalAlign: "middle" }}
+                    />
+                  </span>
+                  <span>Posts</span>
+                </a>
+              </Link>
+              <span className="button is-medium is-white has-text-grey-light">
+                {post.status.replace(/\b[a-z]/g, (x) => x.toUpperCase()) ||
+                  "draft-e"}
               </span>
-            </button>
-          </div>
-        </header>
-        <div className="starry-editor-editable" onKeyDown={handleKeyDown}>
-          {/* 55-60 Char long */}
-          <TextareaAutosize
-            className="se-title"
-            placeholder="Title"
-            value={post.title}
-            onChange={(e) => {
-              setPost({ ...post, title: e.target.value });
-            }}
-          />
-
-          <ImagePicker
-            handleImageDelete={() => setPost({ ...post, featured_image: null })}
-            handleImageUpload={handleFeaturedImageUpload}
-            image={post.featured_image}
-          />
-          <div className="columns">
-            <div className="column"></div>
-            <div className="column is-three-fifths content is-medium">
-              <TextareaAutosize
-                className="se-intro"
-                placeholder="Introduction"
-                value={post.introduction}
-                onChange={(e) => {
-                  setPost({ ...post, introduction: e.target.value });
-                }}
-              />
-              <Editor
-                className="content"
-                // dark={true}
-                placeholder="Start Writing Your Amazing Post..."
-                handleDOMEvents={{
-                  focus: () => console.log("FOCUS"),
-                  blur: () => console.log("BLUR"),
-                  paste: (a) => console.log(a),
-                  touchstart: () => console.log("TOUCH START"),
-                }}
-                onChange={(value) => {
-                  console.log(value());
-                  setPost({
-                    ...post,
-                    content_html: "html",
-                    content_raw: value(),
-                  });
-                }}
-                uploadImage={(file) => {
-                  console.log("File upload triggered: ", file);
-
-                  // Delay to simulate time taken to upload
-                  return new Promise((resolve) => {
-                    setTimeout(
-                      () => resolve("/content/images/dummy.png"),
-                      1500
-                    );
-                  });
-                }}
-                readOnly={false}
-                defaultValue={post.content_raw}
-              />
             </div>
-            <div className="column"></div>
+            <div className="header-left">
+              {(post.status === "draft" || post.status === "review") &&
+              post.post_id &&
+              post.post_id !== "new" ? (
+                <button
+                  onClick={(e) => handlePostPublish(e)}
+                  className="button is-success is-light is-medium"
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faRocket} />
+                  </span>
+                  <span>Publish</span>
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => handlePostUpdate(e)}
+                  className={`button  is-success is-medium ${
+                    loadingData.saveInProgress ? "is-loading" : "is-light"
+                  } `}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faRocket} color="#36a666" />
+                  </span>
+                  {post.status === "draft" ? (
+                    <span>Save Draft</span>
+                  ) : (
+                    <span>Update</span>
+                  )}
+                </button>
+              )}
+
+              <button
+                onClick={() => setOpen(true)}
+                border="1px solid #d5d5d5"
+                className="button is-medium ml-5"
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faSlidersH} />
+                </span>
+              </button>
+            </div>
+          </header>
+          <div className="starry-editor-editable" onKeyDown={handleKeyDown}>
+            {/* 55-60 Char long */}
+            <TextareaAutosize
+              className="se-title"
+              placeholder="Title"
+              value={post.title}
+              onChange={(e) => {
+                setPost({ ...post, title: e.target.value });
+              }}
+            />
+
+            <ImagePicker
+              handleImageDelete={() =>
+                setPost({ ...post, featured_image: null })
+              }
+              handleImageUpload={handleFeaturedImageUpload}
+              image={post.featured_image}
+            />
+            <div className="columns">
+              <div className="column"></div>
+              <div className="column is-three-fifths content is-medium">
+                <TextareaAutosize
+                  className="se-intro"
+                  placeholder="Introduction"
+                  value={post.introduction}
+                  onChange={(e) => {
+                    setPost({ ...post, introduction: e.target.value });
+                  }}
+                />
+                <Editor
+                  className="content"
+                  // dark={true}
+                  placeholder="Start Writing Your Amazing Post..."
+                  handleDOMEvents={{
+                    focus: () => console.log("FOCUS"),
+                    blur: () => console.log("BLUR"),
+                    paste: (a) => console.log("PASTE"),
+                    touchstart: () => console.log("TOUCH START"),
+                  }}
+                  onChange={(value) => {
+                    setPost({
+                      ...post,
+                      content_html: "html",
+                      content_raw: value(),
+                    });
+                  }}
+                  uploadImage={async (file) => {
+                    try {
+                      const res = await handleImageUpload(file);
+                      console.log(res);
+                      return res.location;
+                    } catch (error) {
+                      if (
+                        error &&
+                        error.response.data &&
+                        error.response.data.includes("File too large")
+                      ) {
+                        addNotification({
+                          message: "Max File Size Limit is 1 MB",
+                          type: "error",
+                        });
+                      } else {
+                        addNotification({
+                          message: "Some error occured",
+                          type: "error",
+                        });
+                      }
+                      throw error;
+                    }
+                  }}
+                  readOnly={false}
+                  defaultValue={post.content_raw}
+                />
+              </div>
+              <div className="column"></div>
+            </div>
           </div>
         </div>
       </Sidebar>

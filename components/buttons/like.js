@@ -25,7 +25,6 @@ export default function like({ postID, likesCount = 0, userHasLiked = false }) {
             : setLikesCounter(likesCounter - 1);
         }
       } catch (error) {
-        console.log(error);
         addNotification({
           message: "Some error occured in bookmarking. Please contect us.",
           type: "error",

@@ -8,7 +8,6 @@ export default function navbar() {
   const router = useRouter();
   const currentPath = router.asPath.split("/")[1];
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -75,17 +74,10 @@ export default function navbar() {
           {!user ? (
             <div className="navbar-item navbar-auth">
               <div className="buttons">
-                <span className="button is-primary">
-                  <Link href="/login/">
-                    <a>
-                      <strong>Log in</strong>
-                    </a>
-                  </Link>
-                </span>
                 <span className="button is-white">
-                  <Link href="/join/">
+                  <Link href="/enter/">
                     <a className="has-text-primary">
-                      <strong>Signup</strong>
+                      <strong>Dashboard</strong>
                     </a>
                   </Link>
                 </span>

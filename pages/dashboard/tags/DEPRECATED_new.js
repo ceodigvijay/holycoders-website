@@ -22,7 +22,6 @@ export default function newPost() {
       data: tag,
     });
     if (res.status === 200 && res.data.ok === 1) {
-      console.log(res);
       setTag({
         name: "",
         slug: "",

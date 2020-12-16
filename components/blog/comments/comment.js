@@ -11,7 +11,6 @@ export default function comment({ commentObj, addNewCommentToState }) {
         commentObj._id,
         isLikedPositively
       );
-      console.log(results);
     } catch (error) {
       console.log(error);
     }

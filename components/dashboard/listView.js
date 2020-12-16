@@ -5,18 +5,28 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "../collection/pagination";
 import { useRouter } from "next/router";
 
-export default function listView({ data, isTagPage, type = "post" }) {
+export default function listView({
+  data,
+  isTagPage,
+  type = "post",
+  searchvalue = "",
+  handleSearch,
+}) {
   const router = useRouter();
   const listToIterate = isTagPage ? data.tags : data.posts;
   const meta = data.meta;
-  console.log("Lists to iterate");
-  console.log(listToIterate);
   const { totalCount, pageCount, currentPage, limit } = meta;
   return (
     <div>
       <div className="top-toolbar">
         <p className="control has-icons-left">
-          <input className="input" type="text" placeholder="Search" />
+          <input
+            className="input"
+            type="text"
+            placeholder="Search"
+            value={searchvalue}
+            onChange={handleSearch}
+          />
           <span className="icon is-left">
             <FontAwesomeIcon icon={faSearch} />
           </span>
@@ -42,7 +52,7 @@ export default function listView({ data, isTagPage, type = "post" }) {
       </div>
       {listToIterate.length === 0 ? (
         <div className="has-text-centered title is-5">
-          Nothing Here (Pagination below is a bug:())
+          Nothing Here. Please Add Something :)
         </div>
       ) : (
         ""

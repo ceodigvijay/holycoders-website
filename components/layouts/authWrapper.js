@@ -6,12 +6,10 @@ class AuthWrapper extends Component {
   static contextType = GlobalContext;
   componentDidMount() {
     let globalState = this.context;
-    console.log(globalState);
     if (globalState.user) {
       this.setState({ hasAuth: true });
       return globalState.user;
     } else {
-      console.log("Again fetching user");
       axios({
         method: "post",
         url: `${process.env.NEXT_PUBLIC_API_URL}/verify`,

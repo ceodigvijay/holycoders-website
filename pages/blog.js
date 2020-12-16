@@ -86,7 +86,6 @@ const Blog = ({ data }) => {
 export async function getStaticProps(ctx) {
   let data;
   try {
-    // console.log(data);
     const res = await getAllPosts({}, 1, 6);
     data = await res.data;
   } catch (error) {

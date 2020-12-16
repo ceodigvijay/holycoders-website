@@ -31,7 +31,6 @@ export default function bookmark({
             : setBookmarkCounter(bookmarkCounter - 1);
         }
       } catch (error) {
-        console.log(error);
         addNotification({
           message: "Some error occured in bookmarking. Please contect us.",
           type: "error",

@@ -30,7 +30,7 @@ module.exports = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       require("./scripts/courseSitemap.js");
-      console.log("Creating Sitemap");
+      console.log("Generating Course Sitemap");
     }
 
     return config;
@@ -41,13 +41,18 @@ module.exports = withMDX({
   webpack: (config, { isServer }) => {
     if (isServer) {
       require("./scripts/courseSitemap.js");
-      console.log("Creating Sitemap");
+      console.log("Generating Course Sitemap");
     }
 
     return config;
   },
   pageExtensions: ["js", "jsx", "mdx"],
-
+  images: {
+    domains: [
+      "holycoders.s3.amazonaws.com",
+      "holycoders.s3.eu-west-2.amazonaws.com",
+    ],
+  },
   trailingSlash: true,
   async rewrites() {
     return [
@@ -67,3 +72,4 @@ module.exports = withMDX({
   },
   poweredByHeader: false,
 });
+

@@ -70,6 +70,5 @@ export default function tags({ tags }) {
 
 export async function getStaticProps(context) {
   const tagData = await getAllTags();
-  console.log(tagData.data);
   return { props: { tags: tagData.data }, revalidate: 3600 * 24 };
 }

@@ -35,14 +35,12 @@ export default function profile({ user, setUser }) {
   const deleteProject = (index) => {
     var newUserProjects = [...user.projects];
     newUserProjects.splice(index, 1);
-    console.log(newUserProjects);
     setUser({ ...user, projects: newUserProjects });
   };
   const saveUpdates = async () => {
     try {
       const response = await updateUser(user);
       if (response.data.ok) {
-        console.log(response.data);
         //Update Username in local storage
         if (typeof window !== "undefined" && localStorage.getItem("hc_user")) {
           const newLocalStorageData = JSON.parse(
@@ -89,7 +87,6 @@ export default function profile({ user, setUser }) {
   async function getTags(query) {
     try {
       const res = await searchTags(query, 5);
-      console.log(res);
       var data = res.data;
       data.map((element) => {
         element.id = element._id;

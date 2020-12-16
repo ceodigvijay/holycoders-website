@@ -4,7 +4,6 @@ import { getUserByUsername } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 export default function setting() {
   const { user } = useContext(GlobalContext);
-  console.log(user);
   useEffect(() => {
     const getData = async () => {
       try {

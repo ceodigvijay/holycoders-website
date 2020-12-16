@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
     fileName = file.originalname.trim().split(" ").join("-");
     var resFileName = fileName;
     var i = 1;
-    console.log(uploadPath + fileName);
     while (fs.existsSync(uploadPath + "/" + fileName)) {
       var fileNameArray = resFileName.split(".");
       fileNameArray[0] += i;
@@ -44,8 +43,6 @@ handler.post(upload.single("avatar"), async (req, res) => {
   }
   var allImageData = [];
   var originalImagePath = (uploadPath + fileName).split("/").slice(2).join("/");
-  console.log("allImageData");
-  console.log("/" + originalImagePath);
   res.send("/" + originalImagePath);
 });
 export default handler;

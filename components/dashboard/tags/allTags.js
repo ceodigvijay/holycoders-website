@@ -21,13 +21,11 @@ export default function allTags() {
         const res = await getAllAdminTags(page, 10);
         data = res.data;
       } catch (error) {
-        console.log(error);
         addNotification({
-          message: "Some error in fetching the posts. Please contact us.",
+          message: "Some error in fetching the tags. Please contact us.",
           type: "error",
         });
       }
-      console.log(data);
       if (data) {
         setTagData(data);
       }

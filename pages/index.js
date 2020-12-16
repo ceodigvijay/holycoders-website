@@ -1,28 +1,11 @@
-import React, { useContext } from "react";
-import Head from "next/head";
+import React from "react";
 import Layout from "../components/layouts/layout";
 import FeaturedNav from "../components/index/featuredNav";
-import UserContext from "../contexts/globalContext";
 import { getAllPosts } from "../lib/index";
 import PostCollectionPage from "../components/collection/posts/postCollection";
 import Link from "next/link";
 import PageSEO from "../components/seo/page";
 function Home({ data }) {
-  const { user, setUser, notification, setNotificationValue } = useContext(
-    UserContext
-  );
-  console.log(notification, setNotificationValue);
-  // useEffect(() => {
-  //   if (
-  //     !user &&
-  //     typeof window !== "undefined" &&
-  //     localStorage.getItem("hc_user")
-  //   ) {
-  //     console.log("Setting user from local storage");
-  //     setUser(JSON.parse(localStorage.getItem("hc_user")));
-  //   }
-  // });
-
   return (
     <Layout home>
       <PageSEO
@@ -30,14 +13,6 @@ function Home({ data }) {
         description="Holycoders is a programming blog dedicated to simplify learning for coders. You can learn and share your knowledge with the community."
       />
       <section className="featured-column py-6">
-        {/* <form
-          action="http://127.0.0.1:3000/api/image"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <input type="file" name="avatar" />
-          <input type="submit" value="submit" />
-        </form> */}
         <h2 className="has-text-centered is-3 title">Explore Topics</h2>
         <FeaturedNav />
       </section>

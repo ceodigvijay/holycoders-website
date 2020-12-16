@@ -2,6 +2,7 @@ import React from "react";
 import FullArticle from "../../components/blog/fullArticle";
 import { getPostBySlug } from "../../lib/index";
 import axios from "axios";
+
 const Post = (data) => {
   if (data && data.title) {
     return <FullArticle {...data} />;

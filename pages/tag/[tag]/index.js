@@ -3,6 +3,7 @@ import Layout from "../../../components/layouts/layout";
 import { getPostsByTagId } from "../../../lib/index";
 import PageSEO from "../../../components/seo/page";
 import PostCollectionPage from "../../../components/collection/posts/postCollection";
+import Image from "next/image";
 
 export default function index({ data, tagname }) {
   const [nextPage, setNextPage] = useState(2);
@@ -55,7 +56,18 @@ export default function index({ data, tagname }) {
           </div>
         </>
       ) : (
-        <div className="has-text-centered title is-4 my-6">No Posts Found</div>
+        <>
+          <div className="has-text-centered">
+            <Image
+              src="/content/images/dummy/empty.svg"
+              width="400px"
+              height="400px"
+            />
+          </div>
+          <div className="has-text-centered title is-4 my-6">
+            No Posts Found
+          </div>
+        </>
       )}
     </Layout>
   );

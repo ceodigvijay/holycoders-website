@@ -7,34 +7,43 @@ import UserContext from "../../../contexts/globalContext";
 function authGit() {
   const router = useRouter();
   const { setUser, addNotification } = useContext(UserContext);
-
-  console.log(router.query.code);
-  if (router.query.code) {
-    axios({
-      method: "post",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/github-login`,
-      withCredentials: true,
-      data: {
-        code: router.query.code,
-      },
-    })
-      .then(async (res) => {
-        await setUser(res.data);
-      await localStorage.setItem("hc_user", JSON.stringify(res.data));
-      await addNotification({
-        message: "Successfully logged in",
-        type: "Success",
-      });
-        router.push("/");
+  useEffect(() => {
+    const loginUser = async () => {
+      axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/github-login`,
+        withCredentials: true,
+        data: {
+          code: router.query.code,
+        },
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+        .then(async (res) => {
+          await setUser(res.data);
+          await localStorage.setItem("hc_user", JSON.stringify(res.data));
+          await addNotification({
+            message: "Successfully logged in",
+            type: "Success",
+          });
+          router.push("/dashboard");
+        })
+        .catch((error) => {
+          addNotification({
+            message: "Some error occured. Please Contact us.",
+            type: "error",
+          });
+          router.push("/");
+        });
+    };
+    if (router.query.code) {
+      loginUser();
+    }
+  }, [router.query.code]);
 
   return (
     <Layout>
-      <div>Please Wait Github auth</div>
+      <div className="has-text-centered title is-4 my-6">
+        Please wait for Log in...
+      </div>
     </Layout>
   );
 }

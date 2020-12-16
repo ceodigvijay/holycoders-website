@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../../../components/layouts/layout";
 import { getUserPublishedPosts } from "../../../../lib/index";
 import PostCollectionPage from "../../../../components/collection/posts/postCollection";
+import Image from "next/image";
 
 export default function index({ data, error, username }) {
   const [nextPage, setNextPage] = useState(2);
@@ -23,10 +24,8 @@ export default function index({ data, error, username }) {
     }
     try {
       const res = await getUserPublishedPosts(username, nextPage, 12);
-      console.log(res);
       const { posts, meta } = res.data;
       setNextPage(meta.currentPage + 1);
-      console.log(posts);
       setAllPosts([...allPosts, ...posts]);
     } catch (error) {
       console.log(error);
@@ -35,17 +34,34 @@ export default function index({ data, error, username }) {
   };
   return (
     <Layout>
-      <PostCollectionPage posts={allPosts} bookmarks={bookmarks} />
-      <div className="has-text-centered my-6">
-        <button
-          onClick={loadMorePosts}
-          className={`button is-primary is-outlined ${
-            isLoading ? "is-loading" : ""
-          }`}
-        >
-          Load More
-        </button>
-      </div>
+      {allPosts && allPosts[0] ? (
+        <>
+          <PostCollectionPage posts={allPosts} bookmarks={bookmarks} />
+          <div className="has-text-centered my-6">
+            <button
+              onClick={loadMorePosts}
+              className={`button is-primary is-outlined ${
+                isLoading ? "is-loading" : ""
+              }`}
+            >
+              Load More
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="has-text-centered">
+            <Image
+              src="/content/images/dummy/empty.svg"
+              width="400px"
+              height="400px"
+            />
+          </div>
+          <div className="has-text-centered title is-4 my-6">
+            No Posts Found
+          </div>
+        </>
+      )}
     </Layout>
   );
 }

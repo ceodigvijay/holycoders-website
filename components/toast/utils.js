@@ -1,9 +1,6 @@
 export const remove = (arr, item) => {
-  console.log("Clearing " + item);
   const newArr = [...arr];
-  console.log(newArr);
   newArr.splice(item, 1);
-  console.log(newArr);
   return newArr;
 };
 

@@ -28,11 +28,13 @@ export default function allPosts() {
   });
   const { totalCount, pageCount, currentPage, limit } = postData.meta;
   const { addNotification } = useContext(GlobalContext);
+  const [searchValue, setSearchValue] = useState("");
+
   useEffect(() => {
     const getData = async () => {
       let data;
       try {
-        const res = await getUserAllPosts(page, 12, "page");
+        const res = await getUserAllPosts(page, 12, "page", searchValue);
         data = res.data;
       } catch (error) {
         addNotification({
@@ -44,11 +46,10 @@ export default function allPosts() {
       }
       if (data) {
         setPostsData(data);
-        console.log(data);
       }
     };
     getData();
-  }, [page]);
+  }, [page, searchValue]);
 
   return (
     <div>
@@ -63,7 +64,13 @@ export default function allPosts() {
           </Link>
         </p>
       </nav>
-      <ListView data={postData} isTagPage={false} type="page" />
+      <ListView
+        data={postData}
+        isTagPage={false}
+        type="page"
+        searchvalue={searchValue}
+        handleSearch={(e) => setSearchValue(e.target.value)}
+      />
     </div>
   );
 }

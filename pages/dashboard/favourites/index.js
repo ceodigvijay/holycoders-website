@@ -11,7 +11,6 @@ export default function index() {
     const getBookmarksData = async () => {
       const res = await getBookmarks(1, 20);
       setBookmarksData(res.data);
-      console.log(res.data);
     };
     getBookmarksData();
   }, []);

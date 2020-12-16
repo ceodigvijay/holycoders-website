@@ -4,8 +4,6 @@ import Head from "next/head";
 import cleanString from "../../utils/cleanxss";
 export default function Seo({ title, description, slug }) {
   const url = `https://holycoders.com/${slug ? cleanString(slug) + "/" : ""}`;
-  console.log("slug");
-  console.log(cleanString(slug));
   return (
     <>
       <NextSeo

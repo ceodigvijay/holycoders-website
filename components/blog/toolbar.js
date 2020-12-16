@@ -8,16 +8,12 @@ import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { getPostReactions } from "../../lib/index";
 export default function toolbar({ postId }) {
   const [toolbarData, setToolbarData] = useState(null);
-  console.log(toolbarData, postId);
   useEffect(() => {
     const syncDynamicData = () => {
       setTimeout(async () => {
-        console.log("Post Toolbar data Sync Started");
         const reactions = await getPostReactions(postId);
         setToolbarData(reactions.data);
-        console.log(reactions);
       }, 5000);
-      console.log("Sync likes, bookmarks with slug and userId");
     };
     if (!toolbarData && postId) {
       syncDynamicData();
