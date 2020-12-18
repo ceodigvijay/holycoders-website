@@ -9,7 +9,7 @@ export default function Layout({ children, meta }) {
       name: "Digvijay Singh",
       profile: "https://holycoders.com/u/digvijay1/",
     },
-    dateCreated: "13/11/2020",
+    dateCreated: "14 November 2020",
     courseName: "website-hacking-and-security",
     courseTitle: "Learn Website Hacking from Scratch and Ways to secure them.",
   };

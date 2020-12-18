@@ -63,7 +63,7 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
           title={meta.title}
           metaTitle={meta.metaTitle}
           metaDescription={meta.description}
-          publishedAt={courseDetails.date}
+          publishedAt={courseDetails.dateCreated}
           updatedAt={meta.date}
           author={courseDetails.author}
           url={"https://holycoders.com" + router.asPath}

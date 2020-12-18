@@ -34,7 +34,9 @@ export default function toolbar({ postId }) {
             bookmarkCount={toolbarData.totalBookmarks}
             userHasbookmarked={toolbarData.hasBookmarked}
           />
-          <FontAwesomeIcon className="icon is-medium" icon={faComment} />
+          <a href="#comments">
+            <FontAwesomeIcon className="icon is-medium" icon={faComment} />
+          </a>
           <FontAwesomeIcon
             color="#00acee"
             className="icon is-medium"

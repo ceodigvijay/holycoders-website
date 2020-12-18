@@ -85,7 +85,11 @@ function login({ redirectTo } = {}) {
           <GitHubLoginButton
             onClick={() =>
               router.push(
-                `https://github.com/login/oauth/authorize?client_id=${"32f59064e1acbe54d309"}&scope=user:email`
+                `https://github.com/login/oauth/authorize?client_id=${
+                  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+                    ? process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+                    : "32f59064e1acbe54d309"
+                }&scope=user:email`
               )
             }
           />

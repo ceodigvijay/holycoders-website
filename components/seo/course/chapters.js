@@ -24,8 +24,8 @@ export default function Seo({
       "@id": "${url}"
     },
     "headline": "${newMetaTitle}",
-    "datePublished": "${publishedAt}",
-    "dateModified": "${updatedAt}",
+    "datePublished": "${new Date(publishedAt).toISOString()}",
+    "dateModified": "${new Date(updatedAt).toISOString()}",
     "author": {
       "@type": "Person",
       "name": "${author.name}"

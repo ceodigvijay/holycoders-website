@@ -51,6 +51,9 @@ module.exports = withMDX({
     domains: [
       "holycoders.s3.amazonaws.com",
       "holycoders.s3.eu-west-2.amazonaws.com",
+      "i0.wp.com",
+      "i1.wp.com",
+      "i2.wp.com",
     ],
   },
   trailingSlash: true,
@@ -72,4 +75,3 @@ module.exports = withMDX({
   },
   poweredByHeader: false,
 });
-

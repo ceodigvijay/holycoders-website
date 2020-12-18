@@ -19,6 +19,9 @@ $footer-padding: 3rem 1.5rem 1rem;
 *:hover {
   outline: none;
 }
+html{
+  scroll-behavior: smooth;
+}
 //Header
 
 .header {
@@ -388,6 +391,7 @@ code .number {
 .utility-container {
   display: flex;
   flex-direction: column;
+  max-width: 100px;
   position: sticky;
   top: 50%;
   transform: translate(30px, -50%);

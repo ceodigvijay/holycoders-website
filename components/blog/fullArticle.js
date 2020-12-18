@@ -33,7 +33,7 @@ const fullArticle = ({
   const postContentRef = React.createRef();
   // const { slug } = router.query;
   const { addNotification } = useContext(GlobalContext);
-
+  const [showComments, setShowComments] = useState(false);
   useEffect(() => {
     Prism.highlightAll();
   });
@@ -68,17 +68,6 @@ const fullArticle = ({
           slug={slug}
         />
         <header className="article-header my-6">
-          {/* <button
-            onClick={() =>
-              addNotification({
-                message: "Successfully logged in with long and long message with long and Long text." + Date.now().toString(36),
-                type: "inf",
-              })
-            }
-            className="button mx-4"
-          >
-            Set Notification
-          </button> */}
           <span className="meta">
             <time dateTime="date time Insert here">5 months ago</time>
             <span className="bull mx-2">&#8226;</span>
@@ -143,10 +132,27 @@ const fullArticle = ({
               : ""}
           </div>
         </div>
-        <section className="mx-6">
-          {/* <Comments contentId={_id} contentType={"post"} /> */}
+        <section className="" id="comments">
+          {showComments ? (
+            <>
+            <h2 className="title is-4 has-text-centered">Comments</h2>
+            <Comments contentId={_id} contentType={"post"} />
+            </>
+          ) : (
+            <div className="has-text-centered">
+              <button className="button" onClick={() => setShowComments(true)}>
+                Load Comments
+              </button>
+            </div>
+          )}
         </section>
       </article>
+      <style jsx>{`
+        #comments{
+          max-width: 900px;
+          margin: 10px auto;
+        }
+        `}</style>
     </Layout>
   );
 };

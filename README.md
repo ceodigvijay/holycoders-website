@@ -12,12 +12,10 @@ profile no proof of follow after refresh.
 noindex auth, dashboard, verify
 update posts at 1 hr interval and pages 1 day interval
 
-# On delete delete all users followings and reactions
-# Course chapters published date undefined
-#No view post for scheduled post
-# Check if we can read others post at dashboard editor
+# No view post for scheduled post
+# No login for suspended users
+# clear all console errors
 ## check if search engine show encoded characters for xss prevention
-# Default profile image from auth signup
 # Launch CheckList
 - Fix morgan "dev" state in server.js
 - Fix sitemap url in robots.txt
@@ -31,6 +29,8 @@ update posts at 1 hr interval and pages 1 day interval
 
 # GO Public CheckList
 
+
+- Never Go Public with the same repo, keys remain in older commits
 - API KEYS on Github
 
 # Why Oauth insteads of email/passwords?
