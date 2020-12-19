@@ -9,7 +9,7 @@ export default function postCollection({ bookmarks, posts }) {
   return (
     <div className="columns is-multiline">
       {posts.map((post) => (
-        <div className="column is-half ">
+        <div className="column is-half" key={post._id}>
           <div
             className="card blog-card"
             style={{

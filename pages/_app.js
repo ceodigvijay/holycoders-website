@@ -15,7 +15,7 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
-  console.log("Into the _app component.");
+  // console.log("Into the _app component.");
   const router = useRouter();
   const [theme, setTheme] = useState("light");
   const [user, setUserValue] = useState(null);
@@ -31,10 +31,6 @@ function MyApp({ Component, pageProps }) {
       ...notifications,
       { message: message, type: type, id: toastId },
     ]);
-    //Remove Toast after x seconds
-    // setTimeout(() => {
-    //   _removeNotification(toastId);
-    // }, 3000);
   };
 
   useEffect(() => {

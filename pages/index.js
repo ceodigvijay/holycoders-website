@@ -29,16 +29,6 @@ function Home({ data }) {
           </Link>
         </div>
       </section>
-      {/* <section>
-        <AuthBenefit />
-      </section>
-      <section>
-        <p>News</p>
-      </section> */}
-      {/* <section>
-        <p>Best Programming Tools</p>
-      </section> */}
-      <style jsx>{``}</style>
     </Layout>
   );
 }

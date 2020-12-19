@@ -19,9 +19,9 @@ export default function homepage({width, height}) {
           y2="103.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-          <stop offset="0.54" stop-color="gray" stop-opacity="0.12" />
-          <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+          <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+          <stop offset="0.54" stopColor="gray" stopOpacity="0.12" />
+          <stop offset="1" stopColor="gray" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <title>coding</title>
@@ -115,8 +115,8 @@ export default function homepage({width, height}) {
         transform="translate(-149.42 -56.5)"
         fill="none"
         stroke="#535461"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <path
         d="M149.63,628.92s83.63-13.32,91.25,61.63S401.7,775.89,401.7,775.89s-1,.68-2.87,1.91c-126.49,83-247.4,52.89-229.17-57.36C176.43,679.45,175.87,638.28,149.63,628.92Z"
@@ -134,8 +134,8 @@ export default function homepage({width, height}) {
         transform="translate(-149.42 -56.5)"
         fill="none"
         stroke="#535461"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <rect
         x="0.63"
@@ -317,7 +317,7 @@ export default function homepage({width, height}) {
         transform="translate(-149.42 -56.5)"
         fill="none"
         stroke="#000"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         opacity="0.1"
       />
       <rect x="590.36" y="143.57" width="7.3" height="41.39" fill="#6a5c99" />

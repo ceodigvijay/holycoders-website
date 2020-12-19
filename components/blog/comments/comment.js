@@ -4,6 +4,7 @@ import { reactOnComment, deleteComment } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function comment({ commentObj, addNewCommentToState }) {
   const [commentEditorMode, setCommentEditorMode] = useState("none");
@@ -26,7 +27,7 @@ export default function comment({ commentObj, addNewCommentToState }) {
       results.data.ok
         ? addNotification({
             message: "Comment Reported, we will review it soon.",
-            type: "error",
+            type: "info",
           })
         : "";
     } catch (error) {
@@ -51,15 +52,15 @@ export default function comment({ commentObj, addNewCommentToState }) {
   }
   return (
     <>
-      <article class="media my-5">
-        <figure class="media-left">
-          <p class="image is-48x48">
+      <article className="media my-5">
+        <figure className="media-left">
+          <p className="image is-48x48">
             <img src={commentObj.author.profile_image} className="is-rounded" />
           </p>
         </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
+        <div className="media-content">
+          <div className="content">
+            <div>
               <strong>{commentObj.author.name}</strong>
               {/* Dropdown */}
               <div className="dropdown is-hoverable mx-1">
@@ -77,9 +78,10 @@ export default function comment({ commentObj, addNewCommentToState }) {
                 <div className="dropdown-menu" id="dropdown-menu4" role="menu">
                   <div className="dropdown-content">
                     {/* Show Edit and Delete when owner or admin */}
-                    {user.userId === commentObj.author._id ||
-                    user.role === "admin" ||
-                    user.role === "editor" ? (
+                    {user &&
+                    (user.userId === commentObj.author._id ||
+                      user.role === "admin" ||
+                      user.role === "editor") ? (
                       <>
                         <a
                           className="dropdown-item"
@@ -97,13 +99,20 @@ export default function comment({ commentObj, addNewCommentToState }) {
                         >
                           Delete
                         </a>
+                        <a
+                          className="dropdown-item"
+                          onClick={handleReportClick}
+                        >
+                          Report
+                        </a>
                       </>
                     ) : (
-                      ""
+                      <Link href="/enter">
+                        <a className="dropdown-item" rel="noopener noreferrer">
+                          Log In
+                        </a>
+                      </Link>
                     )}
-                    <a className="dropdown-item" onClick={handleReportClick}>
-                      Report
-                    </a>
                   </div>
                 </div>
               </div>
@@ -146,7 +155,7 @@ export default function comment({ commentObj, addNewCommentToState }) {
                   ""
                 )}
               </small>
-            </p>
+            </div>
           </div>
         </div>
       </article>

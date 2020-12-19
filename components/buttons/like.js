@@ -43,7 +43,7 @@ export default function like({ postID, likesCount = 0, userHasLiked = false }) {
             handleClick(!liked);
           }}
         />
-        <label for="like-button">
+        <label htmlFor="like-button">
           <span
             className={`cbutton cbutton-red  cbutton--effect-tamara  ${
               liked ? "cbutton--click" : ""

@@ -48,7 +48,7 @@ export default function bookmark({
             handleClick(!bookmarked);
           }}
         />
-        <label for="bookmark-button">
+        <label htmlFor="bookmark-button">
           <span
             className={`cbutton cbutton--effect-tamara  ${
               bookmarked ? "cbutton--click" : ""
