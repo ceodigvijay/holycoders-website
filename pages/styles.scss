@@ -1,120 +1,47 @@
-$primary: #36a666;
-$secondary: #24252c;
-//BlockQuote
-$content-blockquote-border-left: 5px solid $primary;
-$content-blockquote-background-color: #f8f8f8;
+// @import "tailwindcss/base";
+// @import "tailwindcss/components";
+// @import "tailwindcss/utilities";
 
-$link: $primary;
-
-$navbar-dropdown-arrow: #fff;
-$navbar-burger-color: #fff !important;
-$navbar-dropdown-item-hover-background-color: $primary;
-//Footer Padding
-$footer-padding: 3rem 1.5rem 1rem;
-@import "../styles/bulma.sass";
-
-//Remove Chrome Focus outline
 *,
 *:focus,
 *:hover {
   outline: none;
-}
-html{
-  scroll-behavior: smooth;
-}
-//Header
-
-.header {
-  padding: 10px 0px;
-}
-.navbar {
-  border-radius: 5px;
-  margin: 0px 10px;
-  background-color: #36a666;
-  box-shadow: 0 0.4em 1em -0.125em rgba(10, 10, 10, 0.1),
-    0 0px 0 1px rgba(10, 10, 10, 0.02);
-}
-.navbar-item {
-  margin-right: 20px;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 1.2rem;
-  border: 2px solid transparent;
-  transition: background-color 0.4s linear;
+  transition: all 0.2s linear;
 }
 
-@media screen and (max-width: 1024px) {
-  .navbar-item {
-    color: $primary !important;
-  }
-  .navbar-brand .navbar-item {
-    border: 2px solid $primary;
-    border-radius: 5px;
-    color: $primary !important;
-    background-color: #fff !important;
-  }
-  .content-container {
-    .content {
-      p {
-        font-size: 1.1rem !important;
-      }
-    }
-  }
-}
-
-// Navbar Animation
-.navbar-menu {
-  animation: navAnimOpen 0.1s ease-out;
-  transform: translateZ(0);
-}
-
-@keyframes navAnimOpen {
-  0% {
-    display: none;
-    opacity: 0;
-    max-height: 0;
-  }
-  1% {
-    display: block;
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    max-height: 396px;
-  }
-}
-// Navbar Animation Ends
-.navbar-item:hover:not(.navbar-auth),
-.navbar .active {
-  border: 2px solid $primary;
-  border-radius: 5px;
-  color: $primary !important;
-  background-color: #fff !important;
-}
-.navbar-link:hover {
-  border-radius: 5px;
-}
-.navbar-dropdown .navbar-item:hover {
-  border: 2px solid #fff;
-}
-.navbar-dropdown .navbar-item {
-  color: $primary !important;
-}
-
-.navbar-burger span {
-  height: 2px;
-}
-
-.navbar a {
-  color: inherit;
-}
-.navbar-item img {
-  max-height: 48px;
-}
-
-//Header and Navbar Ends Here
+// html {
+//   scroll-behavior: smooth;
+// }
 
 //Helper Classes
+.button {
+  @apply ml-4;
+  @apply inline-flex;
+  @apply text-gray-700;
+  @apply bg-white;
+  @apply border;
+  @apply border-gray-200;
+  @apply py-2;
+  @apply px-6;
+  @apply rounded;
+  @apply text-lg;
+}
+
+.button.is-primary {
+  @apply text-white;
+  @apply bg-green-500;
+}
+
+.icon {
+  margin: 0 10px;
+}
+.icon.is-medium {
+  height: 2rem;
+  width: 2rem;
+}
+.has-text-centered {
+  @apply text-center;
+}
 .is-facebook {
   background-color: #4267b2;
   color: #fff;
@@ -143,26 +70,6 @@ html{
 .is-twitter:hover,
 .is-facebook:hover {
   color: #fff;
-}
-//Blog Header
-.blog-header {
-  border: 1px dotted $primary;
-  border-radius: 5px;
-  padding: 20px;
-}
-
-.blog-header .subtitle {
-  font-weight: 300;
-}
-
-//Ads on Article Page Right side
-.article-rights-img,
-.course-left {
-  cursor: pointer;
-  display: block;
-  border-radius: 10px;
-  position: sticky;
-  top: 10px;
 }
 
 /*Styline*/
@@ -339,7 +246,7 @@ code .number {
   height: 70px;
   width: 70px;
   path {
-    stroke: $primary;
+    stroke: #36a666;
   }
 }
 

@@ -68,17 +68,18 @@ const fullArticle = ({
           slug={slug}
         />
         <header className="article-header my-6">
-          <span className="meta">
+          <span className="meta text-gray-500 text-xl">
             <time dateTime="date time Insert here">5 months ago</time>
             <span className="bull mx-2">&#8226;</span>
             <span className="reading-time">10 minutes read</span>
           </span>
-          <h1 className="title is-1">{title}</h1>
+          <h1 className="title-font text-6xl font-bold mb-6 mt-2">{title}</h1>
         </header>
         <section>
           {featured_image ? (
             <div className="featured_image">
               <Image
+              className="rounded-lg"
                 src={featured_image}
                 alt={title}
                 width={720}
@@ -92,21 +93,21 @@ const fullArticle = ({
 
           <aside className="toc-container"></aside>
         </section>
-        <div className="content-container columns my-5">
-          <div className="column">{_id ? <Toolbar postId={_id} /> : ""}</div>
-          <div className="column is-three-fifths content is-medium mx-3">
+        <div className="content-container grid grid-cols-5 gap-2 my-5">
+          <div className="col-span-1">{_id ? <Toolbar postId={_id} /> : ""}</div>
+          <div className="col-span-3 prose lg:prose-lg mx-3">
             <p className="mb-6">
               <i className="mr-2">Summary: </i> {introduction}
             </p>
             <ReactMarkdown renderers={renderers} children={content_raw} />
           </div>
-          <div className="column has-text-centered">
+          <div className="text-center col-span-1">
             <Image
               src="/content/images/dummy/laid1.png"
               alt="ad"
               width="280"
               height="250"
-              className="article-rights-img"
+              className="article-rights-img rounded-lg"
             />
             <div className="my-6"></div>
             <Image
@@ -114,7 +115,7 @@ const fullArticle = ({
               alt="ad"
               width="280"
               height="250"
-              className="article-rights-img"
+              className="article-rights-img rounded-lg"
             />
           </div>
         </div>
@@ -133,6 +134,7 @@ const fullArticle = ({
           </div>
         </div>
         <section className="" id="comments">
+          
           {showComments ? (
             <>
             <h2 className="title is-4 has-text-centered">Comments</h2>

@@ -1,62 +1,59 @@
 import React from "react";
 
 export default function featuredNav() {
+  
   return (
     <>
-      <div className="fnav columns">
-        <div className="fnav__item column is-one-quarter">
-          <img src="/icons/webdev.svg" alt="web development" />
-          <p>Web development</p>
+      <section className="text-gray-700 body-font">
+        <div className="container px-5 py-24 mx-auto flex flex-wrap">
+          <div className="flex flex-wrap -m-4">
+            {[1, 2, 3, 4].map((element) => {
+              return (
+                <div className="p-4 lg:w-1/2 md:w-full">
+                  <div className="flex border-2 rounded-lg border-gray-200 p-8 sm:flex-row flex-col">
+                    <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+                      <svg
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        className="w-8 h-8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                      </svg>
+                    </div>
+                    <div className="flex-grow">
+                      <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                        Shooting Stars
+                      </h2>
+                      <p className="leading-relaxed text-base">
+                        Blue bottle crucifix vinyl post-ironic four dollar toast
+                        vegan taxidermy. Gastropub indxgo juice poutine.
+                      </p>
+                      <a className="mt-3 text-green-500 inline-flex items-center">
+                        Learn More
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="fnav__item column is-one-quarter">
-          <img
-            src="/icons/algorithms.svg"
-            alt="data structures and algorithms"
-          />
-          <p>DS and Algo</p>
-        </div>
-        <div className="fnav__item column is-one-quarter">
-          <img src="/icons/offer.svg" alt="offers" />
-          <p>Deals and Offers</p>
-        </div>
-        <div className="fnav__item column is-one-quarter">
-          <img src="/icons/review.svg" alt="reviews" />
-          <p>Reviews</p>
-        </div>
-      </div>
-      <style jsx>{`
-        .fnav {
-          margin: 50px auto;
-          cursor: pointer;
-        }
-
-        .fnav__item {
-          justify-content: center;
-          text-align: center;
-          padding: 20px;
-          border-radius: 10px;
-        }
-
-        .fnav__item img {
-          display: block;
-          margin: 10px auto;
-          height: 150px;
-        }
-
-        .fnav__item p {
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: #969494;
-          margin: 20px 5px;
-        }
-
-        .fnav__item:hover {
-          transition: all 0.2s;
-          transform: translateZ(50px);
-          box-shadow: 0 0px 25px -5px rgba(0, 0, 0, 0.2),
-            0 15px 20px -15px rgba(0, 0, 0, 0.2);
-        }
-      `}</style>
+      </section>
     </>
   );
 }

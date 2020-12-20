@@ -7,22 +7,15 @@ import Image from "next/image";
 export default function postCollection({ bookmarks, posts }) {
   const { addNotification, user } = useContext(GlobalContext);
   return (
-    <div className="columns is-multiline">
+    <section className="text-gray-700 body-font overflow-hidden grid grid-cols-2 gap-4">
       {posts.map((post) => (
-        <div className="column is-half" key={post._id}>
-          <div
-            className="card blog-card"
-            style={{
-              borderLeft: `4px solid ${
-                post.tags[0] ? post.tags[0].hex_color : ""
-              }`,
-            }}
-          >
-            <div className="card-content">
-              <div className="content">
-                <div className="post-tag mb-3 has-background-success-light px-2 py-2">
-                  {post.tags.length !== 0 ? "#" + post.tags[0].name : "No tag"}
-                </div>
+        <div className="container px-5 py-12 mx-auto shadow-lg">
+          <div className="flex flex-wrap -m-12">
+            <div className="p-12 flex flex-col items-start">
+              <span className="inline-block py-1 px-3 rounded bg-green-100 text-green-500 text-sm font-medium tracking-widest">
+                {post.tags.length !== 0 ? "#" + post.tags[0].name : "No tag"}
+              </span>
+              <h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-700 mt-4 mb-4">
                 <Link
                   href={
                     post.type === "page"
@@ -30,107 +23,67 @@ export default function postCollection({ bookmarks, posts }) {
                       : `/${post.category}/${post.slug}`
                   }
                 >
-                  <a className="title is-5 is-block is-centered">
-                    {post.title}
+                  <a>{post.title}</a>
+                </Link>
+              </h2>
+              <p className="leading-relaxed mb-8">
+                <Link
+                  href={
+                    post.type === "page"
+                      ? `/${post.slug}`
+                      : `/${post.category}/${post.slug}`
+                  }
+                >
+                  <a>
+                    {post.introduction
+                      ? post.introduction.substring(0, 120) + "..."
+                      : "No info"}
                   </a>
                 </Link>
-                <Link href={"/tutorials/[slug]"} as={"/tutorials/" + post.slug}>
-                  <a className="description subtitle is-6 my-1 has-text-grey is-block">
-                    {post.introduction.substring(0, 120) + "..."}
-                  </a>
-                </Link>
-              </div>
-              <footer
-                className="is-flex"
-                style={{ justifyContent: "space-between" }}
-              >
-                <div className="media">
-                  <div className="media-left">
-                    {post.author && post.author[0].profile_image ? (
-                      <figure className="image is-48x48">
-                        <Image
-                          src={post.author[0].profile_image}
-                          className="is-rounded"
-                          width="48px"
-                          height="48px"
-                        />
-                      </figure>
-                    ) : (
-                      <figure className="image is-48x48">
-                        <img
-                          src="https://bulma.io/images/placeholders/48x48.png"
-                          alt="Placeholder image"
-                          className="is-rounded"
-                        />
-                      </figure>
-                    )}
-                  </div>
-                  <div className="media-content">
+              </p>
+
+              <a className="inline-flex items-center">
+                {post.author && post.author[0].profile_image ? (
+                  <Image
+                    alt="author"
+                    src={post.author[0].profile_image}
+                    className="is-rounded"
+                    width="48px"
+                    height="48px"
+                    className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                  />
+                ) : (
+                  <img
+                    alt="blog"
+                    src="https://dummyimage.com/104x104"
+                    className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                  />
+                )}
+
+                <span className="flex-grow flex flex-col pl-4">
+                  <span className="title-font font-medium text-gray-600">
                     <Link
                       href={`/u/${post.author ? post.author[0].username : ""}`}
                     >
-                      <a className="title is-6 mb-1 has-text-grey">
+                      <a>
                         {post.author && post.author[0].name
                           ? post.author[0].name
                           : post.author[0].username}
                       </a>
                     </Link>
-                    <p
-                      className="has-text-gray has-text-grey"
-                      style={{ fontSize: "0.95rem" }}
-                    >
-                      {new Date(post.updated_at).toDateString().slice(4)}
-                      &nbsp;&bull; &nbsp;
-                      {post.reading_time
-                        ? post.reading_time / (60 * 1000)
-                        : "5"}
-                      min
-                    </p>
-                  </div>
-                </div>
-                <div className="has-text-grey-dark">
-                  {user && user.userId == post.author[0]._id ? (
-                    <>
-                      <Link
-                        href="/u/[user]/editor/[type]/[id]/"
-                        as={`/u/${user.username}/editor/post/${post._id}/`}
-                      >
-                        <a
-                          className="button is-primary is-light"
-                          style={{ margin: "0px 5px" }}
-                        >
-                          Edit
-                        </a>
-                      </Link>
-                    </>
-                  ) : (
-                    <button className="button is-primary is-light">
-                      <FontAwesomeIcon
-                        style={{ verticalAlign: "middle" }}
-                        className="like-button icon is-medium 	"
-                        icon={faBookmark}
-                      />
-                      <span className="is-hidden-touch">
-                        {bookmarks && bookmarks.includes(post._id)
-                          ? "Bookmarked"
-                          : "Save"}
-                      </span>
-                      <span style={{ margin: "0px 5px" }}>
-                        {post.bookmarks}
-                      </span>
-                    </button>
-                  )}
-                </div>
-              </footer>
+                  </span>
+                  <span className="text-gray-500 text-sm">
+                    {new Date(post.updated_at).toDateString().slice(4)}
+                    &nbsp;&bull; &nbsp;
+                    {post.reading_time ? post.reading_time / (60 * 1000) : "5"}
+                    min
+                  </span>
+                </span>
+              </a>
             </div>
           </div>
         </div>
       ))}
-      <style jsx>{`
-        .is-rounded {
-          border-radius: 50%;
-        }
-      `}</style>
-    </div>
+    </section>
   );
 }

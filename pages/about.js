@@ -12,7 +12,7 @@ function disclosure() {
         related to Programing. You can traverse the blog or categories/tags to
         select the best topics of your interest."
       />
-      <h1 className="title is-1 has-text-centered my-6">About Us</h1>
+      <h1 className="title is-1 text-center my-2">About Us</h1>
       <div className="content my-6 mx-4 px-6">
         <p>
           HolyCoders is a programming blog which helps coders to solve problems

@@ -13,11 +13,11 @@ function Home({ data }) {
         description="Holycoders is a programming blog dedicated to simplify learning for coders. You can learn and share your knowledge with the community."
       />
       <section className="featured-column py-6">
-        <h2 className="has-text-centered is-3 title">Explore Topics</h2>
+        <h2 className="text-center">Explore Topics</h2>
         <FeaturedNav />
       </section>
       <section>
-        <h2 className="has-text-centered is-3 title">Latest from blog</h2>
+        <h2 className="text-center font-semibold text-2xl">Latest from blog</h2>
         <PostCollectionPage
           bookmarks={data.bookmarks}
           posts={data.posts}

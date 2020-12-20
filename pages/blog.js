@@ -49,23 +49,41 @@ const Blog = ({ data }) => {
         title="Blog - Get Latest and Easy to Digest Programming Articles"
         description="Holycoders blog is collection of all the articles of all categories over the website."
       />
-      <div className="blog-header columns my-6 mx-4 panel">
-        <div className="column is-three-quarters">
-          <h1 className="title is-2">Latest Articles</h1>
-          <p className="subtitle is-5 my-4">
-            Welcome to the Blog page. Here, you can navigate through all our
-            articles sorted in chronological order. The collection contains
-            articles of all the categories.
-          </p>
+      <section className="text-gray-700 body-font">
+        <div className="container px-5 py-12 mx-auto">
+          <div className="flex items-center lg:w-4/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 className="text-gray-900 text-2xl title-font font-medium mb-2">
+                Latest Articles
+              </h2>
+              <p className="leading-relaxed text-base">
+                Welcome to the Blog page. Here, you can navigate through all our
+                articles sorted in chronological order. The collection contains
+                articles of all the categories.
+              </p>
+            </div>
+            <div className="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                className="sm:w-16 sm:h-16 w-10 h-10"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div className="column">
-          <Image
-            src="/content/images/dummy/blog.svg"
-            width="400px"
-            height="200px"
-          />
-        </div>
-      </div>
+      </section>
+
       {allPosts && (
         <PostCollectionPage bookmarks={bookmarks} posts={allPosts} />
       )}

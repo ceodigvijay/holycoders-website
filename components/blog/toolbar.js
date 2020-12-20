@@ -37,11 +37,13 @@ export default function toolbar({ postId }) {
           <a href="#comments">
             <FontAwesomeIcon className="icon is-medium" icon={faComment} />
           </a>
-          <FontAwesomeIcon
-            color="#00acee"
-            className="icon is-medium"
-            icon={faTwitter}
-          />
+          <a href="#comments">
+            <FontAwesomeIcon
+              color="#00acee"
+              className="icon is-medium"
+              icon={faTwitter}
+            />
+          </a>
         </div>
       ) : (
         ""

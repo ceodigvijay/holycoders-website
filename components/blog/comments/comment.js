@@ -52,39 +52,67 @@ export default function comment({ commentObj, addNewCommentToState }) {
   }
   return (
     <>
-      <article className="media my-5">
-        <figure className="media-left">
-          <p className="image is-48x48">
-            <img src={commentObj.author.profile_image} className="is-rounded" />
-          </p>
-        </figure>
+      <article className="inline-flex my-5">
+        <img
+          alt="user"
+          src={commentObj.author.profile_image}
+          className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center mx-3"
+        />
         <div className="media-content">
           <div className="content">
             <div>
               <strong>{commentObj.author.name}</strong>
               {/* Dropdown */}
-              <div className="dropdown is-hoverable mx-1">
-                <div className="dropdown-trigger">
+              {/* This example requires Tailwind CSS v2.0+ */}
+              <div className="inline-block group">
+                <div>
                   <button
-                    className="button is-small is-white"
+                    type="button"
+                    className="justify-center text-center rounded-md shadow-sm mx-2 px-2 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                    id="options-menu"
                     aria-haspopup="true"
-                    aria-controls="dropdown-menu4"
+                    aria-expanded="true"
                   >
-                    <span className="icon is-small">
-                      <FontAwesomeIcon icon={faAngleDown} />
-                    </span>
+                    {/* Heroicon name: chevron-down */}
+                    <svg
+                      className="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </button>
                 </div>
-                <div className="dropdown-menu" id="dropdown-menu4" role="menu">
-                  <div className="dropdown-content">
-                    {/* Show Edit and Delete when owner or admin */}
+                {/*
+    Dropdown panel, show/hide based on dropdown state.
+
+    Entering: "transition ease-out duration-100"
+From: "transform opacity-0 scale-95"
+To: "transform opacity-100 scale-100"
+    Leaving: "transition ease-in duration-75"
+From: "transform opacity-100 scale-100"
+To: "transform opacity-0 scale-95"
+  */}
+                <div className="hidden group-hover:block origin-top-right absolute w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div
+                    className="py-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
                     {user &&
                     (user.userId === commentObj.author._id ||
                       user.role === "admin" ||
                       user.role === "editor") ? (
                       <>
                         <a
-                          className="dropdown-item"
+                          className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                           onClick={() =>
                             setCommentEditorMode(
                               commentEditorMode === "edit" ? "none" : "edit"
@@ -94,13 +122,13 @@ export default function comment({ commentObj, addNewCommentToState }) {
                           Edit
                         </a>
                         <a
-                          className="dropdown-item"
+                          className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                           onClick={() => handleCommentDelete()}
                         >
                           Delete
                         </a>
                         <a
-                          className="dropdown-item"
+                          className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                           onClick={handleReportClick}
                         >
                           Report
@@ -108,7 +136,10 @@ export default function comment({ commentObj, addNewCommentToState }) {
                       </>
                     ) : (
                       <Link href="/enter">
-                        <a className="dropdown-item" rel="noopener noreferrer">
+                        <a
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          rel="noopener noreferrer"
+                        >
                           Log In
                         </a>
                       </Link>
