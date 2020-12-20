@@ -9,9 +9,9 @@
   transition: all 0.2s linear;
 }
 
-// html {
-//   scroll-behavior: smooth;
-// }
+html {
+  scroll-behavior: smooth;
+}
 
 //Helper Classes
 .button {
@@ -36,8 +36,8 @@
   margin: 0 10px;
 }
 .icon.is-medium {
-  height: 2rem;
-  width: 2rem;
+  height: 20px;
+  width: 20px;
 }
 .has-text-centered {
   @apply text-center;
