@@ -49,14 +49,14 @@ function user({ user, meta, error }) {
             title={`${user.name} - User at HolyCoders`}
             description={`${user.bio}`}
           />
-          <div className="column is-two-fifths ">
+          <div className="grid sm:grid-cold-1 grid-cols-2 gap-4">
             <div className="mx-4 my-4 profile-card">
-              <div className="has-text-centered block">
-                <figure className="image is-128x128 my-2 has-image-centered">
-                  <img className="is-rounded" src={user.profile_image} />
+              <div className="text-center block">
+                <figure className="text-center">
+                  <img className="h-32 w-32 rounded-full" src={user.profile_image} />
                 </figure>
                 <div className="my-4">
-                  <h2 className="title is-4">{user.name}</h2>
+                  <h2 className="text-2xl font-semibold">{user.name}</h2>
                   <p className="subtitle is-5">@{user.username}</p>
                 </div>
               </div>
@@ -146,6 +146,9 @@ function user({ user, meta, error }) {
                 )}
               </div>
             </div>
+            <div>
+              jh
+            </div>
           </div>
           <div className="column">
             <div className="mx-4 my-4 info-card">
@@ -221,11 +224,6 @@ function user({ user, meta, error }) {
         </div>
       )}
       <style jsx>{`
-        figure {
-          border: 3px solid #333;
-          border-radius: 50%;
-          padding: 2px;
-        }
         .profile-card,
         .info-card {
           border: 2px solid #d5d5d5;
