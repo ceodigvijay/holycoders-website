@@ -12,8 +12,8 @@ function Home({ data }) {
         title="HolyCoders - Programming Tutorials, News and Case Studies"
         description="Holycoders is a programming blog dedicated to simplify learning for coders. You can learn and share your knowledge with the community."
       />
-      <section className="featured-column py-6">
-        <h2 className="text-center">Explore Topics</h2>
+      <section className="featured-column">
+        <h2 className="text-center font-semibold text-4xl text-gray-600">Explore Topics</h2>
         <FeaturedNav />
       </section>
       <section>

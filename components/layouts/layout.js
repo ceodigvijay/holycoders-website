@@ -35,61 +35,55 @@ export default function Layout({ children, home }) {
         )}
       </header>
       <main>{children}</main>
-      
+
       {/* Footer */}
       <footer className="footer mt-6">
         <div className="footer__connect">
-          <h2 className="title-font text-3xl font-semibold text-center">Find Us on Social Networks</h2>
+          <h2 className="title-font text-3xl font-semibold text-center">
+            Find Us on Social Networks
+          </h2>
           <div className="grid grid-cols-4 gap-4">
             <div>
               <a
-                className="button is-facebook mx-4"
+                className="button is-facebook mx-2 inline-flex items-center"
                 href="https://www.facebook.com/HolyCoders-103402337844119/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </span>
+                <FontAwesomeIcon icon={faFacebookF} className="h-6 w-6 mx-2" />
                 <span>Facebook</span>
               </a>
             </div>
             <div>
               <a
-                className="button is-github mx-4"
+                className="button is-github mx-2 inline-flex items-center"
                 href="https://github.com/ceodigvijay"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faGithub} />
-                </span>
+                <FontAwesomeIcon icon={faGithub} className="h-6 w-6 mx-2" />
                 <span>Github</span>
               </a>
             </div>
             <div>
               <a
-                className="button is-twitter mx-4"
+                className="button is-twitter mx-4 inline-flex items-center"
                 href="https://twitter.com/holycoders"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </span>
+                <FontAwesomeIcon icon={faTwitter} className="h-6 w-6 mx-2" />
                 <span>Twitter</span>
               </a>
             </div>
             <div>
               <a
-                className="button is-instagram mx-4"
+                className="button is-instagram mx-2 inline-flex items-center"
                 href="https://www.instagram.com/holy_coders/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </span>
+                <FontAwesomeIcon icon={faInstagram} className="h-6 w-6 mx-2" />
                 <span>Instagram</span>
               </a>
             </div>
@@ -208,10 +202,10 @@ export default function Layout({ children, home }) {
           Digvijay Singh with ❤️ in 🇮🇳
         </div>
       </footer>
-      <style jsx>{` 
+      <style jsx>{`
         .footer__connect {
           padding: 20px;
-          margin: 30px 20px; 
+          margin: 30px 20px;
           border-radius: 5px;
           border: 1px dotted #36a666;
           background-color: #fff;
@@ -221,7 +215,6 @@ export default function Layout({ children, home }) {
         }
         .footer__connect a {
           margin: 30px 30px;
-          display: inline-block;
           color: #fff !important;
         }
         .footer-copyright {
