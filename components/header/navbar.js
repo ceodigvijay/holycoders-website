@@ -11,13 +11,11 @@ export default function navbar() {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a
-          className={`navbar-item ${currentPath === "" ? "active" : ""}`}
-          href="/"
-        >
-          HolyCoders
-        </a>
-
+        <Link href="/">
+          <a className={`navbar-item ${currentPath === "" ? "active" : ""}`}>
+            HolyCoders
+          </a>
+        </Link>
         <a
           role="button"
           onClick={() => {
@@ -55,17 +53,36 @@ export default function navbar() {
               Courses
             </a>
           </Link>
+          <Link href="/news/">
+            <a
+              className={`navbar-item ${
+                currentPath === "news" ? "active" : ""
+              }`}
+            >
+              News
+            </a>
+          </Link>
 
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
 
             <div className="navbar-dropdown is-boxed">
+              <Link href="/case-study/">
+                <a className="navbar-item">Case Studies</a>
+              </Link>
+              <Link href="/snippets/">
+                <a className="navbar-item">Code Snippets</a>
+              </Link>
               <Link href="/tags/">
                 <a className="navbar-item">Tags</a>
               </Link>
-              <a className="navbar-item">Contact</a>
+              <Link href="/contact/">
+                <a className="navbar-item">Contact</a>
+              </Link>
               <hr className="navbar-divider" />
-              <a className="navbar-item">Report an issue</a>
+              <Link href="/report/">
+                <a className="navbar-item">Report an issue</a>
+              </Link>
             </div>
           </div>
         </div>
@@ -76,7 +93,7 @@ export default function navbar() {
               <div className="buttons">
                 <span className="button is-white">
                   <Link href="/enter/">
-                    <a className="has-text-primary">
+                    <a className="has-text-dark">
                       <strong>Dashboard</strong>
                     </a>
                   </Link>

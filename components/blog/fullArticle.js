@@ -46,7 +46,39 @@ const fullArticle = ({
       );
     },
     image: ({ src, alt }) => {
-      return <Image src={src} alt={alt} width="720px" height="400px" />;
+      let width = 720;
+      let height = 400;
+      try {
+        const mat = alt.match(/\[([^)]+)\]/)[1];
+        [width, height] = mat.split(",");
+      } catch (error) {}
+      console.log(width, height);
+      return (
+        <>
+          <div
+            style={{ position: "relative", width: "300px", height: "400px" }}
+          >
+            <Image
+              src={src}
+              alt={alt}
+              objectFit="contain"
+              objectPosition="50% 50%"
+              className="hc_img"
+              layout="fill"
+            />
+            {/* <a href="#" class="lightbox" id={src}>
+            <span
+              style={{
+                backgroundImage: `url("${src}")`,
+              }}
+            ></span>
+          </a> */}
+          </div>
+          <a href={src} target="_blank" rel="norefferer noopener" c>
+            Open Image
+          </a>
+        </>
+      );
     },
   };
 
@@ -84,7 +116,6 @@ const fullArticle = ({
                 width={720}
                 height={400}
               />
-              {/* <img src={featured_image} alt={title} /> */}
             </div>
           ) : (
             ""
@@ -135,8 +166,8 @@ const fullArticle = ({
         <section className="" id="comments">
           {showComments ? (
             <>
-            <h2 className="title is-4 has-text-centered">Comments</h2>
-            <Comments contentId={_id} contentType={"post"} />
+              <h2 className="title is-4 has-text-centered">Comments</h2>
+              <Comments contentId={_id} contentType={"post"} />
             </>
           ) : (
             <div className="has-text-centered">
@@ -148,11 +179,11 @@ const fullArticle = ({
         </section>
       </article>
       <style jsx>{`
-        #comments{
+        #comments {
           max-width: 900px;
           margin: 10px auto;
         }
-        `}</style>
+      `}</style>
     </Layout>
   );
 };

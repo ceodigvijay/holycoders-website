@@ -182,8 +182,13 @@ export default function Layout({ children, home }) {
                 </Link>
               </li>
               <li>
-                <Link href="/enter/">
-                  <a>Go to Dashboard</a>
+                <Link href="/news/">
+                  <a>News</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/case-study/">
+                  <a>Case Studies</a>
                 </Link>
               </li>
             </ul>
@@ -207,8 +212,8 @@ export default function Layout({ children, home }) {
                 </Link>
               </li>
               <li>
-                <Link href="/learn/website-hacking-and-security/">
-                  <a>Website Hacking and Prevention Course</a>
+                <Link href="/snippets/">
+                  <a>Code Snippets</a>
                 </Link>
               </li>
             </ul>

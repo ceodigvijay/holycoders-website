@@ -17,15 +17,15 @@ function Home({ data }) {
         <FeaturedNav />
       </section>
       <section>
-        <h2 className="has-text-centered is-3 title">Latest from blog</h2>
+        <h2 className="has-text-centered is-3 title my-4">Latest from blog</h2>
         <PostCollectionPage
           bookmarks={data.bookmarks}
           posts={data.posts}
           showPagination={false}
         />
-        <div className="has-text-centered">
+        <div className="has-text-centered my-6">
           <Link href="/blog">
-            <a className="button is-primary">View More .</a>
+            <a className="button is-primary is-medium is-outlined">View More</a>
           </Link>
         </div>
       </section>

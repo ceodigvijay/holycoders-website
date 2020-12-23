@@ -346,25 +346,32 @@ export default function starryEditor(props) {
                   }}
                   uploadImage={async (file) => {
                     try {
-                      const res = await handleImageUpload(file);
-                      console.log(res);
-                      return res.location;
-                    } catch (error) {
-                      if (
-                        error &&
-                        error.response.data &&
-                        error.response.data.includes("File too large")
-                      ) {
+                      //If filesize>1mb raise error
+                      if (file && file.size >= 1000000) {
                         addNotification({
                           message: "Max File Size Limit is 1 MB",
                           type: "error",
                         });
+                        throw "FILE ERROR";
                       } else {
-                        addNotification({
-                          message: "Some error occured",
-                          type: "error",
-                        });
+                        const res = await handleImageUpload(file);
+                        console.log(res);
+                        return res.Location;
                       }
+                    } catch (error) {
+                      let message = "Some error occured";
+                      if (
+                        error &&
+                        error.response.data &&
+                        error.response.data.code === "FILE_TOO_LARGE"
+                      ) {
+                        message = "Max File Size Limit is 1 MB";
+                      }
+                      addNotification({
+                        message: message,
+                        type: "error",
+                      });
+
                       throw error;
                     }
                   }}
