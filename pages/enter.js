@@ -80,7 +80,7 @@ function login({ redirectTo } = {}) {
   return (
     <Layout>
       <div className="auth container my-6">
-        <h1 className="title my-6">Welcome back Coder</h1>
+        <h1 className="title my-6 has-text-grey-dark">Welcome back Coder</h1>
         <div className="social-login-container">
           <GitHubLoginButton
             onClick={() =>
@@ -117,6 +117,11 @@ function login({ redirectTo } = {}) {
           both developers and users.
         </div>
       </div>
+      <style jsx>{`
+        .auth{
+          max-width: 450px;
+        }
+        `}</style>
     </Layout>
   );
 }

@@ -68,8 +68,7 @@ export default function starryEditor(props) {
     e.preventDefault();
     try {
       const imageUrl = await handleImageUpload(e.target.files[0]);
-      console.log(imageUrl);
-      setPost({ ...post, featured_image: imageUrl.location });
+      setPost({ ...post, featured_image: imageUrl.Location });
     } catch (error) {
       addNotification({
         message: "Some error occured in uploading the image.",

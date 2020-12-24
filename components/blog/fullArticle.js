@@ -49,36 +49,48 @@ const fullArticle = ({
       let width = 720;
       let height = 400;
       try {
-        const mat = alt.match(/\[([^)]+)\]/)[1];
-        [width, height] = mat.split(",");
+        if (src) {
+          const dimensionData = src.split("x").reverse();
+          width = dimensionData[1];
+          height = dimensionData[0].split(".")[0];
+        }
       } catch (error) {}
-      console.log(width, height);
-      return (
-        <>
-          <div
-            style={{ position: "relative", width: "300px", height: "400px" }}
-          >
-            <Image
-              src={src}
-              alt={alt}
-              objectFit="contain"
-              objectPosition="50% 50%"
-              className="hc_img"
-              layout="fill"
-            />
-            {/* <a href="#" class="lightbox" id={src}>
-            <span
+      // If image have width and height send normal image or send with 'view full image' btn
+      if (width && height) {
+        return (
+          <Image
+            src={src}
+            alt={alt}
+            width={width ? width : 700}
+            height={height ? height : 400}
+          />
+        );
+      } else {
+        return (
+          <>
+            <div
               style={{
-                backgroundImage: `url("${src}")`,
+                position: "relative",
+                width: "700px",
+                height: "400px",
+                margin: "0 auto",
               }}
-            ></span>
-          </a> */}
-          </div>
-          <a href={src} target="_blank" rel="norefferer noopener" c>
-            Open Image
-          </a>
-        </>
-      );
+            >
+              <Image
+                src={src}
+                alt={alt}
+                objectFit="contain"
+                objectPosition="50% 50%"
+                className="hc_img"
+                layout="fill"
+              />
+            </div>
+            <a href={src} target="_blank" rel="norefferer noopener">
+              Open Full Image
+            </a>
+          </>
+        );
+      }
     },
   };
 
