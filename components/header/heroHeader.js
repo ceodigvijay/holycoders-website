@@ -1,36 +1,38 @@
 import React from "react";
 import HomePageIcon from "../icons/homepage";
-import Image from 'next/image'
+import Image from "next/image";
+import Link from "next/link";
 export default function heroHead() {
   return (
-    <section className="hero" style={{ minHeight: "90vh" }}>
-      <div className="hero-body">
-        <div className="columns is-vcentered has-text-centered-mobile	">
-          <div className="column is-half">
-            <h1 className="has-text-weight-medium	is-size-2 is-size-3-mobile has-text-black my-5">
-              Be the part of Community
-            </h1>
-            <h2 className="my-5">
-              Copper mug try-hard pitchfork pour-over freegan heirloom neutra
-              air plant cold-pressed tacos poke beard tote bag. Heirloom echo
-              park mlkshk tote bag selvage hot chicken authentic tumeric
-              truffaut hexagon try-hard chambray.
-            </h2>
-            <div className="has-text-centered-mobile">
-              <button className="button is-primary is-medium mr-2">Dashboard</button>
-              <button className="button is-medium is-light mx-2">Blog</button>
-            </div>
+    <section className="text-gray-700 body-font dark:bg-gray-800">
+      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 dark:text-gray-100">
+            Be the part of Community that
+            <br className="hidden lg:inline-block" />
+            codes for a change.
+          </h1>
+          <p className="mb-8 leading-relaxed dark:text-gray-400">
+            The community is for programmers who want to learn and share new
+            things with others while enjoying learning new things. Something
+            great is on our roadmap to showcase your creativity while competing
+            and contributing to community.
+          </p>
+          <div className="flex justify-center">
+            <Link href="/enter/">
+              <a className="inline-flex text-white cursor-pointer bg-primary-600 border-0 py-2 px-6 focus:outline-none hover:bg-primary-700 rounded text-lg">
+                Join Community
+              </a>
+            </Link>
+            <Link href="/blog/">
+              <a className="ml-4 inline-flex cursor-pointer text-gray-700 bg-gray-200 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg">
+                Visit Blog
+              </a>
+            </Link>
           </div>
-          <div className="column is-half text-center px-6 py-6">
-
-            <Image src="/home1.svg" width="720" height="600" className="px-2 py-2" />
-            {/* <img
-              src="https://dummyimage.com/720x600"
-              alt="holycoders featured"
-              className="px-2 py-2"
-            /> */}
-            {/* <HomePageIcon width="500" height="500" /> */}
-          </div>
+        </div>
+        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+          <Image src="/home1.svg" width="720" height="600" />
         </div>
       </div>
     </section>

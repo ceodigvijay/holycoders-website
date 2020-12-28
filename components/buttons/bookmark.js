@@ -56,11 +56,11 @@ export default function bookmark({
           >
             <FontAwesomeIcon
               icon={bookmarked ? fasBookmark : faBookmark}
-              className="icon is-medium"
               color="#3C8DDC"
+              size="2x"
             />
           </span>
-          <span style={{ margin: "0px 5px" }}>{bookmarkCounter}</span>
+          <span className="mx-4">{bookmarkCounter}</span>
         </label>
       </div>
       <style jsx>{`

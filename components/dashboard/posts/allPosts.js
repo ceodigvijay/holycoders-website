@@ -26,20 +26,24 @@ export default function allPosts() {
     posts: [],
     meta: {},
   });
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState({
+    searchText: '',
+    statusOfItem: ''
+  });
   const { totalCount, pageCount, currentPage, limit } = postData.meta;
   const { addNotification } = useContext(GlobalContext);
   useEffect(() => {
     const getData = async () => {
       let data;
       try {
-        const res = await getUserAllPosts(page, 12, "post", searchValue);
+        const res = await getUserAllPosts(page, 12, "post", searchValue.searchText, searchValue.statusOfItem);
         data = res.data;
       } catch (error) {
         addNotification({
-          message: error.response.data.message
-            ? error.response.data.message
-            : "Some error in fetching the posts. Please contact us.",
+          message:
+            error && error.response && error.response.data.message
+              ? error.response.data.message
+              : "Some error in fetching the posts. Please contact us.",
           type: "error",
         });
       }
@@ -52,22 +56,11 @@ export default function allPosts() {
 
   return (
     <div>
-      <nav className="">
-        <p className="panel-heading">
-          <span>Posts</span>
-          <Link
-            href="/dashboard/editor/[type]/[id]/"
-            as="/dashboard/editor/post/new/"
-          >
-            <a className="button is-primary">New Post</a>
-          </Link>
-        </p>
-      </nav>
       <ListView
         data={postData}
         isTagPage={false}
         searchvalue={searchValue}
-        handleSearch={(e) => setSearchValue(e.target.value)}
+        setSearchValue={setSearchValue}
       />
     </div>
   );

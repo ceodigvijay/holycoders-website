@@ -12,7 +12,7 @@ export default function tags({ tags }) {
         title={`Top 100 Most Popular Tags - HolyCoders`}
         description="The collection of the most popular tags on HolyCoders having tons of articles under them."
       />
-      <div className="columns is-multiline my-6 mx-4">
+      <div className="grid grid-cols-4 gap-4 my-6 mx-4">
         {tags.map((tag) => {
           return (
             <div className="column is-one-quarter ">
@@ -22,7 +22,7 @@ export default function tags({ tags }) {
                   style={{ border: `2px solid ${tag.hex_color}` }}
                 >
                   {tag.featured_image ? (
-                    <figure className="tag-fig image is-48x48">
+                    <figure className="tag-fig text-center">
                       <Image
                         src={tag.featured_image}
                         alt={tag.name}
@@ -35,7 +35,7 @@ export default function tags({ tags }) {
                     ""
                   )}
 
-                  <div className="tag-card-footer has-text-centered mt-2">
+                  <div className="tag-card-footer text-center mt-2 text-gray-600 dark:text-gray-100">
                     {tag.name}
                   </div>
                 </div>
@@ -55,11 +55,7 @@ export default function tags({ tags }) {
           box-shadow: 0 0px 25px -5px rgba(0, 0, 0, 0.2),
             0 15px 20px -15px rgba(0, 0, 0, 0.2);
         }
-        .tag-card-footer {
-          font-weight: 600;
-          font-size: 20px;
-          color: #636e72;
-        }
+
         .tag-fig {
           margin: 0 auto;
         }

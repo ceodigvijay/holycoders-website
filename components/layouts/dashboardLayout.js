@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import GlobalContext from "../../contexts/globalContext";
 import { useRouter } from "next/router";
+import Layout from "./layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTachometerAlt,
@@ -21,136 +22,200 @@ export default function dashboardLayout({ children }) {
   const route = router.asPath.split("/").reverse()[1];
   const [currentRoute, setCurrentRoute] = useState(route);
   const { user, globalState, setGlobalState } = useContext(GlobalContext);
-  console.log(user);
+  const dashNavs = [
+    {
+      title: "Dashboard",
+      link: "/dashboard/",
+      isProtected: false,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Favourites",
+      link: "/dashboard/favourites/",
+      isProtected: false,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Posts",
+      link: "/dashboard/posts/",
+      isProtected: false,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Pages",
+      link: "/dashboard/pages/",
+      isProtected: true,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Tags",
+      link: "/dashboard/tags/",
+      isProtected: true,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Users",
+      link: "/dashboard/users/",
+      isProtected: true,
+
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Setting",
+      link: "/dashboard/setting/",
+      isProtected: false,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
+      ),
+    },
+  ];
   return (
-    <AuthWrapper>
-      <div className="">
-        <nav className="dashboard-nav">
-          <ul>
-            <li className={`back-home`}>
-              <Link href="/">
-                <a>
-                  <span className="sidebar-icon">
-                    <FontAwesomeIcon icon={faHome} />
-                  </span>
-                </a>
-              </Link>
-            </li>
-            <li className={currentRoute === "dashboard" ? "active" : ""}>
-              <Link href="/dashboard">
-                <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faTachometerAlt} />
-                </a>
-              </Link>
-            </li>
-            <li className={currentRoute === "favourites" ? "active" : ""}>
-              <Link href="/dashboard/favourites/">
-                <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faStar} />
-                </a>
-              </Link>
-            </li>
-            <li className={currentRoute === "posts" ? "active" : ""}>
-              <Link href="/dashboard/posts/">
-                <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faFile} />
-                </a>
-              </Link>
-            </li>
-            {user && (user.role === "admin" || user.role === "editor") ? (
-              <>
-                <li className={currentRoute === "pages" ? "active" : ""}>
-                  <Link href="/dashboard/pages/">
-                    <a className="sidebar-icon">
-                      <FontAwesomeIcon icon={faFileAlt} />
-                    </a>
-                  </Link>
-                </li>
-                <li className={currentRoute === "tags" ? "active" : ""}>
-                  <Link href="/dashboard/tags/">
-                    <a className="sidebar-icon">
-                      <FontAwesomeIcon icon={faTags} />
-                    </a>
-                  </Link>
-                </li>
-                <li className={currentRoute === "users" ? "active" : ""}>
-                  <Link href="/dashboard/users/">
-                    <a className="sidebar-icon">
-                      <FontAwesomeIcon icon={faUsers} />
-                    </a>
-                  </Link>
-                </li>
-              </>
-            ) : (
-              ""
-            )}
-
-            <li className={currentRoute === "setting" ? "active" : ""}>
-              <Link href="/dashboard/setting/">
-                <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faCog} />
-                </a>
-              </Link>
-            </li>
-
-            <li className="sidebar-logout">
-              <Link href="/logout/">
-                <a className="sidebar-icon">
-                  <FontAwesomeIcon icon={faSignOutAlt} />
-                </a>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <main className="dashboard-content">{children}</main>
-        <style jsx>{`
-          .dashboard-nav {
-            width: 66px;
-            z-index: 99;
-          }
-          .dashboard-content {
-            margin-left: 78px;
-          }
-
-          nav {
-            fill: #fff;
-            border-right: 2px solid #f5f5f5;
-            display: flex;
-            justify-content: center;
-          }
-          ul {
-            padding: 12px;
-            background-color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-            position: fixed;
-            justify-content: center;
-          }
-          li:hover {
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: 0.5s;
-          }
-
-          .active a {
-            color: #36a666;
-          }
-          .sidebar-icon {
-            font-size: 1.5em;
-            border-radius: 50%;
-            padding: 5px;
-            color: #fff;
-            margin: 10px 10px;
-            display: inline-block;
-          }
-
-          .sidebar-logout {
-            margin-top: auto;
-          }
-        `}</style>
-      </div>
-    </AuthWrapper>
+    <Layout>
+      <AuthWrapper>
+        <div className="bg-primary-6 px-2 md:px-12 py-2 min-h-screen">
+          <nav>
+            <ul className="flex m-4 flex-wrap">
+              {dashNavs.map((element) => {
+                var isActive =
+                  currentRoute === element.link.split("/").reverse()[1];
+                return element.isProtected & user &&
+                  (user.role !== "admin" || user.role !== "editor") ? (
+                  ""
+                ) : (
+                  <li
+                    className={`mr-2`}
+                  >
+                    <Link href={element.link}>
+                      <a
+                        className={`flex items-center px-6 py-4 hover:bg-gray-700 rounded-lg ${
+                          isActive
+                            ? "text-primary-100 font-medium"
+                            : "text-gray-400"
+                        }`}
+                      >
+                        <span className="mx-2">{element.icon}</span>
+                        <span className="text-lg">{element.title}</span>
+                      </a>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <main className="dashboard-content border-t-2 border-gray-200 dark:border-gray-700 md:px-2 py-4">
+            {children}
+          </main>
+        </div>
+      </AuthWrapper>
+    </Layout>
   );
 }

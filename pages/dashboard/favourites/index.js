@@ -17,20 +17,26 @@ export default function index() {
   return (
     <DashboardLayout>
       <div className="px-4">
-        <h1 className="has-text-centered title is-2 my-4 py-4">Bookmarks</h1>
         <div className="panel my-4 px-4 py-4">
-          {bookmarksData.bookmarks.map((bookmark) => {
+          {bookmarksData.bookmarks.map((bookmark, index) => {
+            var link =
+              bookmark.post.type === "page"
+                ? `/${bookmark.post.slug}`
+                : `/${bookmark.post.category}/${bookmark.post.slug}`;
             return (
-              <div className="px-1 my-6 title is-4" key={bookmark.post._id}>
-                <Link
-                  href={
-                    bookmark.post.type === "page"
-                      ? `/${bookmark.post.slug}`
-                      : `/${bookmark.post.category}/${bookmark.post.slug}`
-                  }
-                >
-                  <a>{bookmark.post.title}</a>
-                </Link>
+              <div key={bookmark.post._id}>
+                <div className="p-4 w-full">
+                  <div className="flex rounded-lg h-full bg-gray-50 dark:bg-gray-700 p-8 flex-col">
+                    <div className="flex items-center mb-2">
+                      
+                      <Link href={link}>
+                        <a className="text-gray-900 dark:text-gray-100 text-xl title-font font-medium">
+                          {bookmark.post.title}
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}

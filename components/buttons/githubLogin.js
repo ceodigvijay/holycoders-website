@@ -4,25 +4,12 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 export default function githubLoginButton(props) {
   return (
     <>
-      <button className="button github-login mt-2 px-6 py-4" {...props}>
-        <span className="icon">
-          <FontAwesomeIcon icon={faGithub} />
+      <button className="flex items-center my-4 text-lg w-full px-4 py-4 bg-black hover:bg-gray-800 dark:hover:bg-gray-900 font-medium rounded-lg text-white" {...props}>
+        <span className="mx-2">
+          <FontAwesomeIcon icon={faGithub} size="2x" />
         </span>
-        <span>Sign In with GitHub</span>
+        <span className="mx-2">Sign In with GitHub</span>
       </button>
-      <style jsx>
-        {`
-          .github-login {
-            background-color: #24292e;
-            color: #fff;
-            height: 50px;
-            width: 100%;
-          }
-          .github-login:hover {
-            background-color: #000;
-          }
-        `}
-      </style>
     </>
   );
 }

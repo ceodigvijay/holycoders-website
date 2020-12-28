@@ -4,7 +4,7 @@ import Like from "../buttons/like";
 import Bookmark from "../buttons/bookmark";
 // import ReadingProgress from "./readingProgress";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faComment } from "@fortawesome/free-regular-svg-icons";
+import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { getPostReactions } from "../../lib/index";
 export default function toolbar({ postId }) {
   const [toolbarData, setToolbarData] = useState(null);
@@ -35,12 +35,13 @@ export default function toolbar({ postId }) {
             userHasbookmarked={toolbarData.hasBookmarked}
           />
           <a href="#comments">
-            <FontAwesomeIcon className="icon is-medium" icon={faComment} />
+            <FontAwesomeIcon className="icon is-medium" icon={faComment} size="2x"/>
           </a>
           <FontAwesomeIcon
             color="#00acee"
             className="icon is-medium"
             icon={faTwitter}
+            size="2x"
           />
         </div>
       ) : (

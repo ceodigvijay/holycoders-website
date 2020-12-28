@@ -43,6 +43,7 @@ export default function sidebar(props) {
       <input
         id="se_url"
         type="text"
+        className="setting-input"
         placeholder="URL of the Post"
         value={post.slug || ""}
         onChange={(e) => {
@@ -86,51 +87,52 @@ export default function sidebar(props) {
           setPost({ ...post, tags });
         }}
       />
-      <div className="select" style={{ width: "100%" }}>
-        <select
-          style={{ width: "100%" }}
-          value={post.category}
-          onChange={(e) => setPost({ ...post, category: e.target.value })}
-        >
-          <option value="tutorial">Tutorial</option>
-          <option value="news">News</option>
-          <option value="snippets">Snippets</option>
-          <option value="opinion">Opinion</option>
-          <option value="general">General</option>
-          <option value="case-study">Case Study</option>
-        </select>
-      </div>
+      <select
+        style={{ width: "100%" }}
+        className="setting-input my-2"
+        value={post.category}
+        onChange={(e) => setPost({ ...post, category: e.target.value })}
+      >
+        <option value="tutorial">Tutorial</option>
+        <option value="news">News</option>
+        <option value="snippets">Snippets</option>
+        <option value="opinion">Opinion</option>
+        <option value="general">General</option>
+        <option value="case-study">Case Study</option>
+      </select>
+      <div className="my-2">
       <input
         type="text"
+        className="setting-input my-2"
         placeholder="Meta title"
         value={post.meta_title}
         onChange={(e) => setPost({ ...post, meta_title: e.target.value })}
       />
-      <progress
-        className={`progress is-small ${
-          post.meta_title.length <= 60 ? "is-success" : "is-danger"
+      <p
+        className={` text-sm text-gray-500 ${
+          post.meta_title.length <= 60 ? "" : "text-red-600"
         }`}
-        value={(post.meta_title.length / 60) * 100}
-        max="100"
       >
-        {(post.meta_title.length / 60) * 100}%
-      </progress>
+        {post.meta_title.length} / 60
+      </p>
+      </div>
+
       <textarea
+        className="setting-input my-2"
         placeholder="Description"
         value={post.meta_description}
         onChange={(e) => setPost({ ...post, meta_description: e.target.value })}
       />
-      <progress
-        className={`progress is-small ${
-          post.meta_description.length <= 158 ? "is-success" : "is-danger"
+      <p
+        className={` text-sm text-gray-500 ${
+          post.meta_description.length <= 158 ? "" : "text-red-600"
         }`}
-        value={(post.meta_description.length / 158) * 100}
-        max="100"
       >
-        {(post.meta_description.length / 158) * 100}%
-      </progress>
+        {post.meta_description.length} / 158
+      </p>
       <input
         type="text"
+        className="setting-input my-2"
         placeholder="Canonical Link"
         value={post.canonical_link}
         onChange={(e) => setPost({ ...post, canonical_link: e.target.value })}
@@ -156,25 +158,21 @@ export default function sidebar(props) {
         ""
       )}
 
-      <div className="field is-grouped mt-6">
-        <p className="control">
-          <button className="button is-warning">
-            <span className="icon is-small">
+      <div className="flex">
+          <button className="flex items-center px-1 py-2 mx-1 text-gray-600 rounded-md">
+            <span className="mx-1">
               <FontAwesomeIcon icon={faExclamationTriangle} />
             </span>
             <span>Revert to Draft</span>
           </button>
-        </p>
-        <p className="control">
-          <button className="button is-danger" onClick={props.deletePost}>
-            <span className="icon is-small">
+          <button className="flex items-center px-1 py-2 mx-1 text-red-600 rounded-md" onClick={props.deletePost}>
+            <span className="mx-1">
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>
             <span>
               {post.status === "trash" ? "Delete Post" : "Move to Trash"}
             </span>
           </button>
-        </p>
       </div>
 
       <style global jsx>

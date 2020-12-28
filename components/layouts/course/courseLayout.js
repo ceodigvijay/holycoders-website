@@ -72,56 +72,62 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
         ""
       )}
 
-      <main className="mx-5 my-4">
-        <div className="columns">
-          <div className="column is-one-quarter panel">
-            {/* <div className="py-6 has-text-centered">Score: 500</div> */}
+      <section className="px-4 py-6 bg-gray-100 dark:bg-gray-700">
+        <div className="container w-full flex flex-wrap mx-auto">
+          <aside className="w-full lg:w-1/4 lg:px-6 text-xl leading-normal">
             <SideNav chapters={chapters} />
-            <img
-              src="/content/images/dummy/laid3.png"
-              alt="holycoders exclusive"
-              width="280"
-              height="250"
-              className="course-left mt-6"
-            />
-          </div>
-          <div className="column mx-2 panel px-6">
-            {/* BreadCrub */}
-            <nav className="breadcrumb" aria-label="breadcrumbs">
-              <ul>
-                <li>
-                  <Link href="/">
-                    <a>Home</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/learn/">
-                    <a>Course</a>
-                  </Link>
-                </li>
-                <li className="is-active is-capitalized">
-                  <a href="#">{courseDetails.courseName}</a>
-                </li>
-              </ul>
-            </nav>
-            {/* BreakCrumb Ends */}
-            <h1 className="title is-1 has-text-centered">
-              {meta && meta.title ? meta.title : courseDetails.courseTitle}
-            </h1>
-            <div className="content">{children}</div>
+          </aside>
+
+          <div className="w-full flex flex-col lg:w-3/4 p-8 mt-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg lg:mt-0 text-gray-900 dark:text-gray-200 leading-normal">
+            <div>
+              {/* BreadCrub */}
+              <nav className="breadcrumb" aria-label="breadcrumbs">
+                <ul>
+                  <li>
+                    <Link href="/">
+                      <a>Home</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/learn/">
+                      <a>Course</a>
+                    </Link>
+                  </li>
+                  <li className="is-active is-capitalized">
+                    <a href="#">{courseDetails.courseName}</a>
+                  </li>
+                </ul>
+              </nav>
+              {/* BreakCrumb Ends */}
+              <h1 className="title is-1 has-text-centered">
+                {meta && meta.title ? meta.title : courseDetails.courseTitle}
+              </h1>
+            </div>
+            <div className="content flex-grow">{children}</div>
             <nav
-              className="columns pagination is-centered my-6"
+              className="bottom-0 flex my-2"
               role="navigation"
               aria-label="pagination"
             >
               {/* If previous chapter then show navigation */}
-              <div className="column has-text-left">
+              <div className="m-auto text-gray-400">
                 {chapters[currentChapterIndex - 1] ? (
                   <Link href={chapters[currentChapterIndex - 1].link}>
-                    <a className="pagination-previous button is-primary">
-                      <span className="icon is-small">
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                      </span>
+                    <a className="flex items-center rounded-lg text-center	text-xl sm:text-lg px-4 py-2 hover:bg-primary-100  dark:hover:bg-primary-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        className="h-8 w-8"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
                       <span>{chapters[currentChapterIndex - 1].title}</span>
                     </a>
                   </Link>
@@ -131,14 +137,25 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
               </div>
 
               {/* If next chapter then show navigation */}
-              <div className="column has-text-right	">
+              <div className="m-auto text-gray-800 dark:text-gray-100">
                 {chapters[currentChapterIndex + 1] ? (
                   <Link href={chapters[currentChapterIndex + 1].link}>
-                    <a className="pagination-next button is-primary ">
+                    <a className="flex items-center rounded-lg text-center	text-xl sm:text-lg px-4 py-2 hover:bg-primary-100 dark:hover:bg-primary-600">
                       <span>{chapters[currentChapterIndex + 1].title}</span>
-                      <span className="icon is-small">
-                        <FontAwesomeIcon icon={faChevronRight} />
-                      </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        className="w-8 h-8"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
                     </a>
                   </Link>
                 ) : (
@@ -148,7 +165,7 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
             </nav>
           </div>
         </div>
-      </main>
+      </section>
     </GlobalLayout>
   );
 }

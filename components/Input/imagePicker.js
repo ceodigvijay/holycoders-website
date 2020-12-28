@@ -27,20 +27,33 @@ export default function imagePicker(props) {
               d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"
             />
           </svg>
-          <p className="upload-text">
-            Drag your Featured Image or Click Here.
-          </p>
+          <p className="upload-text">Drag your Featured Image or Click Here.</p>
         </form>
       ) : (
-        <>
-          <img src={props.image} className="featured-image" />
-          <button
-            onClick={props.handleImageDelete}
-            className="button is-small is-danger delete-image-btn"
-          >
-            Delete Image
+        <div className="relative">
+          <img
+            src={props.image}
+            className="featured-image rounded-md"
+            width="720px"
+            height="400px"
+          />
+          <button onClick={props.handleImageDelete} className="absolute top-0 right-0 bg-red-600 rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-8 h-8 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
           </button>
-        </>
+        </div>
       )}
 
       <style jsx>{`

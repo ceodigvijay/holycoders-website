@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "gulpserver",
+      "script": "gulp",
+      "max_memory_restart": "900M"
+    }
+  ]
+}

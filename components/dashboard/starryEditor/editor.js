@@ -236,26 +236,33 @@ export default function starryEditor(props) {
         pullRight={true}
       >
         <div className="">
-          <header className="top-toolbar">
-            <div className="header-left buttons has-addons">
-              {/* <Link href="/u/[user]/posts" as={`/u/${user.username}/posts`}> */}
+          <header className="flex justify-between my-2">
+            <div className="flex items-center buttons has-addons">
               <Link href="/dashboard/posts">
-                <a className="button is-medium is-light">
-                  <span className="icon">
-                    <FontAwesomeIcon
-                      icon={faChevronLeft}
-                      style={{ verticalAlign: "middle" }}
+                <a className="px-4 my-4 flex items-center group border-r-2 border-gray-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
                     />
-                  </span>
+                  </svg>
                   <span>Posts</span>
                 </a>
               </Link>
-              <span className="button is-medium is-white has-text-grey-light">
+              <span className=" text-gray-400 px-4 py-4 flex items-center">
                 {post.status.replace(/\b[a-z]/g, (x) => x.toUpperCase()) ||
                   "draft-e"}
               </span>
             </div>
-            <div className="header-left">
+            <div className="flex">
               {(post.status === "draft" || post.status === "review") &&
               post.post_id &&
               post.post_id !== "new" ? (
@@ -271,12 +278,25 @@ export default function starryEditor(props) {
               ) : (
                 <button
                   onClick={(e) => handlePostUpdate(e)}
-                  className={`button  is-success is-medium ${
+                  className={`px-4 mx-2 rounded-md flex items-center bg-primary-600 hover:bg-primary-700 text-white text-xl ${
                     loadingData.saveInProgress ? "is-loading" : "is-light"
                   } `}
                 >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faRocket} color="#36a666" />
+                  <span className="mx-2">
+                    <svg
+                      className="w-8 h-8"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                      />
+                    </svg>
                   </span>
                   {post.status === "draft" ? (
                     <span>Save Draft</span>
@@ -289,18 +309,35 @@ export default function starryEditor(props) {
               <button
                 onClick={() => setOpen(true)}
                 border="1px solid #d5d5d5"
-                className="button is-medium ml-5"
+                className="px-4 py-2 mx-4 bg-gray-50 text-gray-800 rounded-lg"
               >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faSlidersH} />
-                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
               </button>
             </div>
           </header>
-          <div className="starry-editor-editable" onKeyDown={handleKeyDown}>
+          <div className="starry-editor-editable my-12" onKeyDown={handleKeyDown}>
             {/* 55-60 Char long */}
             <TextareaAutosize
-              className="se-title"
+              className="title-font text-center text-gray-800 dark:text-gray-100 text-5xl lg:text-6xl font-bold focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full border-transparent resize-none rounded-md"
               placeholder="Title"
               value={post.title}
               onChange={(e) => {
@@ -315,11 +352,11 @@ export default function starryEditor(props) {
               handleImageUpload={handleFeaturedImageUpload}
               image={post.featured_image}
             />
-            <div className="columns">
-              <div className="column"></div>
-              <div className="column is-three-fifths content is-medium">
+            <div className="grid grid-cols-5 gap-2">
+              <div className="col-span-5 lg:col-span-1"></div>
+              <div className="col-span-5 lg:col-span-3 ">
                 <TextareaAutosize
-                  className="se-intro"
+                  className="w-full border-gray-50 resize-none text-lg"
                   placeholder="Introduction"
                   value={post.introduction}
                   onChange={(e) => {
@@ -327,7 +364,7 @@ export default function starryEditor(props) {
                   }}
                 />
                 <Editor
-                  className="content"
+                className="prose dark:prose-dark lg:prose-lg max-w-none"
                   // dark={true}
                   placeholder="Start Writing Your Amazing Post..."
                   handleDOMEvents={{
@@ -378,74 +415,20 @@ export default function starryEditor(props) {
                   defaultValue={post.content_raw}
                 />
               </div>
-              <div className="column"></div>
+              <div className="col-span-5 lg:col-span-1"></div>
+
             </div>
           </div>
         </div>
       </Sidebar>
 
-      <style jsx global>{`
+      {/* <style jsx global>{`
         html {
           overflow: auto !important;
         }
-        .se-title,
-        .se-intro {
-          margin: 20px auto;
-          color: #2c3e50;
-          border: none;
-          font-size: 20px;
-          width: 100%;
-          padding: 10px;
-          resize: none;
-        }
-        .se-title {
-          font-size: 2.8em;
-          font-weight: 600;
-        }
-        .se-title:hover {
-          outline: none;
-        }
-      `}</style>
+        
+      `}</style> */}
 
-      <style jsx>{`
-        .top-toolbar {
-          padding: 10px;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        textarea {
-          outline: none;
-        }
-
-        .header-right,
-        .header-left {
-          display: flex;
-        }
-        .starry-editor-editable {
-          position: relative;
-          max-width: 1200px;
-          margin: 20px auto;
-          padding: 20px;
-        }
-        .article-title,
-        .article-intro,
-        input {
-          margin: 20px auto;
-          border: none;
-          font-size: 20px;
-          width: 100%;
-          padding: 10px;
-          font-weight: 600;
-          resize: none;
-        }
-        .article-title {
-          font-size: 2.8em;
-        }
-        .article-title:hover {
-          outline: none;
-        }
-      `}</style>
     </>
   );
 }

@@ -22,10 +22,10 @@ const handleError = (done) => {
 function css(done) {
   var processors = [
     tailwinds(),
-    purgecss({
-        content: ['./pages/**/*.js', './components/**/*.js'],
-      }),
-      cssnano(),
+    // purgecss({
+    //     content: ['./pages/**/*.js', './components/**/*.js'],
+    //   }),
+      cssnano()
   ];
 
   pump(
@@ -39,7 +39,8 @@ function css(done) {
   );
 }
 
-const cssWatcher = () => watch("pages/**", css);
+// const cssWatcher = () => watch("./styles/tw/twinit/style.css", css);
+const cssWatcher = () => watch(["./tailwind.config.js","./pages/**/*.js", "./components/**/*.js"], css);
 const watcher = parallel(cssWatcher);
 const build = series(css);
 const dev = series(build, serve, watcher);

@@ -3,31 +3,36 @@ import Layout from "../components/layouts/layout";
 import FeaturedNav from "../components/index/featuredNav";
 import { getAllPosts } from "../lib/index";
 import PostCollectionPage from "../components/collection/posts/postCollection";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import PageSEO from "../components/seo/page";
 function Home({ data }) {
+  const router = useRouter();
+  const goToBlog = () => {
+    router.push("/blog/");
+  };
   return (
     <Layout home>
       <PageSEO
         title="HolyCoders - Programming Tutorials, News and Case Studies"
         description="Holycoders is a programming blog dedicated to simplify learning for coders. You can learn and share your knowledge with the community."
       />
+
       <section className="featured-column py-6">
-        <h2 className="has-text-centered is-3 title">Explore Topics</h2>
+        <h2 className="text-center font-semibold text-4xl text-gray-600">
+          Explore Topics
+        </h2>
         <FeaturedNav />
       </section>
       <section>
-        <h2 className="has-text-centered is-3 title my-4">Latest from blog</h2>
+        <h2 className="text-center font-semibold text-4xl text-gray-600">
+          Latest from blog
+        </h2>
         <PostCollectionPage
           bookmarks={data.bookmarks}
           posts={data.posts}
           showPagination={false}
+          loadMorePosts={goToBlog}
         />
-        <div className="has-text-centered my-6">
-          <Link href="/blog">
-            <a className="button is-primary is-medium is-outlined">View More</a>
-          </Link>
-        </div>
       </section>
     </Layout>
   );

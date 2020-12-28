@@ -51,11 +51,11 @@ export default function like({ postID, likesCount = 0, userHasLiked = false }) {
           >
             <FontAwesomeIcon
               icon={liked ? fasHeart : faHeart}
-              className="icon is-medium"
               color="#e74c3c"
+              size="2x"
             />
           </span>
-          <span style={{ margin: "0px 5px" }}>{likesCounter}</span>
+          <span className="mx-2">{likesCounter}</span>
         </label>
       </div>
       <style jsx>{`

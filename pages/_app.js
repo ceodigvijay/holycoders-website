@@ -1,4 +1,6 @@
+import "../styles/tw/twdist/style.css";
 import "./styles.scss";
+// import "./content.sass";
 import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import Head from "next/head";
@@ -34,13 +36,16 @@ function MyApp({ Component, pageProps }) {
   };
 
   useEffect(() => {
-    if (
-      !user &&
-      typeof window !== "undefined" &&
-      localStorage.getItem("hc_user")
-    ) {
-      //TODO: If not found check using verify and set again
-      setUserValue(JSON.parse(localStorage.getItem("hc_user")));
+    if (typeof window !== "undefined") {
+      if (!user && localStorage.getItem("hc_user")) {
+        //TODO: If not found check using verify and set again
+        setUserValue(JSON.parse(localStorage.getItem("hc_user")));
+      } else if (localStorage.getItem("hc_theme")) {
+        const theme = localStorage.getItem("hc_theme");
+        theme === "dark"
+          ? document.querySelector("html").classList.add("dark")
+          : document.querySelector("html").classList.remove("dark");
+      }
     }
   }, []);
   axios.interceptors.request.use(
@@ -57,7 +62,11 @@ function MyApp({ Component, pageProps }) {
       return response;
     },
     (error) => {
-      switch (error.response.status ? error.response.status : 500) {
+      switch (
+        error && error.response && error.response.status
+          ? error.response.status
+          : 500
+      ) {
         case 401:
           //If Auth token is missing (removed by expiry) then remove user value from localstorage
           if (

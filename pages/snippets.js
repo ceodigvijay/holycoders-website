@@ -49,53 +49,48 @@ const Blog = ({ data }) => {
         title="Code Snippets - Easy to use code snippets on HolyCoders"
         description="Code samples, themes and many other ready to use code. Save your time from rebuilding the wheel and innovate new things."
       />
-      <div className="blog-header columns my-6 mx-4 panel is-flex-tablet has-text-centered-mobile">
-        <div className="column is-three-quarters ">
-          <h1 className="has-text-weight-medium	is-size-4 has-text-black  ">
-            Code Snippets
-          </h1>
-          <p className="my-4">
-            Welcome to the Code snippets page. Here you can find code samples,
-            themes and many other ready to use code. Save your time from
-            rebuilding the wheel and innovate new things.
-          </p>
+
+      <section className="text-gray-700 body-font py-6 mx-6 sm:mx-1">
+        <div className="container px-4 py-6 mx-auto shadow">
+          <div className="flex items-center lg:w-4/5 mx-auto sm:flex-row flex-col">
+            <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 className="text-gray-900  dark:text-gray-100 text-2xl title-font font-medium mb-2">
+                Code Snippets
+              </h2>
+              <p className="leading-relaxed text-base  dark:text-gray-400">
+                Welcome to the Code snippets page. Here you can find code
+                samples, themes and many other ready to use code. Save your time
+                from rebuilding the wheel and innovate new things.
+              </p>
+            </div>
+            <div className="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-500 flex-shrink-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="sm:w-16 sm:h-16 w-10 h-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div className="column">
-          <figure className="image is-128x128 px-5 py-5 blog__featured-img has-background-success-light has-text-success">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-              />
-            </svg>
-          </figure>
-        </div>
-      </div>
+      </section>
+
       {allPosts && (
-        <PostCollectionPage bookmarks={bookmarks} posts={allPosts} />
+        <PostCollectionPage
+          bookmarks={bookmarks}
+          posts={allPosts}
+          loadMorePosts={loadMorePosts}
+          isloading={isloading}
+        />
       )}
-      <div className="has-text-centered my-6">
-        <button
-          onClick={loadMorePosts}
-          className={`button is-primary is-outlined ${
-            isloading ? "is-loading" : ""
-          }`}
-        >
-          Load More
-        </button>
-      </div>
-      <style jsx>{`
-        .blog__featured-img {
-          border-radius: 50%;
-        }
-      `}</style>
     </Layout>
   );
 };

@@ -41,7 +41,7 @@ function authGit() {
 
   return (
     <Layout>
-      <div className="has-text-centered title is-4 my-6">
+      <div className="text-center text-2xl text-gray-800 dark:text-gray-100 min-h-screen font-medium mt-20">
         Please wait for Log in...
       </div>
     </Layout>

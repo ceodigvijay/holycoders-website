@@ -17,6 +17,7 @@ import { Tag } from "../../../components/index";
 import { getUserByUsername, followUser } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import PageSEO from "../../../components/seo/page";
+import Image from "next/image";
 function user({ user, meta, error }) {
   const { addNotification } = useContext(GlobalContext);
 
@@ -43,195 +44,289 @@ function user({ user, meta, error }) {
       {error ? (
         error
       ) : (
-        <div className="columns">
+        <div>
           <PageSEO
             slug={`u/${user.username}`}
             title={`${user.name} - User at HolyCoders`}
             description={`${user.bio}`}
           />
-          <div className="column is-two-fifths ">
-            <div className="mx-4 my-4 profile-card">
-              <div className="has-text-centered block">
-                <figure className="image is-128x128 my-2 has-image-centered">
-                  <img className="is-rounded" src={user.profile_image} />
-                </figure>
-                <div className="my-4">
-                  <h2 className="title is-4">{user.name}</h2>
-                  <p className="subtitle is-5">@{user.username}</p>
-                </div>
+
+          <section className="text-gray-600 body-font">
+            <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+              <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+                <Image
+                  width="720"
+                  height="600"
+                  className="object-cover object-center rounded-lg"
+                  alt={user.name ? user.name : "user"}
+                  src={user.profile_image}
+                />
               </div>
-              {/* Follow and Message Button */}
-              <div className="has-text-centered block">
-                <button
-                  className={` mx-4 is-medium button ${
-                    isfollowing
-                      ? "has-background-success"
-                      : "has-background-primary"
-                  }  has-text-white`}
-                  onClick={handleFollowUser}
-                >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faPlus} />
-                  </span>
-                  <span>Follow</span>
-                </button>
-                <button className="button is-medium">
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faComment} />
-                  </span>
-                  <span>Message</span>
-                </button>
-              </div>
-              {/* Bio */}
-              <div className="subtitle is-6 mx-4">{user.bio}</div>
-              {/* Status */}
-              <div className="has-text-centered mx-4 my-6 subtitle is-5">
-                {user.current_work}
-              </div>
-              {/* Social */}
-              <div className="block has-text-centered my-2">
-                {user.social.website ? (
-                  <a href={user.social.website} className="button is-white">
-                    <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
-                  </a>
-                ) : (
-                  ""
-                )}
-                {user.social.facebook ? (
-                  <a href={user.social.facebook} className="button is-white">
-                    <FontAwesomeIcon
-                      icon={faFacebookSquare}
-                      color="#3b5998"
-                      size="3x"
-                    />
-                  </a>
-                ) : (
-                  ""
-                )}
-                {user.social.twitter ? (
-                  <a href={user.social.twitter} className="button is-white">
-                    <FontAwesomeIcon
-                      icon={faTwitterSquare}
-                      color="#00acee"
-                      size="3x"
-                    />
-                  </a>
-                ) : (
-                  ""
-                )}
-                {user.social.github ? (
-                  <a href={user.social.github} className="button is-white">
-                    <FontAwesomeIcon
-                      icon={faGithubSquare}
-                      color="#211f1f"
-                      size="3x"
-                    />
-                  </a>
-                ) : (
-                  ""
-                )}
-                {user.social.stackoverflow ? (
-                  <a
-                    href={user.social.stackoverflow}
-                    className="button is-white"
+              <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <h1 className="title-font sm:text-4xl text-3xl mb-1 font-medium text-gray-900">
+                  {user.name}
+                </h1>
+                <h2 className="mb-4 text-lg text-gray-500">@{user.username}</h2>
+                <p className="mb-8 leading-relaxed">{user.bio}</p>
+                <div className="flex justify-center">
+                  <button
+                    onClick={handleFollowUser}
+                    className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                   >
-                    <FontAwesomeIcon
-                      icon={faStackOverflow}
-                      color="#f48024"
-                      size="3x"
-                    />
-                  </a>
-                ) : (
-                  ""
-                )}
+                    Follow
+                  </button>
+                  <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                    Message
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="column">
-            <div className="mx-4 my-4 info-card">
-              <nav className="level mx-1 my-4">
-                <div className="level-item has-text-centered">
-                  <div>
-                    <p className="heading">Posts</p>
-                    <p className="title">{meta.userPostCount}</p>
-                  </div>
-                </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                    <p className="heading">Following</p>
-                    <p className="title">{meta.userFollowingCount}</p>
-                  </div>
-                </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                    <p className="heading">Followers</p>
-                    <p className="title">{meta.userFollowerCount}</p>
-                  </div>
-                </div>
-                <div className="level-item has-text-centered">
-                  <div>
-                    <p className="heading">Likes</p>
-                    <p className="title">789</p>
-                  </div>
-                </div>
-              </nav>
-              {/* Skills */}
-              <div className="field is-grouped is-grouped-multiline my-6 mx-4">
-                {user.skills.map((element) => {
-                  return (
-                    <Tag
-                      icon={element.featured_image}
-                      name={element.name}
-                      slug={element.slug}
-                      color={element.hex_color}
-                    />
-                  );
-                })}
+          </section>
+
+          <section className="text-gray-600 body-font">
+            <div className="container px-5 py-24 mx-auto">
+              <div className="flex flex-col text-center w-full mb-20">
+                <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                  Know Something about {user.name}
+                </h2>
+                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+                  {user.current_work}
+                </p>
               </div>
-              {/* Best Projects */}
-              <div className="my-6 mx-4">
-                <div className="title is-4 has-text-centered">
-                  Projects on Proud
+              <div className="flex flex-wrap -m-4 text-center">
+                <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+                  <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+
+                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                      {meta.userPostCount}
+                    </h2>
+                    <p className="leading-relaxed">
+                      Post
+                      {meta.userPostCount && meta.userPostCount < 2 ? "" : "'s"}
+                    </p>
+                  </div>
                 </div>
-                {user.projects.map((element) => {
+                <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+                  <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx={9} cy={7} r={4} />
+                      <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" />
+                    </svg>
+                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                      {meta.userFollowingCount}
+                    </h2>
+                    <p className="leading-relaxed">Following</p>
+                  </div>
+                </div>
+                <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+                  <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+
+                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                      {meta.userFollowerCount}
+                    </h2>
+                    <p className="leading-relaxed">Followers</p>
+                  </div>
+                </div>
+                <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
+                  <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+
+                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                      46
+                    </h2>
+                    <p className="leading-relaxed">Likes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="text-gray-600 body-font">
+            <div className="container px-5 py-24 mx-auto">
+              <div className="flex flex-col text-center w-full mb-20">
+                <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+                  PROJECTS ON PROUD
+                </h2>
+                <h2 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                  Best Projects Worth For a Shoutout
+                </h2>
+              </div>
+              <div className="flex flex-wrap -m-4">
+                {user.projects.map((project) => {
                   return (
-                    <div className="block">
-                      <div className="title is-6 has-text-centered">
-                        <a
-                          href={element.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {element.title ? element.title : "Demo of Project"}
-                        </a>
-                        <span className="mx-2">
-                          <FontAwesomeIcon
-                            icon={faExternalLinkAlt}
-                            color="#d7d7d7"
-                          />
-                        </span>
+                    <div className="p-4 md:w-1/3">
+                      <div className="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+                        <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              className="w-5 h-5"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                              />
+                            </svg>
+                          </div>
+                          <h2 className="text-gray-900 text-lg title-font font-medium">
+                            {project.title}
+                          </h2>
+                        </div>
+                        <div className="flex-grow">
+                          <p className="leading-relaxed text-base">
+                            {project.description}
+                          </p>
+                          <a
+                            className="mt-3 text-indigo-500 inline-flex items-center"
+                            target="_blank"
+                            rel="norefferer noopener"
+                            href={project.demo}
+                          >
+                            View Demo
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              className="w-4 h-4 ml-2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </a>
+                        </div>
                       </div>
-                      <div className="subtitle is-6">{element.description}</div>
                     </div>
                   );
                 })}
               </div>
             </div>
+          </section>
+
+          <div>
+            {user.social.website ? (
+              <a href={user.social.website} className="button is-white">
+                <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
+              </a>
+            ) : (
+              ""
+            )}
+            {user.social.facebook ? (
+              <a href={user.social.facebook} className="button is-white">
+                <FontAwesomeIcon
+                  icon={faFacebookSquare}
+                  color="#3b5998"
+                  size="3x"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+            {user.social.twitter ? (
+              <a href={user.social.twitter} className="button is-white">
+                <FontAwesomeIcon
+                  icon={faTwitterSquare}
+                  color="#00acee"
+                  size="3x"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+            {user.social.github ? (
+              <a href={user.social.github} className="button is-white">
+                <FontAwesomeIcon
+                  icon={faGithubSquare}
+                  color="#211f1f"
+                  size="3x"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+            {user.social.stackoverflow ? (
+              <a href={user.social.stackoverflow} className="button is-white">
+                <FontAwesomeIcon
+                  icon={faStackOverflow}
+                  color="#f48024"
+                  size="3x"
+                />
+              </a>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div>
+            {user.skills.map((element) => {
+              return (
+                <Tag
+                  icon={element.featured_image}
+                  name={element.name}
+                  slug={element.slug}
+                  color={element.hex_color}
+                />
+              );
+            })}
           </div>
         </div>
       )}
-      <style jsx>{`
-        figure {
-          border: 3px solid #333;
-          border-radius: 50%;
-          padding: 2px;
-        }
-        .profile-card,
-        .info-card {
-          border: 2px solid #d5d5d5;
-          border-radius: 10px;
-        }
-      `}</style>
     </Layout>
   );
 }

@@ -1,62 +1,24 @@
-$primary: #36a666;
-$secondary: #24252c;
-//BlockQuote
-$content-blockquote-border-left: 5px solid $primary;
-$content-blockquote-background-color: #f8f8f8;
-
-$link: $primary;
-
-$navbar-dropdown-arrow: #fff;
-$navbar-burger-color: #fff !important;
-$navbar-dropdown-item-hover-background-color: $primary;
-//Footer Padding
-$footer-padding: 3rem 1.5rem 1rem;
-@import "../styles/bulma.sass";
-
 //Remove Chrome Focus outline
 *,
 *:focus,
 *:hover {
   outline: none;
 }
+//Switch
+.toggle__dot {
+  top: -.25rem;
+  left: -.25rem;
+  transition: all 0.3s ease-in-out;
+}
+
+input:checked ~ .toggle__dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+
+
 html{
   scroll-behavior: smooth;
-}
-
-.lightbox {
-  /* Default to hidden */
-  display: none;
-
-  /* Overlay entire screen */
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
-  /* A bit of padding around image */
-  padding: 1em;
-
-  /* Translucent background */
-  background: rgba(0, 0, 0, 0.8);
-}
-
-/* Unhide the lightbox when it's the target */
-.lightbox:target {
-  display: block;
-}
-
-.lightbox span {
-  /* Full width and height */
-  display: block;
-  width: 100%;
-  height: 100%;
-
-  /* Size and position background image */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
 }
 .hc_img{
   height: unset !important;
@@ -65,97 +27,6 @@ html{
   width: unset !important;
   min-width: unset !important;
 }
-//Header
-
-.header {
-  padding: 10px 0px;
-}
-.navbar {
-  border-radius: 5px;
-  margin: 0px 10px;
-  background-color: #36a666;
-  box-shadow: 0 0.4em 1em -0.125em rgba(10, 10, 10, 0.1),
-    0 0px 0 1px rgba(10, 10, 10, 0.02);
-}
-.navbar-item {
-  margin-right: 20px;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 1.2rem;
-  border: 2px solid transparent;
-  transition: background-color 0.4s linear;
-}
-
-@media screen and (max-width: 1024px) {
-  .navbar-item {
-    color: $primary !important;
-  }
-  .navbar-brand .navbar-item {
-    border: 2px solid $primary;
-    border-radius: 5px;
-    color: $primary !important;
-    background-color: #fff !important;
-  }
-  .content-container {
-    .content {
-      p {
-        font-size: 1.1rem !important;
-      }
-    }
-  }
-}
-
-// Navbar Animation
-.navbar-menu {
-  animation: navAnimOpen 0.1s ease-out;
-  transform: translateZ(0);
-}
-
-@keyframes navAnimOpen {
-  0% {
-    display: none;
-    opacity: 0;
-    max-height: 0;
-  }
-  1% {
-    display: block;
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    max-height: 396px;
-  }
-}
-// Navbar Animation Ends
-.navbar-item:hover:not(.navbar-auth),
-.navbar .active {
-  border: 2px solid $primary;
-  border-radius: 5px;
-  color: $primary !important;
-  background-color: #fff !important;
-}
-.navbar-link:hover {
-  border-radius: 5px;
-}
-.navbar-dropdown .navbar-item:hover {
-  border: 2px solid #fff;
-}
-.navbar-dropdown .navbar-item {
-  color: $primary !important;
-}
-
-.navbar-burger span {
-  height: 2px;
-}
-
-.navbar a {
-  color: inherit;
-}
-.navbar-item img {
-  max-height: 48px;
-}
-
-//Header and Navbar Ends Here
 
 //Helper Classes
 .is-facebook {
@@ -382,7 +253,7 @@ code .number {
   height: 70px;
   width: 70px;
   path {
-    stroke: $primary;
+    stroke: #36a666;
   }
 }
 
@@ -602,7 +473,6 @@ code .number {
   padding: 0;
   border: none;
   background: none;
-  font-size: 1.4em;
   overflow: visible;
   -webkit-transition: color 0.7s;
   transition: color 0.7s;

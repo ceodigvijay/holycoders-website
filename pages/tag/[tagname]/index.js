@@ -40,35 +40,12 @@ export default function index({ data, tagname }) {
         title={`${tagname} Tag - HolyCoders`}
         description={`Collection page for articles tagged with ${tagname} tag at HolyCoders blog.`}
       />
-
-      {allPosts && allPosts[0] ? (
-        <>
-          <PostCollectionPage bookmarks={bookmarks} posts={allPosts} />
-          <div className="has-text-centered my-6">
-            <button
-              onClick={loadMorePosts}
-              className={`button is-primary is-outlined ${
-                isLoading ? "is-loading" : ""
-              }`}
-            >
-              Load More
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="has-text-centered">
-            <Image
-              src="/content/images/dummy/empty.svg"
-              width="400px"
-              height="400px"
-            />
-          </div>
-          <div className="has-text-centered title is-4 my-6">
-            No Posts Found
-          </div>
-        </>
-      )}
+      <PostCollectionPage
+        bookmarks={bookmarks}
+        posts={allPosts}
+        loadMorePosts={loadMorePosts}
+        isloading={isLoading}
+      />
     </Layout>
   );
 }

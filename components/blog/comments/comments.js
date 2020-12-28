@@ -121,9 +121,9 @@ export default function comment(props) {
         </ul>
         <style jsx>{`
           .comments ul:not(:first-child) {
-            margin-left: 15px;
-            padding-left: 15px;
-            border-left: 2px solid #36a66650;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 2px dotted #d2d2d2;
           }
         `}</style>
       </div>

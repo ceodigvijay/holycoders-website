@@ -27,7 +27,7 @@ export default function index({user, setUser}) {
   return (
     <Layout>
       <section className="columns my-1">
-        <aside className="menu column is-one-fifth px-3 panel">
+        {/* <aside className="menu column is-one-fifth px-3 panel">
           <p className="menu-label">Settings</p>
           <ul className="menu-list">
             <li onClick={() => setActiveTab("profile")}>
@@ -54,7 +54,7 @@ export default function index({user, setUser}) {
               </a>
             </li>
           </ul>
-        </aside>
+        </aside> */}
         <div className="column mx-6">{renderSettings()}</div>
       </section>
     </Layout>

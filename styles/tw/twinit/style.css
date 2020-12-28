@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button {
+  @apply ml-4;
+  @apply inline-flex;
+  @apply text-gray-700;
+  @apply bg-white;
+  @apply border;
+  @apply border-gray-200;
+  @apply py-2;
+  @apply px-6;
+  @apply rounded;
+  @apply text-lg;
+}
+
+.button.is-primary {
+  @apply text-white;
+  @apply bg-green-500;
+}
+
+.setting-input{
+  @apply border;
+  @apply border-gray-200;
+  @apply rounded-lg;
+  @apply dark:bg-gray-700;
+  @apply dark:text-gray-100;
+  @apply dark:border-gray-600;
+  @apply w-full;
+}

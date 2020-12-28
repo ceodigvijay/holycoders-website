@@ -3,8 +3,8 @@ import React from "react";
 export default function googleLogin(props) {
   return (
     <div>
-      <button type="button" className="button google-button mt-2 px-5 py-4" {...props}>
-        <span className="google-button__icon">
+      <button type="button" className="flex items-center text-lg w-full my-4 px-4 py-4 border-2 border-gray-100 hover:bg-gray-100 dark:bg-gray-50 font-medium rounded-lg" {...props}>
+        <span className="mx-2 w-6 h-6">
           <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z"
@@ -27,56 +27,8 @@ export default function googleLogin(props) {
             />
           </svg>
         </span>
-        <span className="google-button__text">Sign In with Google</span>
+        <span className="mx-2">Sign In with Google</span>
       </button>
-      <style jsx>{`
-        .google-button {
-          cursor: pointer;
-          width: 100%;
-          height: 50px;
-          border: 1px solid #d5d5d5;
-          background: white;
-          color: #737373;
-          border-radius: 5px;
-          white-space: nowrap;
-          transition-property: background-color, box-shadow;
-          transition-duration: 150ms;
-          transition-timing-function: ease-in-out;
-          padding: 0;
-        }
-        .google-button:focus,
-        .google-button:hover {
-          box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
-        }
-        .google-button:active {
-          background-color: #e5e5e5;
-          box-shadow: none;
-          transition-duration: 10ms;
-        }
-        .google-button__icon {
-          display: inline-block;
-          vertical-align: middle;
-          margin: 8px 0 8px 8px;
-          width: 18px;
-          height: 18px;
-          box-sizing: border-box;
-        }
-        .google-button__icon--plus {
-          width: 27px;
-        }
-        .google-button__text {
-          display: inline-block;
-          vertical-align: middle;
-          padding: 0 24px;
-          font-size: 14px;
-          font-weight: bold;
-          font-family: "Roboto", arial, sans-serif;
-        }
-
-        button ~ button {
-          margin-left: 20px;
-        }
-      `}</style>
     </div>
   );
 }

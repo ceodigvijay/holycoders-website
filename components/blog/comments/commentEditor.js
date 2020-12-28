@@ -54,52 +54,43 @@ export default function commentEditor({
   }
 
   return user ? (
-    <article className="media">
-      <figure className="media-left">
-        <p className="image is-48x48">
-          <img
-            className="is-rounded"
-            src={user.profileImage}
-            alt={user.username}
-          />
+    <article className="inline-flex my-5 w-full">
+      <img
+        className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center mx-3"
+        src={user.profileImage}
+        alt={user.username}
+      />
+
+      <div className="media-content flex-grow	">
+        <p className="control">
+          <textarea
+            value={comment.comment_raw}
+            onChange={(e) => {
+              setComment({
+                ...comment,
+                comment_raw: e.target.value,
+              });
+            }}
+            className="border border-gray-300 dark:border-gray-900 dark:text-gray-200 p-2 dark:bg-gray-700 focus:ring-green-500 focus:border-2 focus:border-gray-400 h-32 mt-1 block w-full rounded-md"
+            placeholder="Add a comment..."
+          ></textarea>
         </p>
-      </figure>
-      <div className="media-content">
-        <div className="field">
-          <p className="control">
-            <textarea
-              value={comment.comment_raw}
-              onChange={(e) => {
-                setComment({
-                  ...comment,
-                  comment_raw: e.target.value,
-                });
-              }}
-              className="textarea"
-              placeholder="Add a comment..."
-            ></textarea>
-          </p>
-        </div>
-        <nav className="level">
-          <div className="level-left">
-            <div className="level-item">
-              {comment._id ? (
-                <a
-                  className={`button is-primary ${loading ? "is-loading" : ""}`}
-                  onClick={handleCommentUpdate}
-                >
-                  Update
-                </a>
-              ) : (
-                <a
-                  className={`button is-primary ${loading ? "is-loading" : ""}`}
-                  onClick={handleCommentSubmit}
-                >
-                  Submit
-                </a>
-              )}
-            </div>
-          </div>
+        <nav className="my-4">
+          {comment._id ? (
+            <a
+              className={`button is-primary ${loading ? "is-loading" : ""}`}
+              onClick={handleCommentUpdate}
+            >
+              Update
+            </a>
+          ) : (
+            <a
+              className={`button is-primary ${loading ? "is-loading" : ""}`}
+              onClick={handleCommentSubmit}
+            >
+              Submit
+            </a>
+          )}
         </nav>
       </div>
     </article>
