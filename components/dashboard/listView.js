@@ -56,13 +56,16 @@ export default function listView({
                   <select
                     className="md:border-l-2 border-t-0 border-b-0 border-r-0 border-gray-400 dark:bg-gray-700"
                     onChange={(e) =>
-                      setSearchValue({ ...searchvalue, statusOfItem: e.target.value.toLowerCase() })
+                      setSearchValue({
+                        ...searchvalue,
+                        statusOfItem: e.target.value.toLowerCase(),
+                      })
                     }
                   >
                     <option>All</option>
                     <option>Published</option>
                     <option>Draft</option>
-                    <option value="future" >Scheduled</option>
+                    <option value="future">Scheduled</option>
                     <option>Trash</option>
                     <option>Review</option>
                     <option>Rejected</option>
@@ -118,24 +121,27 @@ export default function listView({
                 element.author[0] &&
                 element.author[0].username
                   ? element.author[0].username
-                  : "digvijay-singh-e";
+                  : "No author";
               return (
                 <>
                   <div className="p-4 w-full">
                     <div className="flex rounded-lg h-full bg-gray-50 dark:bg-gray-700 p-8 flex-col">
                       <div className="flex items-center mb-2">
-                        <h2 className="text-gray-900 dark:text-gray-100 text-xl title-font font-medium">
-                          {element.title ? element.title : element.name}
-                          {!element.status && element.status === "published" ? (
-                            ""
-                          ) : (
-                            <span
-                              className={`text-sm bg-yellow-200 dark:text-gray-500 py-1 px-4 mx-4 rounded-lg`}
-                            >
-                              {element.status}
-                            </span>
-                          )}
-                        </h2>
+                        <Link href={link}>
+                          <a className="text-gray-900 cursor-pointer dark:text-gray-100 text-xl title-font font-medium">
+                            {element.title ? element.title : element.name}
+                            {!element.status ||
+                            element.status === "published" ? (
+                              ""
+                            ) : (
+                              <span
+                                className={`text-sm bg-yellow-200 dark:text-gray-500 py-1 px-4 mx-4 rounded-lg`}
+                              >
+                                {element.status}
+                              </span>
+                            )}
+                          </a>
+                        </Link>
                       </div>
                       <div className="flex-grow text-center">
                         <div className="flex items-center">

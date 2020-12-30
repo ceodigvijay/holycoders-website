@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { addComment, updateComment } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
+import Link from "next/link";
 
 export default function commentEditor({
   contentId,
@@ -95,11 +96,11 @@ export default function commentEditor({
       </div>
     </article>
   ) : (
-    <p className="title is-4 has-text-centered my-4">
+    <p className="title text-center text-lg my-4">
       Please{" "}
-      <a href="/enter" rel="noopener noreferrer">
-        Log in
-      </a>{" "}
+      <Link href="/enter">
+        <a className="text-primary-600 font-semibold">Log in</a>
+      </Link>{" "}
       to comment
     </p>
   );

@@ -12,8 +12,10 @@ function disclosure() {
         be useful for our readers and help them in learning new things in a
         better way. We may receive some commission on that."
       />
-      <h1 className="title is-1 has-text-centered my-6">Disclosure</h1>
-      <div className="content my-6 mx-4 px-6 subtitle is-5">
+      <h1 className="md:px-2 title-font text-center text-gray-800 dark:text-gray-100 text-4xl md:text-5xl lg:text-6xl font-bold mb-6 py-4">
+        Disclosure
+      </h1>
+      <div className="prose dark:prose-dark md:prose-lg lg:prose-xl mx-auto my-6 px-2">
         <p>
           We promote some sponsored content on this website which we think may
           be useful for our readers and help them in learning new things in a

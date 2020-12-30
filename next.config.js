@@ -49,6 +49,7 @@ module.exports = withMDX({
   pageExtensions: ["js", "jsx", "mdx"],
   images: {
     domains: [
+      "static.holycoders.com",
       "holycoders.s3.amazonaws.com",
       "holycoders.s3.eu-west-2.amazonaws.com",
       "i0.wp.com",

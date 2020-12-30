@@ -56,7 +56,7 @@ export default function pagination({ currentPage, pageCount, changePage }) {
           isLastPage
             ? "cursor-not-allowed text-gray-600"
             : "bg-primary-600 cursor-pointer"
-        } flex items-center px-6 py-4 rounded-lg`}
+        } flex items-center px-6 py-4 rounded-lg text-gray-100`}
         onClick={() => (isLastPage ? "" : changePage(currentPage + 1))}
         disabled={isLastPage}
       >

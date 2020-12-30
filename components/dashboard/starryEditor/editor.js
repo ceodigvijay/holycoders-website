@@ -268,23 +268,38 @@ export default function starryEditor(props) {
               post.post_id !== "new" ? (
                 <button
                   onClick={(e) => handlePostPublish(e)}
-                  className="button is-success is-light is-medium"
+                  className={`px-4 mx-2 rounded-md flex items-center bg-primary-600 hover:bg-primary-700 text-white text-xl`}
                 >
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faRocket} />
+                  <span className="mx-2">
+                    <svg
+                      className={`w-8 h-8 ${
+                        loadingData.saveInProgress ? "animate-pulse" : ""
+                      }`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                      />
+                    </svg>
                   </span>
                   <span>Publish</span>
                 </button>
               ) : (
                 <button
                   onClick={(e) => handlePostUpdate(e)}
-                  className={`px-4 mx-2 rounded-md flex items-center bg-primary-600 hover:bg-primary-700 text-white text-xl ${
-                    loadingData.saveInProgress ? "is-loading" : "is-light"
-                  } `}
+                  className={`px-4 mx-2 rounded-md flex items-center bg-primary-600 hover:bg-primary-700 text-white text-xl`}
                 >
                   <span className="mx-2">
                     <svg
-                      className="w-8 h-8"
+                      className={`w-8 h-8 ${
+                        loadingData.saveInProgress ? "animate-pulse" : ""
+                      }`}
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -334,7 +349,10 @@ export default function starryEditor(props) {
               </button>
             </div>
           </header>
-          <div className="starry-editor-editable my-12" onKeyDown={handleKeyDown}>
+          <div
+            className="starry-editor-editable my-12"
+            onKeyDown={handleKeyDown}
+          >
             {/* 55-60 Char long */}
             <TextareaAutosize
               className="title-font text-center text-gray-800 dark:text-gray-100 text-5xl lg:text-6xl font-bold focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full border-transparent resize-none rounded-md"
@@ -364,7 +382,7 @@ export default function starryEditor(props) {
                   }}
                 />
                 <Editor
-                className="prose dark:prose-dark lg:prose-lg max-w-none"
+                  className="prose dark:prose-dark lg:prose-lg max-w-none"
                   // dark={true}
                   placeholder="Start Writing Your Amazing Post..."
                   handleDOMEvents={{
@@ -416,19 +434,25 @@ export default function starryEditor(props) {
                 />
               </div>
               <div className="col-span-5 lg:col-span-1"></div>
-
             </div>
           </div>
         </div>
       </Sidebar>
 
-      {/* <style jsx global>{`
+      <style jsx global>{`
         html {
           overflow: auto !important;
         }
-        
-      `}</style> */}
-
+        .prose p:not(:last-child),
+        .prose dl:not(:last-child),
+        .prose ol:not(:last-child),
+        .prose ul:not(:last-child),
+        .prose blockquote:not(:last-child),
+        .prose pre:not(:last-child),
+        .prose table:not(:last-child) {
+          margin-bottom: 1.33em;
+        }
+      `}</style>
     </>
   );
 }

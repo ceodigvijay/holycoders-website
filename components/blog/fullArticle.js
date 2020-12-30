@@ -9,7 +9,6 @@ import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
 import Toolbar from "./toolbar";
 import gfm from "remark-gfm";
-
 const fullArticle = ({
   _id,
   tags,
@@ -39,8 +38,32 @@ const fullArticle = ({
   useEffect(() => {
     Prism.highlightAll();
   });
+
+
+  // Heading Parser to generate heading id
+  const flatten = (text, child) => {
+    return typeof child === "string"
+      ? text + child
+      : React.Children.toArray(child.props.children).reduce(flatten, text);
+  };
+
+  /**
+   * HeadingRenderer is a custom renderer
+   * It parses the heading and attaches an id to it to be used as an anchor
+   */
+  const HeadingRenderer = (props) => {
+    const children = React.Children.toArray(props.children);
+    const text = children.reduce(flatten, "");
+    const slug = text.toLowerCase().replace(/\W/g, "-");
+    return React.createElement("h" + props.level, { id: slug }, props.children);
+  };
+
   const renderers = {
+    heading: HeadingRenderer,
     code: ({ language, value }) => {
+      if (language && ["info", "warning", "tip"].includes(language)) {
+        return <p className={language}>{value}</p>;
+      }
       return (
         <pre>
           <code className={`language-${language}`}>{value}</code>
@@ -48,10 +71,41 @@ const fullArticle = ({
       );
     },
     image: ({ src, alt }) => {
-      return <Image src={src} alt={alt} width="720px" height="400px" />;
+      var width = src.split("x").reverse()[1];
+      var height = src.split("x").reverse()[0].split(".")[0];
+      if (width && height && !isNaN(width) && !isNaN(height)) {
+        console.log(width && height && !isNaN(width) && !isNaN(height));
+        return <Image src={src} alt={alt} width={width} height={height} />;
+      }
+      return (
+        <>
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              height: "400px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={src}
+              alt={alt}
+              objectFit="contain"
+              objectPosition="50% 50%"
+              className="hc_img"
+              layout="fill"
+            />
+          </div>
+          <a href={src} target="_blank" rel="norefferer noopener" c>
+            Open Image
+          </a>
+        </>
+      );
     },
   };
 
+  //Hack to make info warning and tips
+  var newRawContent = content_raw ? content_raw.replace(/:::/g, "```") : "";
   return (
     <Layout>
       <article>
@@ -76,7 +130,7 @@ const fullArticle = ({
             <span className="reading-time">10 minutes read</span>
           </span>
 
-          <h1 className="title-font text-gray-800 dark:text-gray-100 text-4xl md:text-5xl lg:text-6xl   font-bold mb-6 mt-2">
+          <h1 className="md:px-2 title-font text-gray-800 dark:text-gray-100 text-4xl md:text-5xl lg:text-6xl font-bold mb-6 mt-2">
             {title}
           </h1>
         </header>
@@ -110,7 +164,7 @@ const fullArticle = ({
             <ReactMarkdown
               plugins={[gfm]}
               renderers={renderers}
-              children={content_raw}
+              children={newRawContent}
             />
           </div>
           <div className="text-center col-span-5 lg:col-span-1">
@@ -143,6 +197,7 @@ const fullArticle = ({
               })
             : ""}
         </div>
+
         <section id="comments" className="py-20">
           {showComments ? (
             <>

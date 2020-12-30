@@ -12,8 +12,10 @@ function disclosure() {
         related to Programing. You can traverse the blog or categories/tags to
         select the best topics of your interest."
       />
-      <h1 className="title is-1 has-text-centered my-6">About Us</h1>
-      <div className="content my-6 mx-4 px-6">
+      <h1 className="md:px-2 title-font text-center text-gray-800 dark:text-gray-100 text-4xl md:text-5xl lg:text-6xl font-bold mb-6 py-4">
+        About Us
+      </h1>
+      <div className="prose dark:prose-dark md:prose-lg lg:prose-xl mx-auto my-6 px-2">
         <p>
           HolyCoders is a programming blog which helps coders to solve problems
           related to Programing. You can traverse the blog or categories/tags to
@@ -32,7 +34,7 @@ function disclosure() {
           you have any query or suggestion please reach to using our
           <Link href="/contact">
             <a> Contact </a>
-          </Link>
+          </Link>{" "}
           page. We will love to hear from you.
         </p>
       </div>

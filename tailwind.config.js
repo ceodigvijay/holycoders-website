@@ -9,7 +9,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.blue,
+        primary: {
+          50: "#eef9f7",
+          100: "#daf8ee",
+          200: "#b0f3d6",
+          300: "#73eab8",
+          400: "#27d989",
+          500: "#0cc45b",
+          600: "#36a666",
+          700: "#118b3b",
+          800: "#146c36",
+          900: "#135730",
+        },
         secondary: "#ecc94b",
       },
       typography: (theme) => ({
@@ -69,7 +80,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ["group-hover", "focus"],
+      display: ["group-hover", "focus", "dark"],
       typography: ["dark"],
     },
   },

@@ -36,7 +36,7 @@ export default function Layout({ children, home }) {
       </header>
       <main className="dark:bg-gray-800">{children}</main>
       {/* Footer */}
-      <footer className="footer dark:bg-gray-800 pb-2">
+      <footer className="footer bg-gray-50 pt-10 pb-2 dark:bg-gray-800">
         <div className="footer__connect mx-2 p-2">
           <h2 className="title-font text-3xl text-gray-500 dark:text-gray-400 text-center">
             Find Us on Social Networks

@@ -20,12 +20,12 @@ export default function heroHead() {
           </p>
           <div className="flex justify-center">
             <Link href="/enter/">
-              <a className="inline-flex text-white cursor-pointer bg-primary-600 border-0 py-2 px-6 focus:outline-none hover:bg-primary-700 rounded text-lg">
+              <a className="inline-flex text-white cursor-pointer bg-primary-600 border-0 py-2 px-6 focus:outline-none hover:bg-primary-700 rounded-lg text-lg">
                 Join Community
               </a>
             </Link>
             <Link href="/blog/">
-              <a className="ml-4 inline-flex cursor-pointer text-gray-700 bg-gray-200 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg">
+              <a className="ml-4 inline-flex cursor-pointer text-gray-700 bg-gray-200 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded-lg text-lg">
                 Visit Blog
               </a>
             </Link>

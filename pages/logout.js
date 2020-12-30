@@ -28,13 +28,13 @@ function logout() {
     <Layout>
       <div className="text-center h-screen">
         {user ? (
-          <div className="mt-20">
+          <div className="pt-20">
             <h1 className="title text-2xl align-middle font-medium text-gray-600 dark:text-gray-200">
               Do you really want to Logout?
             </h1>
               <button
                 onClick={handleLogout}
-                className="flex items-center mx-auto px-6 py-4 text-lg bg-red-600 hover:bg-red-700 text-white rounded-lg my-6 font-medium"
+                className="flex items-center mx-auto px-6 py-4 text-lg bg-red-500 hover:bg-red-600 text-white rounded-lg my-6 font-medium"
               >
                 <span>
                   <svg

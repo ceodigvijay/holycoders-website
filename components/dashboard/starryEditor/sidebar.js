@@ -101,20 +101,20 @@ export default function sidebar(props) {
         <option value="case-study">Case Study</option>
       </select>
       <div className="my-2">
-      <input
-        type="text"
-        className="setting-input my-2"
-        placeholder="Meta title"
-        value={post.meta_title}
-        onChange={(e) => setPost({ ...post, meta_title: e.target.value })}
-      />
-      <p
-        className={` text-sm text-gray-500 ${
-          post.meta_title.length <= 60 ? "" : "text-red-600"
-        }`}
-      >
-        {post.meta_title.length} / 60
-      </p>
+        <input
+          type="text"
+          className="setting-input my-2"
+          placeholder="Meta title"
+          value={post.meta_title}
+          onChange={(e) => setPost({ ...post, meta_title: e.target.value })}
+        />
+        <p
+          className={` text-sm text-gray-500 ${
+            post.meta_title.length <= 60 ? "" : "text-red-600"
+          }`}
+        >
+          {post.meta_title.length} / 60
+        </p>
       </div>
 
       <textarea
@@ -159,20 +159,26 @@ export default function sidebar(props) {
       )}
 
       <div className="flex">
-          <button className="flex items-center px-1 py-2 mx-1 text-gray-600 rounded-md">
-            <span className="mx-1">
-              <FontAwesomeIcon icon={faExclamationTriangle} />
-            </span>
-            <span>Revert to Draft</span>
-          </button>
-          <button className="flex items-center px-1 py-2 mx-1 text-red-600 rounded-md" onClick={props.deletePost}>
-            <span className="mx-1">
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </span>
-            <span>
-              {post.status === "trash" ? "Delete Post" : "Move to Trash"}
-            </span>
-          </button>
+        <button
+          className="flex items-center px-1 py-2 mx-1 text-gray-600 rounded-md"
+          onClick={() => setPost({ ...post, status: "draft" })}
+        >
+          <span className="mx-1">
+            <FontAwesomeIcon icon={faExclamationTriangle} />
+          </span>
+          <span>Revert to Draft</span>
+        </button>
+        <button
+          className="flex items-center px-1 py-2 mx-1 text-red-600 rounded-md"
+          onClick={props.deletePost}
+        >
+          <span className="mx-1">
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </span>
+          <span>
+            {post.status === "trash" ? "Delete Post" : "Move to Trash"}
+          </span>
+        </button>
       </div>
 
       <style global jsx>

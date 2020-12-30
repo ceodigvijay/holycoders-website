@@ -183,7 +183,7 @@ export default function dashboardLayout({ children }) {
       <AuthWrapper>
         <div className="bg-primary-6 px-2 md:px-12 py-2 min-h-screen">
           <nav>
-            <ul className="flex m-4 flex-wrap">
+            <ul className="flex m-4 flex-wrap justify-center">
               {dashNavs.map((element) => {
                 var isActive =
                   currentRoute === element.link.split("/").reverse()[1];
@@ -191,19 +191,17 @@ export default function dashboardLayout({ children }) {
                   (user.role !== "admin" || user.role !== "editor") ? (
                   ""
                 ) : (
-                  <li
-                    className={`mr-2`}
-                  >
+                  <li>
                     <Link href={element.link}>
                       <a
-                        className={`flex items-center px-6 py-4 hover:bg-gray-700 rounded-lg ${
+                        className={`flex items-center px-6 py-4 hover:bg-gray-200 dark:hover:bg-gray-700  ${
                           isActive
-                            ? "text-primary-100 font-medium"
-                            : "text-gray-400"
+                            ? "text-gray-600 dark:text-gray-200 font-medium border-b-2 border-gray-600 dark:border-gray-200"
+                            : "text-gray-400 dark:text-gray-400 border-b-2 border-gray-400 dark:border-gray-400"
                         }`}
                       >
-                        <span className="mx-2">{element.icon}</span>
-                        <span className="text-lg">{element.title}</span>
+                        <span className="mx-1">{element.icon}</span>
+                        <span className="text-lg mx-1">{element.title}</span>
                       </a>
                     </Link>
                   </li>
@@ -211,9 +209,7 @@ export default function dashboardLayout({ children }) {
               })}
             </ul>
           </nav>
-          <main className="dashboard-content border-t-2 border-gray-200 dark:border-gray-700 md:px-2 py-4">
-            {children}
-          </main>
+          <main className="dashboard-content md:px-2 pt-4 pb-40">{children}</main>
         </div>
       </AuthWrapper>
     </Layout>

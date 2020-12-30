@@ -19,7 +19,7 @@ export default function postCollection({
             <div class="container px-5 py-24 mx-auto">
               <div class="flex flex-wrap -m-12">
                 {posts.map((post) => (
-                  <div className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg">
+                  <div className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg border border-gray-200 dark:border-gray-700">
                     <span className="inline-block py-1 px-2 rounded bg-primary-50 text-primary-500 dark:bg-primary-800 text-xs font-medium tracking-widest">
                       {post.tags.length !== 0
                         ? "#" + post.tags[0].name
@@ -139,7 +139,7 @@ export default function postCollection({
           <div className="text-center mt-4 pb-28">
             <button
               onClick={() => (isloading ? "" : loadMorePosts())}
-              className={`m-auto flex bg-primary-500 px-6 py-4 text-lg font-medium items-center text-white rounded-md hover:bg-primary-600`}
+              className={`m-auto flex bg-primary-600 px-6 py-4 text-lg font-medium items-center text-white rounded-md hover:bg-primary-700`}
             >
               {isloading ? (
                 <svg

@@ -10,8 +10,10 @@ export default function privacyPolicy() {
         title="Privacy Policy - HolyCoders"
         description="We are complete transparent with the data that we collect and respect users privacy and trust."
       />
-      <h1 className="title is-1 has-text-centered my-6">Privacy Policy</h1>
-      <div className="content my-6 mx-2 px-2">
+      <h1 className="md:px-2 title-font text-center text-gray-800 dark:text-gray-100 text-4xl md:text-5xl lg:text-6xl font-bold mb-6 py-4">
+        Privacy Policy
+      </h1>
+      <div className="prose dark:prose-dark md:prose-lg lg:prose-xl mx-auto my-6 px-2">
         <p>
           At HolyCoders, accessible from https://holycoders.com, one of our main
           priorities is the privacy of our visitors. This Privacy Policy

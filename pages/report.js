@@ -10,7 +10,7 @@ export default function report() {
         title="Report Bugs - HolyCoders"
         description="You can use this page to report any bugs which can help us to improve HolyCoders."
       />
-      <div className="has-text-centered">
+      <div className="text-center">
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLScSLKAaU8vNfSgSd_epbmnYooJ4twPFaIPHcVTANGv7eElS6Q/viewform?embedded=true"
           width="640"
@@ -18,6 +18,7 @@ export default function report() {
           frameborder="0"
           marginheight="0"
           marginwidth="0"
+          className="mx-auto"
         >
           Loading…
         </iframe>

@@ -6,10 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext } from "react";
-import { searchTags } from "../../../lib/index";
+import { searchTags, handleImageUpload } from "../../../lib/index";
 import ReactTags from "react-tag-autocomplete";
 import { updateUser, checkUsername } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
+
 export default function profile({ user, setUser }) {
   const [userProjects, setUserProjects] = useState([]);
   const [showEmailVerify, setShowEmailVerify] = useState(false);
@@ -97,6 +98,31 @@ export default function profile({ user, setUser }) {
       console.log(error);
     }
   }
+
+  const handleProfileImageChange = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (file && file.size >= 1000000) {
+      addNotification({
+        message: "Max File Size Limit is 1 MB",
+        type: "error",
+      });
+    } else {
+      try {
+        const res = await handleImageUpload(e.target.files[0]);
+        res.Location ? setUser({ ...user, profileImage: res.Location }) : "";
+        addNotification({
+          message: "Image uploaded. You must save the changes to reflect.",
+          type: "warning",
+        });
+      } catch (error) {
+        addNotification({
+          message: "Some error occured. Please Contact us.",
+          type: "error",
+        });
+      }
+    }
+  };
   return (
     <div>
       {/* Profile Image */}
@@ -104,20 +130,20 @@ export default function profile({ user, setUser }) {
         <label className="block text-sm font-medium text-gray-700">Photo</label>
         <div className="mt-2 flex items-center">
           <span className="inline-block h-16 w-16 rounded-full overflow-hidden bg-gray-100">
-            <svg
-              className="h-full w-full text-gray-300"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
+            <img src={user.profileImage} />
           </span>
-          <button
-            type="button"
-            className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          <label
+            htmlFor="usersettingImg"
+            className="ml-5 bg-white py-2 px-3 cursor-pointer border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Change
-          </button>
+          </label>
+          <input
+            id="usersettingImg"
+            onChange={handleProfileImageChange}
+            className="hidden invisible"
+            type="file"
+          />
         </div>
       </div>
 
@@ -379,7 +405,9 @@ export default function profile({ user, setUser }) {
 
       {/* Projects */}
       <div className="mt-12">
-        <h2 className="text-center text-lg font-semibold text-gray-600">Projects</h2>
+        <h2 className="text-center text-lg font-semibold text-gray-600">
+          Projects
+        </h2>
 
         <div className="flex flex-wrap -m-4">
           {user.projects.map((project, index) => {
