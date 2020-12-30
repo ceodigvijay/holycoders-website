@@ -12,9 +12,6 @@ export default function pagination({ currentPage, pageCount, changePage }) {
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageCount;
-  if (isFirstPage === isLastPage) {
-    return "";
-  }
   return (
     <nav
       className="flex items-center justify-center"

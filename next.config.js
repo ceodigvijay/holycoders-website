@@ -58,6 +58,15 @@ module.exports = withMDX({
     ],
   },
   trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/newsletter/",
+        destination: "/enter/",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

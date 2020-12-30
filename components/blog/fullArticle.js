@@ -46,7 +46,7 @@ const fullArticle = ({
       ? text + child
       : React.Children.toArray(child.props.children).reduce(flatten, text);
   };
-
+  console.log(content_html);
   /**
    * HeadingRenderer is a custom renderer
    * It parses the heading and attaches an id to it to be used as an anchor

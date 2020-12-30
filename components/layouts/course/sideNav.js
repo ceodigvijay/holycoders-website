@@ -53,7 +53,10 @@ export default function sideNav({ chapters }) {
         <ul className="list-reset">
           {chapters.map((chapter) => {
             return (
-              <li className="text-base my-3 text-gray-500 dark:text-gray-400">
+              <li
+                className="text-base my-3 text-gray-500 dark:text-gray-400"
+                key={chapter.slug}
+              >
                 {/* Link contains the absolute path */}
                 <Link href={chapter.link}>
                   <a

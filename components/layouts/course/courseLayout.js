@@ -81,29 +81,31 @@ export default function Layout({ children, meta, allChapters, courseDetails }) {
           <div className="w-full flex flex-col lg:w-3/4 p-8 mt-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg lg:mt-0 text-gray-900 dark:text-gray-200 leading-normal">
             <div>
               {/* BreadCrub */}
-              <nav className="breadcrumb" aria-label="breadcrumbs">
-                <ul>
-                  <li>
+              <nav aria-label="breadcrumbs">
+                <ul className="flex">
+                  <li className="mx-2">
                     <Link href="/">
                       <a>Home</a>
                     </Link>
                   </li>
-                  <li>
+                  <li className="mx-2">
                     <Link href="/learn/">
                       <a>Course</a>
                     </Link>
                   </li>
-                  <li className="is-active is-capitalized">
+                  <li className="mx-2">
                     <a href="#">{courseDetails.courseName}</a>
                   </li>
                 </ul>
               </nav>
               {/* BreakCrumb Ends */}
-              <h1 className="title is-1 has-text-centered">
+              <h1 className="md:px-2 title-font text-gray-800 dark:text-gray-100 text-2xl md:text-3xl lg:text-4xl font-bold mb-6 mt-2">
                 {meta && meta.title ? meta.title : courseDetails.courseTitle}
               </h1>
             </div>
-            <div className="content flex-grow">{children}</div>
+            <div className="lg:col-span-3 prose dark:prose-dark md:prose-lg lg:prose-xl max-w-none flex-grow">
+              {children}
+            </div>
             <nav
               className="bottom-0 flex my-2"
               role="navigation"

@@ -465,7 +465,7 @@ export default function navbar() {
                 {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                 {navLinks.map((element) => {
                   return (
-                    <Link href={element.slug}>
+                    <Link href={element.slug} key={element.slug}>
                       <a
                         className={`flex items-center ${
                           currentPath &&
@@ -532,14 +532,12 @@ export default function navbar() {
                     } absolute left-10 rounded-lg z-50`}
                   >
                     <div className="grid grid-cols-12 rounded-lg">
-                      <div className="col-span-12 lg:col-span-4 bg-gray-700 px-6 py-4 rounded-l-lg">
-                        Some Text
-                      </div>
+                      <div className="col-span-12 lg:col-span-4 bg-gray-700 px-6 py-4 hidden md:block rounded-l-lg"></div>
                       <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-gray-900 p-6">
                         <ul>
                           {megaCol1.map((item) => {
                             return (
-                              <li>
+                              <li key={item.slug}>
                                 <Link href={item.slug}>
                                   <a className="px-4 flex items-center rounded-lg hover:bg-gray-800 py-4 cursor-pointer">
                                     <span className="bg-primary-600 mr-4 rounded-lg px-2 py-2">
@@ -558,9 +556,7 @@ export default function navbar() {
                           })}
                         </ul>
                       </div>
-                      <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-gray-700 p-6 rounded-r-lg">
-                        Some content
-                      </div>
+                      <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-gray-700 p-6 hidden md:block rounded-r-lg"></div>
                     </div>
                   </div>
                 </div>
@@ -570,7 +566,10 @@ export default function navbar() {
           </div>
           <div className="group absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Toogle Button */}
-            <label for="toogleA" className="flex items-center cursor-pointer">
+            <label
+              htmlFor="toogleA"
+              className="flex items-center cursor-pointer"
+            >
               <div className="relative">
                 <input
                   defaultChecked={darkThemeEnabled}
@@ -671,7 +670,7 @@ export default function navbar() {
                   >
                     {userLinks.map((item) => {
                       return (
-                        <Link href={item.slug}>
+                        <Link href={item.slug} key={item.slug}>
                           <a
                             className="flex items-center px-2 py-2 md:text-lg hover:bg-gray-100  dark:hover:bg-gray-800  font-semibold"
                             role="menuitem"
@@ -712,7 +711,7 @@ export default function navbar() {
         <div className="px-1 pt-2 pb-3 space-y-1">
           {mobileNavLinks.map((element) => {
             return (
-              <Link href={element.slug}>
+              <Link href={element.slug} key={element.slug}>
                 <a className="text-gray-600 dark:text-white flex items-center px-3 py-3 hover:text-green-500 hover:bg-white rounded-sm text-base font-semibold">
                   <span className="mx-2">{element.icon}</span>
                   <span className="mx-1">

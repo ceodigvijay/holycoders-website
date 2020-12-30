@@ -15,11 +15,14 @@ export default function postCollection({
     <section className="min-h-screen">
       {posts && posts[0] ? (
         <>
-          <div class="text-gray-600 dark:text-gray-400 body-font overflow-hidden">
-            <div class="container px-5 py-24 mx-auto">
-              <div class="flex flex-wrap -m-12">
+          <div className="text-gray-600 dark:text-gray-400 body-font overflow-hidden">
+            <div className="container px-5 py-24 mx-auto">
+              <div className="flex flex-wrap -m-12">
                 {posts.map((post) => (
-                  <div className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg border border-gray-200 dark:border-gray-700">
+                  <div
+                    key={post._id}
+                    className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg border border-gray-200 dark:border-gray-700"
+                  >
                     <span className="inline-block py-1 px-2 rounded bg-primary-50 text-primary-500 dark:bg-primary-800 text-xs font-medium tracking-widest">
                       {post.tags.length !== 0
                         ? "#" + post.tags[0].name
@@ -52,46 +55,45 @@ export default function postCollection({
                       </Link>
                     </p>
                     <div className="flex items-center flex-wrap pb-4 mb-4  border-gray-100 mt-auto w-full">
-                    
-                        <p className="text-primary-500 inline-flex items-center">
-                          {post.author && post.author[0].profile_image ? (
-                            <Image
-                              alt="author"
-                              src={post.author[0].profile_image}
-                              className="is-rounded"
-                              width="48px"
-                              height="48px"
-                              className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
-                            />
-                          ) : (
-                            <img
-                              alt="blog"
-                              src="https://dummyimage.com/104x104"
-                              className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
-                            />
-                          )}
-                          <span className="flex-grow flex flex-col pl-4">
-                            <span className="title-font font-medium text-gray-900 dark:text-gray-200">
-                              <Link
-                                href={`/u/${
-                                  post.author ? post.author[0].username : ""
-                                }`}
-                              >
-                                <a>
-                                  {post.author && post.author[0].name
-                                    ? post.author[0].name
-                                    : post.author[0].username}
-                                </a>
-                              </Link>
-                            </span>
-                            <span className="text-gray-400 text-sm  mt-0.5">
-                              {post.reading_time
-                                ? post.reading_time / (60 * 1000)
-                                : "5"}{" "}
-                              mins read
-                            </span>
+                      <div className="text-primary-500 inline-flex items-center">
+                        {post.author && post.author[0].profile_image ? (
+                          <Image
+                            alt="author"
+                            src={post.author[0].profile_image}
+                            className="is-rounded"
+                            width="48px"
+                            height="48px"
+                            className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                          />
+                        ) : (
+                          <img
+                            alt="blog"
+                            src="https://dummyimage.com/104x104"
+                            className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"
+                          />
+                        )}
+                        <span className="flex-grow flex flex-col pl-4">
+                          <span className="title-font font-medium text-gray-900 dark:text-gray-200">
+                            <Link
+                              href={`/u/${
+                                post.author ? post.author[0].username : ""
+                              }`}
+                            >
+                              <a>
+                                {post.author && post.author[0].name
+                                  ? post.author[0].name
+                                  : post.author[0].username}
+                              </a>
+                            </Link>
                           </span>
-                        </p>
+                          <span className="text-gray-400 text-sm  mt-0.5">
+                            {post.reading_time
+                              ? post.reading_time / (60 * 1000)
+                              : "5"}{" "}
+                            mins read
+                          </span>
+                        </span>
+                      </div>
 
                       <span className="text-gray-400 mr-1 inline-flex items-center ml-auto leading-none text-sm py-1">
                         <svg
