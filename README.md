@@ -23,7 +23,7 @@ update posts at 1 hr interval and pages 1 day interval
 [*] Clear logs
 - Noindex remove
 [*] Check all sitemaps
-- Google analytics
+[*] Google analytics
 - remove console logs
 [*] All size icons, apple microsoft tile, favicon...
 
