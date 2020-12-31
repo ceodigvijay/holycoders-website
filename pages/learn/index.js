@@ -17,7 +17,7 @@ export default function index() {
       <section className="text-gray-700 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -mx-4 -mb-10 text-center">
-            <div className="sm:w-1/2 mb-10 px-4">
+            {/* <div className="sm:w-1/2 mb-10 px-4">
               <div className="rounded-lg h-64 overflow-hidden">
                 <Image
                   className="object-cover object-center h-full w-full"
@@ -28,7 +28,6 @@ export default function index() {
                 />
               </div>
               <h2 className="title-font text-2xl font-medium text-gray-900 mt-6 mb-3 dark:text-gray-100">
-                {" "}
                 Website Hacking and Preventions - Security Best Practices
               </h2>
               <p className="leading-relaxed text-base dark:text-gray-500">
@@ -43,13 +42,13 @@ export default function index() {
                   </a>
                 </Link>
               </button>
-            </div>
+            </div> */}
 
             <div className="sm:w-1/2 mb-10 px-4">
               <div className="rounded-lg h-64 overflow-hidden">
                 <Image
                   className="object-cover object-center h-full w-full"
-                  src="/content/images/course/websecurity/featured.png"
+                  src="/content/images/course/python/featured.png"
                   width="1200px"
                   height="500px"
                   alt="Website hacking and prevention"
@@ -64,11 +63,11 @@ export default function index() {
                 advance topics in step by step learning process.
               </p>
               <button>
-                <Link href="/learn/python/">
-                  <a className="flex mx-auto mt-6 text-white bg-primary-600 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
-                    View Course
-                  </a>
-                </Link>
+                {/* <Link href="/learn/python/"> */}
+                  <p className="flex cursor-not-allowed mx-auto mt-6 text-primary-600 border-0 py-2 px-5 focus:outline-none rounded">
+                    Coming Soon
+                  </p>
+                {/* </Link> */}
               </button>
             </div>
           </div>
