@@ -38,7 +38,7 @@ export default function index() {
               </p>
               <button>
                 <Link href="/learn/website-hacking-and-security/">
-                  <a className="flex mx-auto mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                  <a className="flex mx-auto mt-6 text-white bg-primary-600 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
                     View Course
                   </a>
                 </Link>
@@ -65,7 +65,7 @@ export default function index() {
               </p>
               <button>
                 <Link href="/learn/python/">
-                  <a className="flex mx-auto mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                  <a className="flex mx-auto mt-6 text-white bg-primary-600 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
                     View Course
                   </a>
                 </Link>

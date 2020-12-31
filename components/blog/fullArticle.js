@@ -46,7 +46,6 @@ const fullArticle = ({
       ? text + child
       : React.Children.toArray(child.props.children).reduce(flatten, text);
   };
-  console.log(content_html);
   /**
    * HeadingRenderer is a custom renderer
    * It parses the heading and attaches an id to it to be used as an anchor
@@ -74,7 +73,6 @@ const fullArticle = ({
       var width = src.split("x").reverse()[1];
       var height = src.split("x").reverse()[0].split(".")[0];
       if (width && height && !isNaN(width) && !isNaN(height)) {
-        console.log(width && height && !isNaN(width) && !isNaN(height));
         return <Image src={src} alt={alt} width={width} height={height} />;
       }
       return (
@@ -168,7 +166,7 @@ const fullArticle = ({
             />
           </div>
           <div className="text-center col-span-5 lg:col-span-1">
-            <Image
+            {/* <Image
               src="/content/images/dummy/laid1.png"
               alt="ad"
               width="280"
@@ -182,7 +180,7 @@ const fullArticle = ({
               width="280"
               height="250"
               className="article-rights-img rounded-lg"
-            />
+            /> */}
           </div>
         </div>
 

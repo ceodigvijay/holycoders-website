@@ -352,7 +352,7 @@ export default function profile({ user, setUser }) {
               className="setting-input"
               type="text"
               placeholder="e.g https://twitter.com/username"
-              value={user.social.twitter}
+              value={user.social.twitter ? user.social.twitter : ""}
               onChange={(e) =>
                 setUser({
                   ...user,
@@ -412,7 +412,7 @@ export default function profile({ user, setUser }) {
         <div className="flex flex-wrap -m-4">
           {user.projects.map((project, index) => {
             return (
-              <div className="p-4 md:w-1/3">
+              <div className="p-4 md:w-1/3" key={project.demo + project.title}>
                 <div className="flex rounded-lg h-full bg-gray-100 dark:bg-gray-700 p-8 flex-col">
                   <div className="flex items-center mb-3">
                     <button

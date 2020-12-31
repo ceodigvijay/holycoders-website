@@ -11,13 +11,14 @@ export default function index() {
   const { addNotification } = useContext(GlobalContext);
 
   const searchUser = async () => {
-    console.log(userSearch);
     try {
       const res = await getUserByUsername(userSearch);
       setUser(res.data ? res.data.user : null);
-      console.log(res.data);
     } catch (error) {
-      console.log(error);
+      addNotification({
+        message: "Some error in searching the user.",
+        type: "error",
+      });
     }
   };
 
@@ -48,7 +49,6 @@ export default function index() {
       );
       if (usernameInput === user.username) {
         const res = await deleteUser(user._id);
-        console.log(res);
         if (res.data.ok) {
           addNotification({
             message: "User Deleted Successfully.",

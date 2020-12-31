@@ -68,7 +68,7 @@ export default function dashboardLayout({ children }) {
     {
       title: "Posts",
       link: "/dashboard/posts/",
-      isProtected: false,
+      isProtected: true,
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -187,11 +187,11 @@ export default function dashboardLayout({ children }) {
               {dashNavs.map((element) => {
                 var isActive =
                   currentRoute === element.link.split("/").reverse()[1];
-                return element.isProtected & user &&
-                  (user.role !== "admin" || user.role !== "editor") ? (
+                return element.isProtected && user &&
+                  !["admin", "editor"].includes(user.role) ? (
                   ""
                 ) : (
-                  <li>
+                  <li key={element.link}>
                     <Link href={element.link}>
                       <a
                         className={`flex items-center px-6 py-4 hover:bg-gray-200 dark:hover:bg-gray-700  ${
@@ -209,7 +209,9 @@ export default function dashboardLayout({ children }) {
               })}
             </ul>
           </nav>
-          <main className="dashboard-content md:px-2 pt-4 pb-40">{children}</main>
+          <main className="dashboard-content md:px-2 pt-4 pb-40">
+            {children}
+          </main>
         </div>
       </AuthWrapper>
     </Layout>

@@ -14,19 +14,18 @@ update posts at 1 hr interval and pages 1 day interval
 
 # comments crash for unlogged users
 # No view post for scheduled post
-# No login for suspended users
+# Likes hardcoded on profile page
 # clear all console errors
 ## check if search engine show encoded characters for xss prevention
 # Launch CheckList
-- Fix morgan "dev" state in server.js
-- Fix sitemap url in robots.txt
-- Clear logs
+[*] Fix morgan "dev" state in server.js
+[*] Fix sitemap url in robots.txt
+[*] Clear logs
 - Noindex remove
-- Check all sitemaps
+[*] Check all sitemaps
 - Google analytics
 - remove console logs
-- All size icons, apple microsoft tile, favicon...
-- featured image
+[*] All size icons, apple microsoft tile, favicon...
 
 # GO Public CheckList
 

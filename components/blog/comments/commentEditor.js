@@ -24,18 +24,22 @@ export default function commentEditor({
   const { user } = useContext(GlobalContext);
 
   async function handleCommentSubmit() {
-    setLoading(true);
-    try {
-      const res = await addComment(comment);
-      if (res.data.ok) {
-        addNewCommentToState({ ...comment, _id: res.data.id });
-        setComment({ ...comment, comment_raw: "" });
+    if (comment.comment_raw) {
+      setLoading(true);
+      try {
+        const res = await addComment(comment);
+        if (res.data.ok) {
+          addNewCommentToState({ ...comment, _id: res.data.id });
+          setComment({ ...comment, comment_raw: "" });
+        }
+        console.log(res);
+      } catch (error) {
+        console.log(error);
       }
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      setLoading(false);
+    } else {
+      alert("Empty Comments are not accepted.");
     }
-    setLoading(false);
   }
   async function handleCommentUpdate() {
     setLoading(true);
@@ -76,23 +80,27 @@ export default function commentEditor({
             placeholder="Add a comment..."
           ></textarea>
         </p>
-        <nav className="my-4">
+        <div className="my-6">
           {comment._id ? (
             <a
-              className={`button is-primary ${loading ? "is-loading" : ""}`}
+              className={`px-6 py-4 rounded-lg bg-primary-600 hover:bg-primary-700 text-white cursor-pointer ${
+                loading ? "is-loading" : ""
+              }`}
               onClick={handleCommentUpdate}
             >
               Update
             </a>
           ) : (
             <a
-              className={`button is-primary ${loading ? "is-loading" : ""}`}
+              className={`px-6 py-4 rounded-lg bg-primary-600 hover:bg-primary-700 text-white cursor-pointer ${
+                loading ? "is-loading" : ""
+              }`}
               onClick={handleCommentSubmit}
             >
               Submit
             </a>
           )}
-        </nav>
+        </div>
       </div>
     </article>
   ) : (

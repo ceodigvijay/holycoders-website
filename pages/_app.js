@@ -9,6 +9,7 @@ import axios from "axios";
 import GlobalContext from "../contexts/globalContext";
 import { useRouter } from "next/router";
 import Toast from "../components/toast/toast";
+import * as gtag from "../gtag";
 // import "react-datepicker/dist/react-datepicker.css";
 
 //Binding events.
@@ -17,7 +18,6 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
-  // console.log("Into the _app component.");
   const router = useRouter();
   const [theme, setTheme] = useState("light");
   const [user, setUserValue] = useState(null);
@@ -34,6 +34,17 @@ function MyApp({ Component, pageProps }) {
       { message: message, type: type, id: toastId },
     ]);
   };
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -102,6 +113,27 @@ function MyApp({ Component, pageProps }) {
     >
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
       {notifications.length != 0 ? <Toast /> : ""}
       <Component {...pageProps} />

@@ -33,7 +33,7 @@ export default function pagination({ currentPage, pageCount, changePage }) {
       <ul className="flex items-center">
         {result.map((value) => {
           return (
-            <li>
+            <li key={value}>
               <a
                 className={`px-6 py-4 bg-gray-100 rounded-lg mx-2 cursor-pointer ${
                   currentPage === value ? "bg-gray-700 text-gray-100" : ""

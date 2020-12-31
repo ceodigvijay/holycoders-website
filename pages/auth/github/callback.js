@@ -27,8 +27,12 @@ function authGit() {
           router.push("/dashboard");
         })
         .catch((error) => {
+          let message = "Some error occured. Please Contact us.";
+          error && error.response && error.response.data.error
+            ? (message = error.response.data.error)
+            : "";
           addNotification({
-            message: "Some error occured. Please Contact us.",
+            message: message,
             type: "error",
           });
           router.push("/");
@@ -41,7 +45,7 @@ function authGit() {
 
   return (
     <Layout>
-      <div className="text-center text-2xl text-gray-800 dark:text-gray-100 min-h-screen font-medium mt-20">
+      <div className="text-center text-2xl text-gray-800 dark:text-gray-100 min-h-screen font-medium pt-20">
         Please wait for Log in...
       </div>
     </Layout>

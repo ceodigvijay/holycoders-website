@@ -70,16 +70,8 @@ module.exports = withMDX({
   async rewrites() {
     return [
       {
-        source: "/post-sitemap/",
+        source: "/post-sitemap.xml",
         destination: "/api/sitemap/",
-      },
-      {
-        source: "/sitemap/",
-        destination: "/sitemap.xml/",
-      },
-      {
-        source: "/course-sitemap/",
-        destination: "/course-sitemap.xml/",
       },
     ];
   },

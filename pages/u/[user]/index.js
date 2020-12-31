@@ -63,21 +63,23 @@ function user({ user, meta, error }) {
                 />
               </div>
               <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                <h1 className="title-font sm:text-4xl text-3xl mb-1 font-medium text-gray-900">
+                <h1 className="title-font sm:text-4xl text-3xl mb-1 font-medium text-gray-900 dark:text-gray-50">
                   {user.name}
                 </h1>
                 <h2 className="mb-4 text-lg text-gray-500">@{user.username}</h2>
-                <p className="mb-8 leading-relaxed">{user.bio}</p>
+                <p className="mb-8 leading-relaxed dark:text-gray-400">
+                  {user.bio}
+                </p>
                 <div className="flex justify-center">
-                  <button
+                  {/* <button
                     onClick={handleFollowUser}
-                    className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                    className="inline-flex text-white bg-primary-600 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                   >
                     Follow
                   </button>
                   <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                     Message
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
@@ -86,10 +88,10 @@ function user({ user, meta, error }) {
           <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
               <div className="flex flex-col text-center w-full mb-20">
-                <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                <h2 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900 dark:text-gray-50">
                   Know Something about {user.name}
                 </h2>
-                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+                <p className="lg:w-2/3 mx-auto leading-relaxed text-base dark:text-gray-400">
                   {user.current_work}
                 </p>
               </div>
@@ -101,7 +103,7 @@ function user({ user, meta, error }) {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                      className="text-primary-500 w-12 h-12 mb-3 inline-block"
                     >
                       <path
                         strokeLinecap="round"
@@ -111,10 +113,10 @@ function user({ user, meta, error }) {
                       />
                     </svg>
 
-                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                    <h2 className="title-font font-medium text-3xl text-gray-900 dark:text-gray-50">
                       {meta.userPostCount}
                     </h2>
-                    <p className="leading-relaxed">
+                    <p className="leading-relaxed dark:text-gray-400">
                       Post
                       {meta.userPostCount && meta.userPostCount < 2 ? "" : "'s"}
                     </p>
@@ -128,17 +130,19 @@ function user({ user, meta, error }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                      className="text-primary-500 w-12 h-12 mb-3 inline-block"
                       viewBox="0 0 24 24"
                     >
                       <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                       <circle cx={9} cy={7} r={4} />
                       <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" />
                     </svg>
-                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                    <h2 className="title-font font-medium text-3xl text-gray-900 dark:text-gray-50">
                       {meta.userFollowingCount}
                     </h2>
-                    <p className="leading-relaxed">Following</p>
+                    <p className="leading-relaxed  dark:text-gray-400">
+                      Following
+                    </p>
                   </div>
                 </div>
                 <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
@@ -148,7 +152,7 @@ function user({ user, meta, error }) {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                      className="text-primary-500 w-12 h-12 mb-3 inline-block"
                     >
                       <path
                         strokeLinecap="round"
@@ -158,10 +162,12 @@ function user({ user, meta, error }) {
                       />
                     </svg>
 
-                    <h2 className="title-font font-medium text-3xl text-gray-900">
+                    <h2 className="title-font font-medium text-3xl text-gray-900  dark:text-gray-50">
                       {meta.userFollowerCount}
                     </h2>
-                    <p className="leading-relaxed">Followers</p>
+                    <p className="leading-relaxed  dark:text-gray-400">
+                      Followers
+                    </p>
                   </div>
                 </div>
                 <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
@@ -171,7 +177,7 @@ function user({ user, meta, error }) {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="text-indigo-500 w-12 h-12 mb-3 inline-block"
+                      className="text-primary-500 w-12 h-12 mb-3 inline-block"
                     >
                       <path
                         strokeLinecap="round"
@@ -181,23 +187,41 @@ function user({ user, meta, error }) {
                       />
                     </svg>
 
-                    <h2 className="title-font font-medium text-3xl text-gray-900">
-                      46
+                    <h2 className="title-font font-medium text-3xl text-gray-900  dark:text-gray-50">
+                      0
                     </h2>
-                    <p className="leading-relaxed">Likes</p>
+                    <p className="leading-relaxed  dark:text-gray-400">Likes</p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
+          <section>
+            <h2 className="text-center my-4 sm:text-3xl text-2xl font-medium title-font text-gray-900  dark:text-gray-50">
+              Skills
+            </h2>
+            <div className="flex items-center justify-center">
+              {user.skills.map((element) => {
+                return (
+                  <Tag
+                    icon={element.featured_image}
+                    name={element.name}
+                    slug={element.slug}
+                    color={element.hex_color}
+                  />
+                );
+              })}
+            </div>
+          </section>
+
           <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
               <div className="flex flex-col text-center w-full mb-20">
-                <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+                <h2 className="text-xs text-primary-600 tracking-widest font-medium title-font mb-1">
                   PROJECTS ON PROUD
                 </h2>
-                <h2 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                <h2 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 dark:text-gray-50">
                   Best Projects Worth For a Shoutout
                 </h2>
               </div>
@@ -205,9 +229,9 @@ function user({ user, meta, error }) {
                 {user.projects.map((project) => {
                   return (
                     <div className="p-4 md:w-1/3">
-                      <div className="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+                      <div className="flex rounded-lg h-full bg-gray-100 dark:bg-gray-700 p-8 flex-col">
                         <div className="flex items-center mb-3">
-                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
+                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-primary-600 text-white flex-shrink-0">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -223,16 +247,16 @@ function user({ user, meta, error }) {
                               />
                             </svg>
                           </div>
-                          <h2 className="text-gray-900 text-lg title-font font-medium">
+                          <h2 className="text-gray-900 dark:text-gray-50 text-lg title-font font-medium">
                             {project.title}
                           </h2>
                         </div>
                         <div className="flex-grow">
-                          <p className="leading-relaxed text-base">
+                          <p className="leading-relaxed text-base dark:text-gray-400">
                             {project.description}
                           </p>
                           <a
-                            className="mt-3 text-indigo-500 inline-flex items-center"
+                            className="mt-3 text-primary-600 inline-flex items-center"
                             target="_blank"
                             rel="norefferer noopener"
                             href={project.demo}
@@ -259,72 +283,90 @@ function user({ user, meta, error }) {
             </div>
           </section>
 
-          <div>
-            {user.social.website ? (
-              <a href={user.social.website} className="button is-white">
-                <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
-              </a>
-            ) : (
-              ""
-            )}
-            {user.social.facebook ? (
-              <a href={user.social.facebook} className="button is-white">
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  color="#3b5998"
-                  size="3x"
-                />
-              </a>
-            ) : (
-              ""
-            )}
-            {user.social.twitter ? (
-              <a href={user.social.twitter} className="button is-white">
-                <FontAwesomeIcon
-                  icon={faTwitterSquare}
-                  color="#00acee"
-                  size="3x"
-                />
-              </a>
-            ) : (
-              ""
-            )}
-            {user.social.github ? (
-              <a href={user.social.github} className="button is-white">
-                <FontAwesomeIcon
-                  icon={faGithubSquare}
-                  color="#211f1f"
-                  size="3x"
-                />
-              </a>
-            ) : (
-              ""
-            )}
-            {user.social.stackoverflow ? (
-              <a href={user.social.stackoverflow} className="button is-white">
-                <FontAwesomeIcon
-                  icon={faStackOverflow}
-                  color="#f48024"
-                  size="3x"
-                />
-              </a>
-            ) : (
-              ""
-            )}
-          </div>
+          <section>
+            <h2 className="text-center my-4 sm:text-3xl text-2xl font-medium title-font text-gray-900  dark:text-gray-50">
+              The user is Social
+            </h2>
 
-          <div>
-            {user.skills.map((element) => {
-              return (
-                <Tag
-                  icon={element.featured_image}
-                  name={element.name}
-                  slug={element.slug}
-                  color={element.hex_color}
-                />
-              );
-            })}
-          </div>
+            <div className="flex items-center justify-center pb-8">
+              {user.social.website ? (
+                <a
+                  href={user.social.website}
+                  className="mx-2"
+                  rel="norefferer noopener"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
+                </a>
+              ) : (
+                ""
+              )}
+              {user.social.facebook ? (
+                <a
+                  href={user.social.facebook}
+                  className="mx-2"
+                  rel="norefferer noopener"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebookSquare}
+                    color="#3b5998"
+                    size="3x"
+                  />
+                </a>
+              ) : (
+                ""
+              )}
+              {user.social.twitter ? (
+                <a
+                  href={user.social.twitter}
+                  className="mx-2"
+                  rel="norefferer noopener"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faTwitterSquare}
+                    color="#00acee"
+                    size="3x"
+                  />
+                </a>
+              ) : (
+                ""
+              )}
+              {user.social.github ? (
+                <a
+                  href={user.social.github}
+                  className="mx-2"
+                  rel="norefferer noopener"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faGithubSquare}
+                    color="#211f1f"
+                    size="3x"
+                  />
+                </a>
+              ) : (
+                ""
+              )}
+              {user.social.stackoverflow ? (
+                <a
+                  href={user.social.stackoverflow}
+                  className="mx-2"
+                  rel="norefferer noopener"
+                  target="_blank"
+                >
+                  <FontAwesomeIcon
+                    icon={faStackOverflow}
+                    color="#f48024"
+                    size="3x"
+                  />
+                </a>
+              ) : (
+                ""
+              )}
+            </div>
+          </section>
         </div>
       )}
     </Layout>

@@ -123,55 +123,52 @@ export default function listView({
                   ? element.author[0].username
                   : "No author";
               return (
-                <>
-                  <div className="p-4 w-full">
-                    <div className="flex rounded-lg h-full bg-gray-50 dark:bg-gray-700 p-8 flex-col">
-                      <div className="flex items-center mb-2">
+                <div className="p-4 w-full" key={element._id}>
+                  <div className="flex rounded-lg h-full bg-gray-50 dark:bg-gray-700 p-8 flex-col">
+                    <div className="flex items-center mb-2">
+                      <Link href={link}>
+                        <a className="text-gray-900 cursor-pointer dark:text-gray-100 text-xl title-font font-medium">
+                          {element.title ? element.title : element.name}
+                          {!element.status || element.status === "published" ? (
+                            ""
+                          ) : (
+                            <span
+                              className={`text-sm bg-yellow-200 dark:text-gray-500 py-1 px-4 mx-4 rounded-lg`}
+                            >
+                              {element.status}
+                            </span>
+                          )}
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="flex-grow text-center">
+                      <div className="flex items-center">
+                        <p className="">
+                          By{" "}
+                          <Link href={`/u/${authorUsername}/`}>
+                            <a className="font-medium">{authorUsername}</a>
+                          </Link>
+                        </p>
                         <Link href={link}>
-                          <a className="text-gray-900 cursor-pointer dark:text-gray-100 text-xl title-font font-medium">
-                            {element.title ? element.title : element.name}
-                            {!element.status ||
-                            element.status === "published" ? (
-                              ""
-                            ) : (
-                              <span
-                                className={`text-sm bg-yellow-200 dark:text-gray-500 py-1 px-4 mx-4 rounded-lg`}
-                              >
-                                {element.status}
-                              </span>
-                            )}
+                          <a className="text-primary-500 dark:text-primary-200 ml-auto cursor-pointer inline-flex items-center mx-2">
+                            Edit Post
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              className="w-4 h-4 ml-2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                           </a>
                         </Link>
                       </div>
-                      <div className="flex-grow text-center">
-                        <div className="flex items-center">
-                          <p className="">
-                            By{" "}
-                            <Link href={`/u/${authorUsername}/`}>
-                              <a className="font-medium">{authorUsername}</a>
-                            </Link>
-                          </p>
-                          <Link href={link}>
-                            <a className="text-primary-500 dark:text-primary-200 ml-auto cursor-pointer inline-flex items-center mx-2">
-                              Edit Post
-                              <svg
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                className="w-4 h-4 ml-2"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                              </svg>
-                            </a>
-                          </Link>
-                        </div>
-                      </div>
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>

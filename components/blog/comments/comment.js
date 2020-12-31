@@ -18,7 +18,10 @@ export default function comment({ commentObj, addNewCommentToState }) {
         isLikedPositively
       );
     } catch (error) {
-      console.log(error);
+      addNotification({
+        message: "Some error occured. Please try again later.",
+        type: "error",
+      });
     }
   };
   const handleReportClick = async () => {
@@ -31,13 +34,15 @@ export default function comment({ commentObj, addNewCommentToState }) {
           })
         : "";
     } catch (error) {
-      console.log(error);
+      addNotification({
+        message: "Some error occured. Please try again later.",
+        type: "error",
+      });
     }
   };
   async function handleCommentDelete() {
     try {
       const res = await deleteComment(commentObj);
-      console.log(res);
       if (res.data.ok) {
         addNewCommentToState({ ...comment, _id: res.data.id });
       }

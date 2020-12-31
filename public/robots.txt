@@ -2,21 +2,12 @@ User-agent: *
 Disallow: /
 
 User-agent: *
-Disallow: /u/*/
-
-User-agent: *
-Disallow: /u/settings/
-
-User-agent: *
 Disallow: /login/
 
 User-agent: *
 Disallow: /logout/
 
 User-agent: *
-Disallow: /join/
-
-User-agent: *
 Disallow: /dashboard/
 
-Sitemap: http://www.example.com/sitemap.xml
+Sitemap: https://holycoders.com/sitemap.xml
