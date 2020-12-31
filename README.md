@@ -6,6 +6,7 @@ way to cache sitemap api
 news sitemap
 
 Major Bug---
+# Sanitize svg images
 
 Minor Bugs--- Transport to github
 profile no proof of follow after refresh.

@@ -113,6 +113,10 @@ function MyApp({ Component, pageProps }) {
     >
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="ahrefs-site-verification"
+          content="97473de6617eef41d8688c662fd27bd47e79467ca44bea60a475cc957ab38eb3"
+        ></meta>
         <link
           rel="apple-touch-icon"
           sizes="180x180"

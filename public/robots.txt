@@ -1,9 +1,3 @@
-User-agent: * 
-Disallow: /
-
-User-agent: *
-Disallow: /login/
-
 User-agent: *
 Disallow: /logout/
 
