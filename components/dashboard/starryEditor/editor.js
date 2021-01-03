@@ -4,7 +4,6 @@ import SidebarComponents from "./sidebar";
 import ImagePicker from "../../Input/imagePicker";
 import Link from "next/link";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import {
   getAdminPostById,
@@ -17,11 +16,6 @@ import moment from "moment";
 import TextareaAutosize from "react-textarea-autosize";
 import Editor from "rich-markdown-editor";
 import Spinner from "../../spinner";
-import {
-  faChevronLeft,
-  faRocket,
-  faSlidersH,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default function starryEditor(props) {
   const { addNotification, user } = useContext(GlobalContext);
@@ -213,6 +207,11 @@ export default function starryEditor(props) {
     }
   }
 
+  //https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return currentPostID && currentPostID !== "new" && !post.post_id ? (
     <Spinner />
   ) : (
@@ -350,12 +349,12 @@ export default function starryEditor(props) {
             </div>
           </header>
           <div
-            className="starry-editor-editable my-12"
+            className="starry-editor-editable my-12 mx-2"
             onKeyDown={handleKeyDown}
           >
             {/* 55-60 Char long */}
             <TextareaAutosize
-              className="title-font text-center text-gray-800 dark:text-gray-100 text-5xl lg:text-6xl font-bold focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full border-transparent resize-none rounded-md"
+              className="title-font text-center text-gray-800 dark:text-gray-100 text-5xl lg:text-6xl font-bold focus:ring-gray-400 focus:border-gray-400 mt-1 block w-full border-transparent resize-none rounded-md"
               placeholder="Title"
               value={post.title}
               onChange={(e) => {
@@ -374,7 +373,7 @@ export default function starryEditor(props) {
               <div className="col-span-5 lg:col-span-1"></div>
               <div className="col-span-5 lg:col-span-3 ">
                 <TextareaAutosize
-                  className="w-full border-gray-50 resize-none text-lg"
+                  className="w-full border-gray-50 resize-none text-lg focus:ring-gray-400 focus:border-gray-400"
                   placeholder="Introduction"
                   value={post.introduction}
                   onChange={(e) => {
@@ -438,7 +437,12 @@ export default function starryEditor(props) {
           </div>
         </div>
       </Sidebar>
-
+      <div className="absolute bottom-4 right-6 text-gray-400">
+        {post.content_raw
+          ? numberWithCommas(post.content_raw.split(" ").length)
+          : "0"}{" "}
+        words
+      </div>
       <style jsx global>{`
         html {
           overflow: auto !important;

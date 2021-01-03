@@ -11,12 +11,18 @@ const Post = (data) => {
 };
 
 export const getStaticProps = async (ctx) => {
-  const res = await getPostBySlug(ctx.params.slug);
-  const postData = res.data;
-  return {
-    props: postData,
-    revalidate: 3600,
-  };
+  try {
+    const res = await getPostBySlug(ctx.params.slug);
+    const postData = res.data;
+    return {
+      props: postData,
+      revalidate: 3600,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export const getStaticPaths = async () => {

@@ -17,12 +17,11 @@ update posts at 1 hr interval and pages 1 day interval
 # No view post for scheduled post
 # Likes hardcoded on profile page
 # clear all console errors
-## check if search engine show encoded characters for xss prevention
 # Launch CheckList
 [*] Fix morgan "dev" state in server.js
 [*] Fix sitemap url in robots.txt
 [*] Clear logs
-- Noindex remove
+[*] Noindex remove
 [*] Check all sitemaps
 [*] Google analytics
 - remove console logs

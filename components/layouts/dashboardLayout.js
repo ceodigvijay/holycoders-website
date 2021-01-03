@@ -3,19 +3,6 @@ import Link from "next/link";
 import GlobalContext from "../../contexts/globalContext";
 import { useRouter } from "next/router";
 import Layout from "./layout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTachometerAlt,
-  faThumbtack,
-  faFile,
-  faTags,
-  faCog,
-  faSignOutAlt,
-  faHome,
-  faStar,
-  faFileAlt,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
 import AuthWrapper from "./authWrapper";
 export default function dashboardLayout({ children }) {
   const router = useRouter();

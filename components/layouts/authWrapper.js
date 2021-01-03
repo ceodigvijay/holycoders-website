@@ -16,7 +16,7 @@ class AuthWrapper extends Component {
         withCredentials: true,
       })
         .then((res) => {
-          this.setState({hasAuth: true})
+          this.setState({ hasAuth: true });
           this.context.setGlobalState({ ...globalState, user: res.data });
           localStorage.setItem("hc_user", JSON.stringify(res.data));
         })
@@ -29,7 +29,17 @@ class AuthWrapper extends Component {
     hasAuth: false,
   };
   render() {
-    return <div>{this.state.hasAuth ? this.props.children : ""}</div>;
+    return (
+      <div>
+        {this.state.hasAuth ? (
+          this.props.children
+        ) : (
+          <div className="min-h-screen text-2xl text-gray-800 dark:text-gray-100 py-8 text-center">
+            Loading
+          </div>
+        )}
+      </div>
+    );
   }
 }
 

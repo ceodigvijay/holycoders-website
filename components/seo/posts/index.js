@@ -30,6 +30,11 @@ export default function Seo({
     ? cleanString(introduction)
     : "";
 
+  const newFeaturedImage =
+    featuredImage && featuredImage.includes("https://")
+      ? cleanString(featuredImage)
+      : `https://holycoders.com${cleanString(featuredImage)}`;
+
   //If post type is page then domain/slug else domain/category/slug
   const url =
     type === "page"
@@ -63,7 +68,7 @@ export default function Seo({
       featuredImage
         ? `"image":{
       "@type": "ImageObject",
-      "url":"https://holycoders.com${cleanString(featuredImage)}"
+      "url":"${cleanString(newFeaturedImage)}"
      }, `
         : ""
     }

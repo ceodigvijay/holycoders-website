@@ -39,7 +39,6 @@ const fullArticle = ({
     Prism.highlightAll();
   });
 
-
   // Heading Parser to generate heading id
   const flatten = (text, child) => {
     return typeof child === "string"
@@ -73,7 +72,11 @@ const fullArticle = ({
       var width = src.split("x").reverse()[1];
       var height = src.split("x").reverse()[0].split(".")[0];
       if (width && height && !isNaN(width) && !isNaN(height)) {
-        return <Image src={src} alt={alt} width={width} height={height} />;
+        return (
+          <div className="article-img shadow-lg">
+            <Image src={src} alt={alt} width={width} height={height} />
+          </div>
+        );
       }
       return (
         <>

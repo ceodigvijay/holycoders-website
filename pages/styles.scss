@@ -16,6 +16,12 @@ input:checked ~ .toggle__dot {
   background-color: #333;
 }
 
+//For article Images
+.article-img div{
+  display: block !important;
+  overflow: inherit !important;
+}
+
 
 html{
   scroll-behavior: smooth;
