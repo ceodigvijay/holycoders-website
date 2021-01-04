@@ -85,7 +85,7 @@ function login({ redirectTo } = {}) {
 
   return (
     <Layout>
-      <div className="text-center max-w-md min-h-screen m-auto mt-12">
+      <div className="text-center max-w-md min-h-screen m-auto pt-12">
         <div className=""></div>
         <svg
           className="w-32 h-32 inline-block"

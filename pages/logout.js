@@ -56,7 +56,7 @@ function logout() {
               </button>
           </div>
         ) : (
-          <h1 className="title text-2xl align-middle font-medium text-gray-600 dark:text-gray-200 mt-20">
+          <h1 className="title text-2xl align-middle font-medium text-gray-600 dark:text-gray-200 pt-20">
             Logged out :(.
           </h1>
         )}

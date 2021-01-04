@@ -16,6 +16,8 @@ update posts at 1 hr interval and pages 1 day interval
 # comments crash for unlogged users
 # No view post for scheduled post
 # Likes hardcoded on profile page
+# Likes and bookmark instant feedback and disable until response
+# toolbar hidden on mobile fix
 # clear all console errors
 # Launch CheckList
 [*] Fix morgan "dev" state in server.js

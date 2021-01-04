@@ -309,7 +309,6 @@ code .number {
 
 //Toolbar Styling
 .utility-container {
-  display: flex;
   flex-direction: column;
   max-width: 100px;
   position: sticky;
@@ -328,6 +327,7 @@ code .number {
     }
   }
 }
+
 //Toolbar Styling Ends
 
 // React Tags
@@ -575,7 +575,6 @@ pre[class*="language-"] {
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   direction: ltr;
   font-family: monospace;
-  font-size: 1rem;
   text-align: left;
   white-space: pre;
   word-spacing: normal;

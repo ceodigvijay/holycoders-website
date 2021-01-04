@@ -155,7 +155,7 @@ const fullArticle = ({
           <div className="col-span-5 lg:col-span-1">
             {_id ? <Toolbar postId={_id} /> : ""}
           </div>
-          <div className="col-span-5 lg:col-span-3 prose dark:prose-dark md:prose-lg lg:prose-xl max-w-none mx-3">
+          <div className="col-span-5 lg:col-span-3 prose dark:prose-dark prose-lg lg:prose-xl max-w-none mx-3">
             <p className="mb-6">
               <i className="mr-2">
                 <span className="font-semibold mr-2">Summary:</span>

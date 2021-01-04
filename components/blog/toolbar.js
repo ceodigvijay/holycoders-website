@@ -23,7 +23,7 @@ export default function toolbar({ postId }) {
   return (
     <>
       {toolbarData ? (
-        <div className="utility-container">
+        <div className="hidden lg:flex utility-container">
           <Like
             postID={postId}
             likesCount={toolbarData.totalLikes}
