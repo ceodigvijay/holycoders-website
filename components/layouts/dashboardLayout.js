@@ -116,6 +116,32 @@ export default function dashboardLayout({ children }) {
       ),
     },
     {
+      title: "Courses",
+      link: "/dashboard/course/",
+      isProtected: true,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-8 h-8"
+        >
+          <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path
+            fill="#fff"
+            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Users",
       link: "/dashboard/users/",
       isProtected: true,
@@ -168,23 +194,24 @@ export default function dashboardLayout({ children }) {
   return (
     <Layout>
       <AuthWrapper>
-        <div className="bg-primary-6 px-2 md:px-12 py-2 min-h-screen">
-          <nav>
-            <ul className="flex m-4 flex-wrap justify-center">
+        <div className="bg-primary-6 px-2 py-2 min-h-screen grid grid-cols-5 gap-2">
+          <nav className="col-span-1">
+            <ul className="flex-col items-center justify-start">
               {dashNavs.map((element) => {
                 var isActive =
                   currentRoute === element.link.split("/").reverse()[1];
-                return element.isProtected && user &&
+                return element.isProtected &&
+                  user &&
                   !["admin", "editor"].includes(user.role) ? (
                   ""
                 ) : (
                   <li key={element.link}>
                     <Link href={element.link}>
                       <a
-                        className={`flex items-center px-6 py-4 hover:bg-gray-200 dark:hover:bg-gray-700  ${
+                        className={`flex items-center px-6 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700  ${
                           isActive
-                            ? "text-gray-600 dark:text-gray-200 font-medium border-b-2 border-gray-600 dark:border-gray-200"
-                            : "text-gray-400 dark:text-gray-400 border-b-2 border-gray-400 dark:border-gray-400"
+                            ? "text-gray-700 bg-gray-100 dark:text-gray-200 font-semibold"
+                            : "text-gray-500 dark:text-gray-400"
                         }`}
                       >
                         <span className="mx-1">{element.icon}</span>
@@ -196,7 +223,7 @@ export default function dashboardLayout({ children }) {
               })}
             </ul>
           </nav>
-          <main className="dashboard-content md:px-2 pt-4 pb-40">
+          <main className="dashboard-content md:px-2 pt-4 pb-40 col-span-4">
             {children}
           </main>
         </div>

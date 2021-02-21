@@ -21,7 +21,11 @@ module.exports = {
           800: "#146c36",
           900: "#135730",
         },
-        secondary: "#ecc94b",
+        secondary: "#474787",
+        tertiary: "#738182",
+      },
+      fontFamily: {
+        nunito: ['"Nunito"', "sans-serif"],
       },
       typography: (theme) => ({
         dark: {

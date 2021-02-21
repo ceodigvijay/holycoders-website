@@ -10,8 +10,6 @@ Major Bug---
 
 Minor Bugs--- Transport to github
 profile no proof of follow after refresh.
-noindex auth, dashboard, verify
-update posts at 1 hr interval and pages 1 day interval
 
 # comments crash for unlogged users
 # No view post for scheduled post
