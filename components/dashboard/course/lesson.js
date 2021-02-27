@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import CourseLayout from "../../../../../components/course/layout";
-import Contents from "../../../../../components/course/content/index";
-import { getLessonWithId, updateLesson } from "../../../../../lib/index";
+import CourseLayout from "./layout";
+import Contents from "./content/index";
+import { getLessonWithId, updateLesson } from "../../lib/index";
 import { useRouter } from "next/router";
 
 export default function lesson({ course, setCourse }) {

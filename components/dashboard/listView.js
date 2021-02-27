@@ -28,14 +28,7 @@ export default function listView({
 
       <section className="text-gray-600 dark:text-gray-400 body-font">
         <div className="container px-5 pb-8 mx-auto">
-          {/* <div className="flex flex-col text-center w-full mb-20">
-            <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
-              Posts
-            </h2>
-            <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-              <span>Posts Arranged in Chronological Order</span>
-            </h1>
-          </div> */}
+
 
           <div className="my-8 flex flex-wrap items-center justify-between">
             <div>

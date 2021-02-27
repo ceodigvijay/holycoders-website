@@ -222,6 +222,7 @@ export default function dashboardLayout({ children }) {
                 );
               })}
             </ul>
+            {/* <img src="/buy.jpg" className="border-2 rounded-xl border-gray-400" /> */}
           </nav>
           <main className="dashboard-content md:px-2 pt-4 pb-40 col-span-4">
             {children}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { getUserAllPosts } from "../../../lib/postAPI";
+import { getAllCourses } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import { useRouter } from "next/router";
 import ListView from "../collection/index";
@@ -7,7 +7,7 @@ export default function allPosts() {
   const router = useRouter();
   const page = router.query.page ? router.query.page : 1;
   const [postData, setPostsData] = useState({
-    posts: [],
+    courses: [],
     meta: {},
   });
   const { addNotification } = useContext(GlobalContext);
@@ -20,14 +20,9 @@ export default function allPosts() {
     const getData = async () => {
       let data;
       try {
-        const res = await getUserAllPosts(
-          page,
-          12,
-          "page",
-          searchValue.searchText,
-          searchValue.statusOfItem
-        );
+        const res = await getAllCourses({page:page, limit: 12, authorOnly: true});
         data = res.data;
+        console.log(data);
       } catch (error) {
         addNotification({
           message:
@@ -46,9 +41,9 @@ export default function allPosts() {
 
   return (
     <ListView
-      type="page"
-      pathname="pages"
-      data={postData.posts}
+      type="course"
+      pathname="course"
+      data={postData.courses}
       handleSearch={(searchText, statusOfItem) =>
         setSearchValue({ searchText: searchText, statusOfItem: statusOfItem })
       }
@@ -56,3 +51,4 @@ export default function allPosts() {
     />
   );
 }
+

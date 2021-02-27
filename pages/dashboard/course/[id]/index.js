@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import CourseLayout from "../../../../components/course/layout";
+import CourseLayout from "../../../../components/dashboard/course/layout";
 import {
   getCourseWithId,
   addCourse,
   updateCourse,
 } from "../../../../lib/index";
 import { useRouter } from "next/router";
-import Lesson from "./lesson/lesson";
-import CourseSettings from "../../../../components/course/setting";
+import Lesson from "../../../../components/dashboard/course/lesson";
+import CourseSettings from "../../../../components/dashboard/course/setting";
 export default function newCourse() {
   const router = useRouter();
   const { lesson, id } = router.query;

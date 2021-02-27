@@ -44,13 +44,13 @@ export default function navbar() {
       ),
     },
     {
-      slug: "/blog/",
-      name: "Blog",
+      slug: "/learn/",
+      name: "Courses",
       icon: "",
     },
     {
-      slug: "/learn/",
-      name: "Courses",
+      slug: "/blog/",
+      name: "Blog",
       icon: "",
     },
   ];
@@ -305,26 +305,6 @@ export default function navbar() {
       ),
     },
     {
-      slug: `/u/${user && user.username ? user.username : ""}/`,
-      name: "Profile",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-6 h-6 inline-block text-primary-100"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
-      ),
-    },
-    {
       slug: `/u/${user && user.username ? user.username : ""}/posts/`,
       name: "Posts",
       icon: (
@@ -408,7 +388,7 @@ export default function navbar() {
   return (
     <nav
       className={` ${
-        currentPath ? "shadow-md" : ""
+        currentPath ? "" : ""
       }  text-gray-600 px-2  py-1 border-primary-400 dark:bg-gray-700 relative`}
     >
       <div className="max-w-7xl mx-auto">
@@ -565,7 +545,27 @@ export default function navbar() {
             </div>
           </div>
           <div className="group absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            {/* Leaderboard Button */}
+            <Link href="/leaderboard">
+              <a className="mx-4 flex items-center hover:bg-gray-100 rounded-md p-4">
+                <svg
+                  className="w-4 h-4 mx-2 text-yellow-500 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0"
+                  y="0"
+                  enableBackground="new 0 0 490.2 490.2"
+                  version="1.1"
+                  viewBox="0 0 490.2 490.2"
+                  xmlSpace="preserve"
+                >
+                  <path d="M385.85 0h-281.6v45H8.05v73.9c0 53.1 43.2 96.3 96.3 96.3h12.5c18.2 40.1 54.5 70.2 98.6 79.6v60.4h-34.5c-10.6 0-19.3 8.6-19.3 19.3v25.3h-29.6v90.4h226v-90.4h-29.5v-25.3c0-10.6-8.6-19.3-19.3-19.3h-34.5v-60.4c44.1-9.5 80.4-39.5 98.6-79.6h12.5c53.1 0 96.3-43.2 96.3-96.3V45h-96.3V0zm-281.6 166.5c-26.2 0-47.5-21.3-47.5-47.5V93.8h47.5v63.5c0 3.1.1 6.2.3 9.2h-.3zm179.9 237.9v48.4h-78.2v-48.4h78.2zm24.8-277.9l-28.9 24.4 9.1 36.7c1.7 6.9-5.9 12.4-11.9 8.6l-32.1-20-32.1 20c-6 3.8-13.6-1.7-11.9-8.6l9.1-36.7-28.9-24.4c-5.4-4.6-2.6-13.5 4.5-14l37.7-2.7 14.3-35c2.7-6.6 12-6.6 14.7 0l14.3 35 37.7 2.7c7 .6 9.8 9.4 4.4 14zm124.4-32.7V119c0 26.2-21.3 47.5-47.5 47.5h-.3c.2-3 .3-6.1.3-9.2V93.8h47.5z"></path>
+                </svg>
+                <span>Leaderboard</span>
+              </a>
+            </Link>
+            {/* Leaderboard Button End */}
             {/* Toogle Button */}
+            {/*             
             <label
               htmlFor="toogleA"
               className="flex items-center cursor-pointer"
@@ -611,7 +611,7 @@ export default function navbar() {
                 </div>
               </div>
               <div className="ml-3 text-gray-700 font-medium"></div>
-            </label>
+            </label> */}
             {/* Toggle ends here */}
 
             {/* Profile dropdown */}
@@ -644,25 +644,38 @@ export default function navbar() {
                 className="ml-3 relative cursor-pointer"
               >
                 <div
-                  className="flex text-sm rounded-full focus:outline-none"
+                  className="flex text-sm rounded-md focus:outline-none px-4 py-2"
                   id="user-menu"
                   aria-haspopup="true"
                 >
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-12 w-12 rounded-full"
-                    src={
-                      user && user.profileImage
-                        ? user.profileImage
-                        : "/content/images/dummy/user.svg"
-                    }
-                    alt="user"
-                  />
+                  <Link
+                    href={`/u/${user && user.username ? user.username : ""}/`}
+                  >
+                    <a className="flex items-center">
+                      <img
+                        className="h-12 w-12 rounded-full"
+                        src={
+                          user && user.profileImage
+                            ? user.profileImage
+                            : "/content/images/dummy/user.svg"
+                        }
+                        alt="user"
+                      />
+                      <div className="flex flex-col mx-2">
+                        <span className="font-bold text-lg">
+                          Digvijay Singh
+                        </span>
+                        <span className="text-gray-500">Level 6</span>
+                      </div>
+                    </a>
+                  </Link>
+
                   <div
                     className={`transition-all duration-200 ${
                       navState.userNavOpen
-                        ? "visible opacity-100 top-12"
-                        : "invisible opacity-0 top-16"
+                        ? "visible opacity-100 top-16"
+                        : "invisible opacity-0 top-20"
                     } origin-top-right absolute right-0  w-60 z-50 rounded-lg shadow-lg border-2 border-gray-200 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100  ring-1 ring-black ring-opacity-5`}
                     role="menu"
                     aria-orientation="vertical"

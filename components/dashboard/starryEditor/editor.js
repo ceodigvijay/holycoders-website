@@ -93,14 +93,14 @@ export default function starryEditor(props) {
           "Access-Control-Allow-Origin": "*",
         },
         withCredentials: true,
-        data: { ...post, type: type },
+        data: { ...post, type: post.type },
       });
       if (res && res.status === 200 && res.data) {
         setPost({ ...post, slug: res.data.slug });
         if (currentPostID === "new") {
           router.replace(
-            `/dashboard/editor/[type]/[id]`,
-            router.asPath.split("/").slice(0, -2).join("/") + "/" + res.data.id,
+            `/dashboard/posts/[id]`,
+            `/dashboard/posts/${res.data.id}`,
             undefined,
             { shallow: true }
           );

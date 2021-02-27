@@ -2,41 +2,31 @@ import React, { useEffect, useState, useContext } from "react";
 import { getUserAllPosts } from "../../../lib/postAPI";
 import GlobalContext from "../../../contexts/globalContext";
 import { useRouter } from "next/router";
-import ListView from "../listView";
-import Link from "next/link";
+import ListView from "../collection/index";
+
 export default function allPosts() {
   const router = useRouter();
-  const queryType = router.query.type;
   const page = router.query.page ? router.query.page : 1;
-  const handleQueryChange = (type) => {
-    if (type) {
-      router.push({
-        pathname: router.pathname,
-        query: {
-          type: type,
-        },
-      });
-    } else {
-      router.push({
-        pathname: router.pathname,
-      });
-    }
-  };
   const [postData, setPostsData] = useState({
     posts: [],
     meta: {},
   });
   const [searchValue, setSearchValue] = useState({
-    searchText: '',
-    statusOfItem: ''
+    searchText: "",
+    statusOfItem: "",
   });
-  const { totalCount, pageCount, currentPage, limit } = postData.meta;
   const { addNotification } = useContext(GlobalContext);
   useEffect(() => {
     const getData = async () => {
       let data;
       try {
-        const res = await getUserAllPosts(page, 12, "post", searchValue.searchText, searchValue.statusOfItem);
+        const res = await getUserAllPosts(
+          page,
+          12,
+          "post",
+          searchValue.searchText,
+          searchValue.statusOfItem
+        );
         data = res.data;
       } catch (error) {
         addNotification({
@@ -55,13 +45,14 @@ export default function allPosts() {
   }, [page, searchValue]);
 
   return (
-    <div>
       <ListView
-        data={postData}
-        isTagPage={false}
-        searchvalue={searchValue}
-        setSearchValue={setSearchValue}
+        type="post"
+        pathname="posts"
+        data={postData.posts}
+        handleSearch={(searchText, statusOfItem) =>
+          setSearchValue({ searchText: searchText, statusOfItem: statusOfItem })
+        }
+        pageCount={postData.meta.pageCount}
       />
-    </div>
   );
 }

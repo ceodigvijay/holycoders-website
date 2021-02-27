@@ -6,11 +6,7 @@
                         </url>
                     
                         <url>
-                            <loc>https://holycoders.com/learn/python/</loc>
-                        </url>
-                    
-                        <url>
-                            <loc>https://holycoders.com/learn/python/introduction-to-python/</loc>
+                            <loc>https://holycoders.com/learn/[slug]/</loc>
                         </url>
                     
         </urlset>
