@@ -36,7 +36,7 @@ export default function index({ content }) {
   }
 
   return (
-    <div className="py-10">
+    <div className="py-6">
       <div
         className="rounded-md p-4 hc_quiz"
         style={{ backgroundColor: "#2D2B57", whiteSpace: "pre" }}
@@ -126,7 +126,7 @@ export default function index({ content }) {
         <div
           className={`${
             evaluation === "correct" ? "" : "hidden"
-          } text-primary-600 text-xl`}
+          } text-primary-600 text-xl font-semibold`}
         >
           Awesome! This is Correct.
         </div>
@@ -141,11 +141,11 @@ export default function index({ content }) {
         <br />
 
         {evaluation === "correct" ? (
-          <button className=" bg-primary-500 text-white px-20 py-3 uppercase font-medium rounded-full text-md">
+          <button className=" bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md">
             Continue
           </button>
         ) : (
-          <button className=" border-2 border-primary-500 text-primary-500 px-20 py-3 uppercase font-medium rounded-full text-md">
+          <button className=" border-2 border-primary-500 font-bold text-primary-500 px-20 py-3 uppercase rounded-full text-md">
             Skip
           </button>
         )}

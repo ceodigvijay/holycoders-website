@@ -1,6 +1,6 @@
 import React from "react";
 import MarkdownEditor from "rich-markdown-editor";
-import { updateCourse } from "../../lib/index";
+import { updateCourse } from "../../../lib/index";
 
 export default function setting({ course, setCourse }) {
   return (

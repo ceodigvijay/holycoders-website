@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Markdown from "./markdown";
-import FTB from "./ftb";
+import FTB from "./ftbdisplay";
 import ATF from "./atf";
 import MCQ from "./mcq";
-import MarkdownEditor from "rich-markdown-editor";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 export default function index({ content, setContent }) {
+  const renderers = {
+    code: ({ language, value }) => {
+      if (language && ["info", "warning", "tip"].includes(language)) {
+        return <p className={language}>{value}</p>;
+      }
+      return (
+        <pre>
+          <code className={`language-${language} bg-gray-400`}>{value}</code>
+        </pre>
+      );
+    },
+    image: ({ src, alt }) => {
+      return <img src={src} alt={alt} loading="lazy" />;
+    },
+  };
+
   return (
     <div className="px-6 py-2">
-      <div className="text-gray-300 font-semibold my-5">
+      <div className="text-gray-300 font-semibold">
         {content.type === "markdown" ? "Markdown" : ""}
         {content.type === "atf" ? "Arrange the Following" : ""}
         {content.type === "code-ftb" ? "Code Fill in the blanks" : ""}
@@ -16,26 +33,16 @@ export default function index({ content, setContent }) {
         {content.type === "mcq" ? "Multiple Choice Questions" : ""}
       </div>
       <div>
-        <input
-          value={content.title}
-          onChange={(e) => setContent("title", e.target.value)}
-          type="text"
-          placeholder="Short Content Title (~ 2-3 words)"
-          className="w-full border-2 border-gray-200 rounded-md text-gray-700 text-5xl placeholder-gray-300 font-bold"
-        />
-        <div>
-          <MarkdownEditor
-            className="prose dark:prose-dark lg:prose-lg max-w-none mt-10 border-2 border-gray-200 rounded-md"
-            // dark={true}
-            placeholder="Description will go here"
-            handleDOMEvents={{
-              focus: () => console.log("FOCUS"),
-              blur: () => console.log("BLUR"),
-              paste: (a) => console.log("PASTE"),
-              touchstart: () => console.log("TOUCH START"),
-            }}
+        <h1 className="text-4xl text-center font-bold text-gray-700">
+          {content.title}
+        </h1>
+        <article className="prose dark:prose-dark prose-lg lg:prose-xl max-w-none mx-2 my-6">
+          <ReactMarkdown
+            renderers={renderers}
+            plugins={[gfm]}
+            children={content.content_raw}
           />
-        </div>
+        </article>
       </div>
       {content.type === "markdown" ? "" : ""}
       {content.type === "code-ftb" ? (

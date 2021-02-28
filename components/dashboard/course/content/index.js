@@ -23,8 +23,12 @@ export default function index({ content, setContent }) {
           placeholder="Short Content Title (~ 2-3 words)"
           className="w-full border-2 border-gray-200 rounded-md text-gray-700 text-5xl placeholder-gray-300 font-bold"
         />
+       
+       
         <div>
           <MarkdownEditor
+            defaultValue={content.content_raw}
+            onChange={(value) => setContent("content_raw", value())}
             className="prose dark:prose-dark lg:prose-lg max-w-none mt-10 border-2 border-gray-200 rounded-md"
             // dark={true}
             placeholder="Description will go here"
