@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CourseSidebar from "./sidebar";
+import CourseSidebar from "./sidebar/index";
 import LessonSetting from "./lessonSetting";
 export default function newCourse({
   isCourseInfoPage = false,
@@ -14,8 +14,10 @@ export default function newCourse({
   onAddContent,
   moveToModule,
 }) {
-  console.log(course);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [progressData, setProgressData] = useState({
+    lesson: false,
+  });
   return (
     <section className="bg-gray-50 dark:bg-gray-700 font-nunito min-h-screen">
       <div className="w-full flex-wrap mx-auto grid grid-cols-9">
@@ -182,7 +184,9 @@ export default function newCourse({
                 <div
                   className="mr-8 cursor-pointer"
                   onClick={() => {
+                    setProgressData({ ...progressData, lesson: true });
                     updateLesson();
+                    setProgressData({ ...progressData, lesson: false });
                   }}
                 >
                   <svg
@@ -190,7 +194,7 @@ export default function newCourse({
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className={`w-6 h-6 ${progressData.lesson ? "animate-pulse" : ""}`}
                   >
                     <path
                       strokeLinecap="round"

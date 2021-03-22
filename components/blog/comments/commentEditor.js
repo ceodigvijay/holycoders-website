@@ -32,7 +32,6 @@ export default function commentEditor({
           addNewCommentToState({ ...comment, _id: res.data.id });
           setComment({ ...comment, comment_raw: "" });
         }
-        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +44,6 @@ export default function commentEditor({
     setLoading(true);
     try {
       const res = await updateComment(comment);
-      console.log(res);
       if (res.data.ok) {
         //Add comment on frontend
         addNewCommentToState({ ...comment, _id: res.data.id });

@@ -3,16 +3,14 @@ import Link from "next/link";
 import GlobalContext from "../../../contexts/globalContext";
 import Image from "next/image";
 export default function postCollection({
-  bookmarks,
   posts,
   loadMorePosts = () => {
     console.log("Loading");
   },
   isloading = false,
 }) {
-  const { addNotification, user } = useContext(GlobalContext);
   return (
-    <section className="min-h-screen">
+    <section>
       {posts && posts[0] ? (
         <>
           <div className="text-gray-600 dark:text-gray-400 body-font overflow-hidden">
@@ -21,14 +19,14 @@ export default function postCollection({
                 {posts.map((post) => (
                   <div
                     key={post._id}
-                    className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg border border-gray-200 dark:border-gray-700"
+                    className="p-12 md:w-1/2 flex flex-col items-start hover:shadow-lg border rounded-md border-gray-200 dark:border-gray-700"
                   >
                     <span className="inline-block py-1 px-2 rounded bg-primary-50 text-primary-500 dark:bg-primary-800 text-xs font-medium tracking-widest">
                       {post.tags.length !== 0
                         ? "#" + post.tags[0].name
                         : "No tag"}
                     </span>
-                    <h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 dark:text-gray-100 mt-4 mb-4">
+                    <h2 className="sm:text-3xl text-2xl title-font font-semibold text-gray-900 dark:text-gray-100 mt-4 mb-4">
                       <Link
                         href={
                           post.type === "page"
@@ -113,23 +111,6 @@ export default function postCollection({
 
                         {new Date(post.updated_at).toDateString().slice(4)}
                       </span>
-                      {/* <span className="text-gray-400 capitalize inline-flex items-center leading-none text-sm">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          className="w-4 h-4 mr-1"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                          />
-                        </svg>
-                        {post.category ? post.category : "Generel"}
-                      </span> */}
                     </div>
                   </div>
                 ))}
@@ -141,7 +122,7 @@ export default function postCollection({
           <div className="text-center mt-4 pb-28">
             <button
               onClick={() => (isloading ? "" : loadMorePosts())}
-              className={`m-auto flex bg-primary-600 px-6 py-4 text-lg font-medium items-center text-white rounded-md hover:bg-primary-700`}
+              className={`m-auto flex bg-primary-500 px-10 py-4 text-lg items-center text-white font-semibold rounded-full transition-all duration-200 hover:bg-primary-600`}
             >
               {isloading ? (
                 <svg

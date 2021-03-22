@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import Layout from "../../../components/layouts/layout";
+import Layout from "../../../components/layouts/global/index";
 import axios from "axios";
 import { useRouter } from "next/router";
 import UserContext from "../../../contexts/globalContext";

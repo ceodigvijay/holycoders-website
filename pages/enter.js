@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import { useUser } from "../hooks/useUser";
 import GlobalContext from "../contexts/globalContext";
 import { useRouter } from "next/router";

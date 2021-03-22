@@ -121,7 +121,7 @@ export default function listView({
 
           <div className="flex flex-wrap -m-4">
             {data.map((element) => {
-              var link = `/dashboard/${type}/${element._id}`;
+              var link = `/dashboard/${pathname}/${element._id}`;
               var authorUsername =
                 element.author &&
                 element.author[0] &&

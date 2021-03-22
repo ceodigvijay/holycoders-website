@@ -1,6 +1,4 @@
 import React from "react";
-import HomePageIcon from "../icons/homepage";
-import Image from "next/image";
 import Link from "next/link";
 export default function heroHead() {
   return (
@@ -13,26 +11,26 @@ export default function heroHead() {
             for Devs
           </h1>
           <p className="mb-8 leading-relaxed dark:text-gray-400">
-            The community is for programmers who want to learn and share new
-            things with others while enjoying learning new things. Something
-            great is on our roadmap to showcase your creativity while competing
-            and contributing to community.
+            Start learning for free with interactive courses full of Examples
+            and challenges. Videos are good for entertainment but not for
+            learning. Stop wasting time and learn with interesting content for
+            FREE.
           </p>
           <div className="flex justify-center">
             <Link href="/enter/">
-              <a className="inline-flex text-white cursor-pointer bg-secondary border-0 py-2 px-10 focus:outline-none hover:bg-primary-700 rounded-full text-2xl font-bold">
-                Join for Free
+              <a className="inline-flex transition-all duration-200 text-white cursor-pointer bg-primary-600 border-0 py-2 px-10 focus:outline-none hover:bg-primary-700 rounded-full text-2xl font-bold">
+                Enter Free
               </a>
             </Link>
-            <Link href="/blog/">
-              <a className="ml-4 inline-flex cursor-pointer text-gray-700 bg-gray-100 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-10 font-semibold focus:outline-none hover:bg-gray-300 rounded-full text-lg">
-                Visit Blog
+            <Link href="/learn/">
+              <a className="ml-4 transition-all duration-200 flex items-center cursor-pointer text-gray-700 bg-gray-100 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-10 font-semibold focus:outline-none hover:bg-gray-300 rounded-full text-lg">
+                Courses
               </a>
             </Link>
           </div>
         </div>
         <div className="md:w-1/2 w-5/6">
-          <img src="/home1.svg" />
+          <img src="/home1.svg" loading="lazy" />
         </div>
       </div>
     </section>

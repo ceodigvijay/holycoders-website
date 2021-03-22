@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../../components/layouts/layout";
+import Layout from "../../../components/layouts/global/index";
 import { getPostsByTagId } from "../../../lib/index";
 import PageSEO from "../../../components/seo/page";
 import PostCollectionPage from "../../../components/collection/posts/postCollection";

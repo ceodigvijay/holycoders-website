@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CourseLayout from "./layout";
 import Contents from "./content/index";
 import { getLessonWithId, updateLesson } from "../../../lib/index";
 import { useRouter } from "next/router";
+import GlobalContext from "../../../contexts/globalContext";
 
 export default function lesson({ course, setCourse }) {
+  const { addNotification } = useContext(GlobalContext);
   const router = useRouter();
   const { lesson: lessonId } = router.query;
   useEffect(() => {
     const getData = async () => {
       try {
         const res = await getLessonWithId(lessonId);
-        console.log(res);
         setLesson(res.data);
       } catch (error) {
         console.log(error);
@@ -25,9 +26,16 @@ export default function lesson({ course, setCourse }) {
 
   const saveLessonToCloud = async () => {
     try {
+      addNotification({
+        type: "success",
+        message: "Successfully saved the lesson",
+      });
       const res = await updateLesson(lesson);
-      console.log(res);
     } catch (error) {
+      addNotification({
+        type: "error",
+        message: "Some error occured in saving the lesson",
+      });
       console.log(error);
     }
   };
@@ -98,6 +106,7 @@ export default function lesson({ course, setCourse }) {
             if (index === currentContentIndex) {
               return (
                 <Contents
+                  key={index}
                   content={content}
                   setContent={(field, value) => {
                     const newLesson = { ...lesson };
@@ -112,9 +121,7 @@ export default function lesson({ course, setCourse }) {
           })
         ) : (
           <div className="mt-10 text-center">
-            <div className="text-4xl font-semibold">
-              No Content Found
-            </div>
+            <div className="text-4xl font-semibold">No Content Found</div>
             <div className="text-gray-600">
               Click on the top add button to add content.
             </div>

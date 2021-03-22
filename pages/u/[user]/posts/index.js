@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../../../components/layouts/layout";
+import Layout from "../../../../components/layouts/global/index";
 import { getUserPublishedPosts } from "../../../../lib/index";
 import PostCollectionPage from "../../../../components/collection/posts/postCollection";
 import Image from "next/image";

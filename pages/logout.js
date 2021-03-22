@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import { useUser } from "../hooks/useUser";
 import axios from "axios";
 import GlobalContext from "../contexts/globalContext";

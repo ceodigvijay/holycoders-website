@@ -106,12 +106,12 @@ export default function featuredNav() {
             {featuredItems.map((element) => {
               return (
                 <div className="p-4 lg:w-1/2 md:w-full" key={element.link}>
-                  <div className="flex border-2 rounded-lg border-gray-200 p-8 sm:flex-row flex-col">
+                  <div className="flex border-2 rounded-lg border-gray-200 p-8 sm:flex-row flex-col  hover:shadow-lg transition-all duration-500">
                     <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-primary-100 text-primary-500 flex-shrink-0">
                       {element.svgImg}
                     </div>
                     <div className="flex-grow">
-                      <h2 className="text-gray-900 dark:text-gray-100 text-lg title-font font-medium mb-3">
+                      <h2 className="text-gray-900 dark:text-gray-100 text-lg title-font font-semibold mb-3">
                         {element.name}
                       </h2>
                       <p className="leading-relaxed text-base dark:text-gray-400">

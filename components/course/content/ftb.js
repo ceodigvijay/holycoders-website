@@ -1,143 +1,156 @@
-import React, { useState } from "react";
-import CodeEditor from "@monaco-editor/react";
+import React, { useState, useEffect } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import Prism from "prismjs";
 
-export default function codeftb({ type = "text", content, setContent }) {
-  const [code, setCode] = useState("");
+export default function index({moveToModule, content }) {
+  var refs = {};
+  useEffect(() => {
+    Prism.highlightAll();
+  });
+  var countOfFtb = content.question.split("[--]").length - 1;
+  const [evaluation, setEvaluation] = useState("");
+  const [answers, setAnswers] = useState([]);
+
+  const evaluateQuestion = () => {
+    var correct = true;
+    var counter = 1;
+    answers.forEach((answer) => {
+      if (answer.position !== counter) {
+        correct = false;
+        return;
+      }
+      counter += 1;
+    });
+    setEvaluation(correct ? "correct" : "incorrect");
+  };
+
+  if (
+    countOfFtb === answers.length &&
+    !["correct", "incorrect"].includes(evaluation)
+  ) {
+    evaluateQuestion();
+  }
+
   return (
-    <>
-      <div className="mt-6 flex items-center justify-end">
-        <div className="mx-4">
-          <input id="show-keyboard" type="checkbox" />
-          <label htmlFor="show-keyboard" className="mx-1">
-            User Can use Keyboard
-          </label>
+    <div className="py-6">
+      <div
+        className="rounded-md p-4 hc_quiz"
+        style={{ backgroundColor: "#2D2B57", whiteSpace: "pre" }}
+      >
+        {content.question.split("\n").map((c) => {
+          return (
+            <>
+              <span className="flex items-center">
+                {c.split("[--]").map((e, index) => {
+                  return (
+                    <>
+                      {e ? (
+                        <SyntaxHighlighter
+                          customStyle={{ padding: "0.2em" }}
+                          language="javascript"
+                          style={shadesOfPurple}
+                        >
+                          {e}
+                        </SyntaxHighlighter>
+                      ) : (
+                        ""
+                      )}
+
+                      {index !== c.split("[--]").length - 1 ? (
+                        <span
+                          className="border-2 border-yellow-400 text-white px-2 rounded-md inline-flex items-center cursor-pointer"
+                          style={{ minWidth: "40px", minHeight: "40px" }}
+                          ref={(txt) => (refs[index] = txt)}
+                          onClick={() => {
+                            var titleToRemove = refs[index].innerHTML;
+                            var ans = [...answers];
+                            var answered = ans.filter((a) => {
+                              return a.title !== titleToRemove;
+                            });
+                            setAnswers(answered);
+                            refs[index].innerHTML = "";
+                            refs[index].disabled = true;
+
+                            setEvaluation("");
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </>
+                  );
+                })}
+              </span>
+            </>
+          );
+        })}
+      </div>
+      {/* Options Spread*/}
+      <div className="flex justify-center items-center my-10">
+        {content.options.map((e) => {
+          var isOptionUsed = false;
+          //Check if correct option is used
+          answers.forEach((answer) => {
+            if (answer.title === e.title) {
+              isOptionUsed = true;
+              return;
+            }
+          });
+          return (
+            <div
+              className="border-2 border-gray-200 bg-gray-50 text-gray-600 rounded-md hover:bg-gray-100 shadow-md cursor-pointer px-6 py-4 mx-4"
+              onClick={() => {
+                if (!isOptionUsed) {
+                  for (let key in refs) {
+                    if (!refs[key].innerHTML) {
+                      console.log(key);
+                      refs[key].innerHTML = e.title;
+                      //Insert answer at specific index
+                      var newAnswer = [...answers];
+                      newAnswer.splice(key, 0, e);
+                      setAnswers(newAnswer);
+                      break;
+                    }
+                  }
+                }
+              }}
+            >
+              <span className={isOptionUsed ? "invisible" : ""}>{e.title}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Evaluation Message and Next Navigation */}
+      <div className={`${evaluation === "" ? "invisible" : ""} text-center`}>
+        <div
+          className={`${
+            evaluation === "correct" ? "" : "hidden"
+          } text-primary-600 text-xl font-semibold`}
+        >
+          Awesome! This is Correct.
         </div>
 
-        {type === "code" ? (
-          <select className="border-2 border-gray-200 rounded-md">
-            <option value="python">Python</option>
-            <option value="javascript">Javascript</option>
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-          </select>
+        <div
+          className={`${
+            evaluation === "incorrect" ? "" : "hidden"
+          } text-red-400 text-xl`}
+        >
+          Try Again
+        </div>
+        <br />
+
+        {evaluation === "correct" ? (
+          <button onClick={()=> moveToModule('next')} className="bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md">
+            Continue
+          </button>
         ) : (
-          ""
+          <button onClick={()=> moveToModule('next')} className=" border-2 border-primary-500 font-bold text-primary-500 px-20 py-3 uppercase rounded-full text-md">
+            Skip
+          </button>
         )}
       </div>
-      <textarea
-        rows={10}
-        className="w-full my-4 border-gray-200 border-2 rounded-md"
-        placeholder="Your Fill in the blanks here use [--] for blanks"
-        onChange={(e) => {
-          setContent("question", e.target.value);
-
-          //If less options then blanks append one else change position to next one
-          if (
-            e.target.value.split("[--]").length - 1 >
-            content.options.length
-          ) {
-            var options = [...content.options];
-            //Havoc occured fixed that
-            while (e.target.value.split("[--]").length - 1 > options.length) {
-              options.push({
-                explanation_html: "",
-                explanation_raw: "",
-                position: 0,
-                title: "",
-              });
-            }
-
-            for (var i = 0; i < e.target.value.split("[--]").length - 1; i++) {
-              options[i].position = i + 1;
-            }
-            setContent("options", options);
-          }
-        }}
-        value={content.question}
-      />
-      {/* <CodeEditor
-        onChange={(value, event) => {
-          setCode(value);
-        }}
-        value={code}
-        className="mt-2"
-        height="60vh"
-        theme="vs-dark"
-        defaultLanguage="javascript"
-        defaultValue="// some comment"
-      /> */}
-      {/* Options */}
-      <div className="">
-        <div className="flex justify-between flex-wrap">
-          {content.options.map((e, index) => {
-            return (
-              <div className="mr-2 my-2">
-                <label className="mr-2">
-                  {e.position === 0
-                    ? "Fake Option"
-                    : `Option for ${e.position}`}
-                </label>
-                <input
-                  value={e.title}
-                  onChange={e=>{
-                    var newOptions = [...content.options]
-                    newOptions[index].title = e.target.value
-                    setContent("options", newOptions);
-                  }}
-                  type="text"
-                  placeholder="Title"
-                  className="border-gray-400 rounded-md text-gray-600 placeholder-gray-300 mr-4 my-6"
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center justify-center">
-          <button
-            className="flex items-center justify-center text-white rounded-md bg-secondary px-6 py-3"
-            onClick={() => {
-              const options = [
-                ...content.options,
-                {
-                  explanation_html: "",
-                  explanation_raw: "",
-                  position: 0,
-                  title: "",
-                },
-              ];
-              setContent("options", options);
-            }}
-          >
-            <svg
-              className="w-6 h-6 mx-2"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>Add option</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Final Output */}
-      <textarea
-        rows={10}
-        className="w-full my-4 border-gray-200 border-2 rounded-md"
-        placeholder="Final - Output for code/ Message for FTB & ATF."
-        onChange={(e) => {
-          setContent("final_output", e.target.value);
-        }}
-        value={content.final_output}
-      />
-    </>
+    </div>
   );
 }

@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Markdown from "./markdown";
-import FTB from "./ftbdisplay";
+import React from "react";
+import FTB from "./ftb";
 import ATF from "./atf";
 import MCQ from "./mcq";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
+import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import SyntaxHighlighter from "react-syntax-highlighter";
 
-export default function index({ content, setContent }) {
+export default function index({ moveToModule, content, setContent }) {
   const renderers = {
     code: ({ language, value }) => {
       if (language && ["info", "warning", "tip"].includes(language)) {
         return <p className={language}>{value}</p>;
       }
       return (
-        <pre>
-          <code className={`language-${language} bg-gray-400`}>{value}</code>
-        </pre>
+        <SyntaxHighlighter
+          customStyle={{ padding: "20px" }}
+          language={language}
+          style={shadesOfPurple}
+        >
+          {value}
+        </SyntaxHighlighter>
       );
     },
     image: ({ src, alt }) => {
@@ -44,24 +49,35 @@ export default function index({ content, setContent }) {
           />
         </article>
       </div>
-      {content.type === "markdown" ? "" : ""}
+      {content.type === "markdown" ? (
+        <div className="text-center mt-20 mb-10">
+          <button
+            className="bg-primary-500 font-bold text-white px-20 py-3 hover:bg-primary-400 uppercase rounded-full text-md"
+            onClick={() => moveToModule("next")}
+          >
+            Continue
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       {content.type === "code-ftb" ? (
-        <FTB type="code" content={content} setContent={setContent} />
+        <FTB type="code" moveToModule={moveToModule} content={content} />
       ) : (
         ""
       )}
       {content.type === "ftb" ? (
-        <FTB content={content} setContent={setContent} />
+        <FTB moveToModule={moveToModule} content={content} />
       ) : (
         ""
       )}
       {content.type === "mcq" ? (
-        <MCQ content={content} setContent={setContent} />
+        <MCQ content={content} moveToModule={moveToModule} />
       ) : (
         ""
       )}
       {content.type === "atf" ? (
-        <ATF content={content} setContent={setContent} />
+        <ATF content={content} moveToModule={moveToModule} />
       ) : (
         ""
       )}

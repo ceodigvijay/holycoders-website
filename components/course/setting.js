@@ -140,12 +140,6 @@ export default function setting({ course, setCourse }) {
           className="prose dark:prose-dark lg:prose-lg max-w-none mt-10 border border-gray-100"
           // dark={true}
           placeholder="Description will go here"
-          handleDOMEvents={{
-            focus: () => console.log("FOCUS"),
-            blur: () => console.log("BLUR"),
-            paste: (a) => console.log("PASTE"),
-            touchstart: () => console.log("TOUCH START"),
-          }}
         />
       </div>
       <div className="mt-10">
@@ -229,7 +223,6 @@ export default function setting({ course, setCourse }) {
           onClick={async () => {
             try {
               const res = await updateCourse(course);
-              console.log(res);
             } catch (error) {
               console.log(error);
             }

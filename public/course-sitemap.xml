@@ -9,5 +9,9 @@
                             <loc>https://holycoders.com/learn/[slug]/</loc>
                         </url>
                     
+                        <url>
+                            <loc>https://holycoders.com/learn/[slug]/lesson/[lesson]/</loc>
+                        </url>
+                    
         </urlset>
     

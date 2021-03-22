@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import { getAllPosts } from "../lib/index";
 import PostCollectionPage from "../components/collection/posts/postCollection";
 import PageSEO from "../components/seo/page";

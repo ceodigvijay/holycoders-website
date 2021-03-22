@@ -7,6 +7,7 @@ import Head from "next/head";
 import NProgress from "nprogress";
 import axios from "axios";
 import GlobalContext from "../contexts/globalContext";
+import CourseContext from "../contexts/courseContext";
 import { useRouter } from "next/router";
 import Toast from "../components/toast/toast";
 import * as gtag from "../gtag";
@@ -20,6 +21,7 @@ Router.events.on("routeChangeError", () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [theme, setTheme] = useState("light");
+  const [courseData, setCourseData] = useState(null);
   const [user, setUserValue] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [globalState, setGlobalState] = useState({
@@ -102,6 +104,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <GlobalContext.Provider
       value={{
+        courseData: courseData,
+        setCourseData: setCourseData,
         user: user,
         setUser: setUserValue,
         notification: notifications,

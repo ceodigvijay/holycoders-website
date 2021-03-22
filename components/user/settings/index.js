@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Profile from "./profile";
 import PrivacySecurity from "./privacySecurity";
 import EmailsNotifications from "./emailsNotifications";
-import Layout from "../../layouts/dashboardLayout";
-export default function index({user, setUser}) {
+import Layout from "../../layouts/global/index";
+export default function index({ user, setUser }) {
   const [activeTab, setActiveTab] = useState("profile");
   let settingOptions = "";
 
@@ -26,7 +26,7 @@ export default function index({user, setUser}) {
 
   return (
     <Layout>
-      <section className="columns my-1">
+      <section className="columns max-w-2xl mx-auto">
         {/* <aside className="menu column is-one-fifth px-3 panel">
           <p className="menu-label">Settings</p>
           <ul className="menu-list">

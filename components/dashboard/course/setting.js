@@ -1,8 +1,49 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import MarkdownEditor from "rich-markdown-editor";
 import { updateCourse } from "../../../lib/index";
+import { deleteCourse } from "../../../lib/index";
+import { useRouter } from "next/router";
+import ReactTags from "react-tag-autocomplete";
+import { searchTags } from "../../../lib/index";
+import GlobalContext from "../../../contexts/globalContext";
 
 export default function setting({ course, setCourse }) {
+  const [objective, setObjective] = useState("");
+  const [prerequisites, setPrerequisites] = useState("");
+  const router = useRouter();
+  const [suggestions, setSuggestions] = useState([]);
+  const reactTags = React.createRef();
+  const { addNotification } = useContext(GlobalContext);
+
+  const handleCourseDelete = async () => {
+    try {
+      const confirmationMsg = prompt(
+        "Enter COMFIRM to delete course Permanently"
+      );
+      if (confirmationMsg === "CONFIRM") {
+        const response = await deleteCourse(course._id);
+        console.log(response);
+        router.push("/dashboard/course/");
+      } else {
+        console.log("Cancelled");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  async function getTags(query) {
+    try {
+      const res = await searchTags(query, 5);
+      var data = res.data;
+      data.map((element) => {
+        element.id = element._id;
+        return element;
+      });
+      setSuggestions(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div>
       <div className="w-full h-48 border-2 bg-gray-100 flex items-center justify-center rounded-md">
@@ -58,9 +99,9 @@ export default function setting({ course, setCourse }) {
               <button
                 className="mx-2"
                 onClick={() => {
-                  var objective = [...course.objective];
-                  objective.splice(index, 1);
-                  setCourse({ ...course, objective: objective });
+                  var newObjective = [...course.objective];
+                  newObjective.splice(index, 1);
+                  setCourse({ ...course, objective: newObjective });
                 }}
               >
                 {/* Remove Icon */}
@@ -83,7 +124,17 @@ export default function setting({ course, setCourse }) {
           );
         })}
         <input
+          value={objective}
           type="text"
+          onChange={(e) => setObjective(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              var newObjective = [...course.objective];
+              newObjective.push(objective);
+              setObjective("");
+              setCourse({ ...course, objective: newObjective });
+            }
+          }}
           className="border-2 border-gray-200 rounded-md w-full"
           placeholder="Objective"
         />
@@ -97,9 +148,9 @@ export default function setting({ course, setCourse }) {
               <button
                 className="mx-2"
                 onClick={() => {
-                  var prerequisite = [...course.prerequisite];
-                  prerequisite.splice(index, 1);
-                  setCourse({ ...course, prerequisite: prerequisite });
+                  var newPrerequisite = [...course.prerequisite];
+                  newPrerequisite.splice(index, 1);
+                  setCourse({ ...course, prerequisite: newPrerequisite });
                 }}
               >
                 {/* Remove Icon */}
@@ -122,11 +173,37 @@ export default function setting({ course, setCourse }) {
           );
         })}
         <input
+          value={prerequisites}
+          onChange={(e) => setPrerequisites(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              var newPrerequisite = [...course.prerequisite];
+              newPrerequisite.push(prerequisites);
+              setPrerequisites("");
+              setCourse({ ...course, prerequisite: newPrerequisite });
+            }
+          }}
           type="text"
           className="border-2 border-gray-200 rounded-md w-full"
           placeholder="Prerequisite"
         />
       </div>
+      {/* Tags */}
+      <ReactTags
+        ref={reactTags}
+        tags={course.tags}
+        suggestions={suggestions}
+        onInput={(e) => getTags(e)}
+        onDelete={(i) => {
+          var newTags = [...course.tags];
+          newTags.splice(index, 1);
+          setCourse({ ...course, tags: newTags });
+        }}
+        onAddition={(tag) => {
+          const newTags = [...course.tags, tag];
+          setCourse({ ...course, tags: newTags });
+        }}
+      />
       <div className="px-6">
         <MarkdownEditor
           onChange={(value) => {
@@ -192,8 +269,10 @@ export default function setting({ course, setCourse }) {
         </select>
         <select
           className="col-span-4 md:col-span-1 border-2 border-gray-200 rounded-md"
-          value={course.type}
-          onChange={(e) => setCourse({ ...course, type: e.target.value })}
+          value={course.required_subscription}
+          onChange={(e) =>
+            setCourse({ ...course, required_subscription: e.target.value })
+          }
         >
           <option value="premium">Premium</option>
           <option value="free">Free</option>
@@ -229,14 +308,32 @@ export default function setting({ course, setCourse }) {
           onClick={async () => {
             try {
               const res = await updateCourse(course);
-              console.log(res);
+              addNotification({
+                type: "success",
+                message: "Successfully saved the course",
+              });
             } catch (error) {
+              addNotification({
+                type: "success",
+                message: "Some error occured saving the course",
+              });
               console.log(error);
             }
           }}
           className="rounded-full bg-primary-400 text-xl font-semibold hover:bg-primary-500 text-white px-20 py-2"
         >
           Save Course
+        </button>
+      </div>
+      <div className="text-center my-20">
+        <h2 className="text-4xl font-semibold text-center text-gray-600 my-2">
+          Here is Something Dangerous
+        </h2>
+        <button
+          onClick={handleCourseDelete}
+          className="px-6 py-2 font-semibold bg-red-600 text-white my-2 rounded-full"
+        >
+          Delete Course
         </button>
       </div>
     </div>

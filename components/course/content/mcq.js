@@ -1,74 +1,124 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function mcq({ content, setContent }) {
+export default function mcq({ content, moveToModule }) {
+  const [answers, setAnswers] = useState(new Set());
+  const [evaluation, setEvaluation] = useState("");
+  var correctAnswersCount = 0;
+  var correctAnswers = new Set();
+  // If one option correct use radio else select
+  content.options.map((option) => {
+    if (correctAnswersCount > 1) {
+      return;
+    } else if (option.position > 0) {
+      correctAnswersCount += 1;
+    }
+  });
+
+  function eqSet(as, bs) {
+    if (as.size !== bs.size) return false;
+    for (var a of as) if (!bs.has(a)) return false;
+    return true;
+  }
+
+  const evaluateAnswers = () => {
+    if (eqSet(answers, correctAnswers)) {
+      setEvaluation("correct");
+    } else {
+      setEvaluation("incorrect");
+    }
+  };
+
   return (
     <>
-      <div className="my-6 text-center">
-        <h2 className="text-gray-700 text-xl">Add your options</h2>
-      </div>
-
-      <div>
+      <h2 className="text-gray-700 text-xl my-6 ">{content.question}</h2>
+      <div className="grid grid-cols-12 gap-2">
         {content.options.map((option, index) => {
+          if (option.position) {
+            correctAnswers.add(index);
+          }
           return (
-            <div
-              className="text-center"
+            <label
+              for={`opt-${index}`}
+              className="col-span-12 md:col-span-6 text-xl bg-gray-100 p-4 rounded-md my-2 cursor-pointer hover:bg-gray-200"
               key={option.title + option.position + index}
             >
-              <input
-                type="checkbox"
-                className="mx-4"
-                defaultChecked={option.position == 0 ? false : true}
-                onChange={(e) => {
-                  const newOptions = [...content.options];
-                  if (e.target.checked) {
-                    newOptions[index].position = index + 1; //If checked then anything greater then 0
-                  } else {
-                    newOptions[index].position = 0; //If checked then 0
-                  }
-                  setContent("options", newOptions);
-                }}
-              />
-              <input
-                value={option.title}
-                onChange={(e) => {
-                  const newOptions = [...content.options];
-                  newOptions[index].title = e.target.value;
-                  setContent("options", newOptions);
-                }}
-                type="text"
-                placeholder="Your option"
-                className="border-gray-200 border-2 rounded-md text-gray-600 placeholder-gray-300 mr-4 my-6"
-              />
-              <button
-                onClick={() => {
-                  const newOptions = [...content.options];
-                  newOptions.splice(index, 1);
-                  setContent("options", newOptions);
-                }}
-              >
-                Del
-              </button>
-            </div>
+              {correctAnswersCount > 1 ? (
+                <input
+                  id={`opt-${index}`}
+                  type="checkbox"
+                  className="mx-4"
+                  onClick={(v) => {
+                    var newAnswers = new Set(answers);
+                    if (newAnswers.has(index)) {
+                      newAnswers.delete(index);
+                    } else {
+                      newAnswers.add(index);
+                    }
+                    setAnswers(newAnswers);
+                  }}
+                />
+              ) : (
+                <input
+                  id={`opt-${index}`}
+                  type="radio"
+                  name="ans_opts"
+                  className="mx-4"
+                  onClick={(v) => {
+                    var newAnswers = new Set();
+                    newAnswers.add(index);
+                    setAnswers(newAnswers);
+                  }}
+                />
+              )}
+
+              <span>{option.title}</span>
+            </label>
           );
         })}
       </div>
       <div className="text-center">
         <button
-          onClick={() =>
-            setContent("options", [
-              ...content.options,
-              {
-                title: "",
-                position: 0,
-                explanation_raw: "",
-                explanation_html: "",
-              },
-            ])
-          }
-          className="py-2 px-10 border-2 border-primary-600 rounded-full"
+          onClick={evaluateAnswers}
+          className="py-2 px-10 border-2 bg-blue-600 text-white font-semibold my-10 text-2xl rounded-full"
         >
-          Add Option
+          Evaluate
         </button>
+
+        {/* Evaluation Message and Next Navigation */}
+        <div className={`${evaluation === "" ? "invisible" : ""} text-center`}>
+          <div
+            className={`${
+              evaluation === "correct" ? "" : "hidden"
+            } text-primary-600 text-xl font-semibold`}
+          >
+            Awesome! This is Correct.
+          </div>
+
+          <div
+            className={`${
+              evaluation === "incorrect" ? "" : "hidden"
+            } text-red-400 text-xl`}
+          >
+            Try Again
+          </div>
+          <br />
+
+          {evaluation === "correct" ? (
+            <button
+              onClick={() => moveToModule("next")}
+              className="bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md"
+            >
+              Continue
+            </button>
+          ) : (
+            <button
+              onClick={() => moveToModule("next")}
+              className=" border-2 border-primary-500 font-bold text-primary-500 px-20 py-3 uppercase rounded-full text-md"
+            >
+              Skip
+            </button>
+          )}
+        </div>
       </div>
     </>
   );

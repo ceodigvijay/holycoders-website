@@ -1,11 +1,23 @@
-import React, { useState } from "react";
-import { addLesson, updateCourse, deleteLesson } from "../../lib/index";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import { deleteEnrolment } from "../../lib/index";
 
 export default function sidebar({ courseMeta, course }) {
   const router = useRouter();
-
+  const handleDeleteEnrolment = async () => {
+    try {
+      const confirmReset = confirm(
+        "This can't be undone. Are you sure to Reset Your Progress"
+      );
+      if (confirmReset) {
+        const response = await deleteEnrolment(course._id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="flex align-middle items-center justify-between sticky top-0 mx-auto bg-gray-50 text-gray-600 px-2 py-3">
@@ -33,7 +45,7 @@ export default function sidebar({ courseMeta, course }) {
         <button
           className="flex items-center"
           onClick={() => {
-            router.push(`${router.asPath.split("?lesson")[0]}`, undefined, {
+            router.push(`${router.asPath.split("lesson")[0]}`, undefined, {
               shallow: true,
             });
           }}
@@ -68,8 +80,12 @@ export default function sidebar({ courseMeta, course }) {
               {section.lessons.map((c, lessonIndex) => {
                 //Check if lesson is completed
                 var isLessonCompleted = false;
-                if (courseMeta && courseMeta.lessons) {
-                  courseMeta.lessons.map((lesson) => {
+                if (
+                  courseMeta &&
+                  courseMeta.enrolment &&
+                  courseMeta.enrolment.lessons
+                ) {
+                  courseMeta.enrolment.lessons.map((lesson) => {
                     if (
                       lesson.lesson_id === c &&
                       lesson.status === "completed"
@@ -84,7 +100,9 @@ export default function sidebar({ courseMeta, course }) {
                     className={`text-gray-600 py-1 hover:text-gray-900 flex justify-between items-center w-full`}
                     onClick={() => {
                       router.push(
-                        `${router.asPath.split("?lesson")[0]}?lesson=${c}`,
+                        `${router.asPath.split("lesson")[0]}lesson/${
+                          course.lessons[c].slug
+                        }`,
                         undefined,
                         { shallow: true }
                       );
@@ -130,7 +148,8 @@ export default function sidebar({ courseMeta, course }) {
                           : "Lesson Lost in Database :("}
                       </span>
                     </div>
-                    <svg
+                    {/* Lock Icon for locked contents */}
+                    {/* <svg
                       className="w-5 h-5 text-gray-600"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -143,13 +162,38 @@ export default function sidebar({ courseMeta, course }) {
                         strokeWidth={2}
                         d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                       />
-                    </svg>
+                    </svg> */}
                   </button>
                 );
               })}
             </div>
           );
         })}
+
+        <div style={{ filter: "grayscale(1)", opacity: "0.4" }} className="text-center my-12">
+          <span className="font-bold text-xl text-gray-600">Certificate (Coming Soon)</span>
+          <Image src="/certificate.jpg" width="300" height="200" />
+        </div>
+        <button
+          onClick={handleDeleteEnrolment}
+          className="text-center flex w-full items-center justify-center mt-12 text-red-600 py-2"
+        >
+          <svg
+            className="w-6 h-6 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+          <span>Reset Progress</span>
+        </button>
       </div>
     </>
   );

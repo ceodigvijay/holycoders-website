@@ -73,6 +73,7 @@ export default function starryEditor(props) {
 
   async function handlePostUpdate() {
     const { type, id } = router.query;
+    const urlSlug = post && post.type === "post" ? "posts" : "pages";
     //Set default method as PUT and update url,
     var method = "put";
     var url = `${process.env.NEXT_PUBLIC_API_URL}/admin/posts/` + post.post_id;
@@ -99,8 +100,8 @@ export default function starryEditor(props) {
         setPost({ ...post, slug: res.data.slug });
         if (currentPostID === "new") {
           router.replace(
-            `/dashboard/posts/[id]`,
-            `/dashboard/posts/${res.data.id}`,
+            `/dashboard/${urlSlug}/[id]`,
+            `/dashboard/${urlSlug}/${res.data.id}`,
             undefined,
             { shallow: true }
           );
@@ -408,7 +409,6 @@ export default function starryEditor(props) {
                         throw "FILE ERROR";
                       } else {
                         const res = await handleImageUpload(file);
-                        console.log(res);
                         return res.Location;
                       }
                     } catch (error) {

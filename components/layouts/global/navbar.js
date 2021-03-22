@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Link from "next/link";
-import UserContext from "../../contexts/globalContext";
+import UserContext from "../../../contexts/globalContext";
 import { useRouter } from "next/router";
 
 export default function navbar() {
@@ -10,6 +10,7 @@ export default function navbar() {
     megaMenuOpen: false,
   });
   const router = useRouter();
+
   const currentPath = router.asPath.split("/")[1];
   const { user } = useContext(UserContext);
   const navLinks = [
@@ -46,6 +47,7 @@ export default function navbar() {
     {
       slug: "/learn/",
       name: "Courses",
+      isBeta: true,
       icon: "",
     },
     {
@@ -305,26 +307,6 @@ export default function navbar() {
       ),
     },
     {
-      slug: `/u/${user && user.username ? user.username : ""}/posts/`,
-      name: "Posts",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-6 h-6 inline-block text-primary-100"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-    {
       slug: `/logout/`,
       name: "Logout",
       icon: (
@@ -365,25 +347,6 @@ export default function navbar() {
       ),
     },
   ];
-
-  let darkThemeEnabled = false;
-  if (typeof window !== "undefined") {
-    const theme = localStorage.getItem("hc_theme");
-    theme === "dark" ? (darkThemeEnabled = true) : "";
-
-    theme === "dark"
-      ? document.querySelector("html").classList.add("dark")
-      : document.querySelector("html").classList.remove("dark");
-  }
-
-  const handleThemeChange = (toDarkTheme) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("hc_theme", toDarkTheme ? "dark" : "light");
-      toDarkTheme
-        ? document.querySelector("html").classList.add("dark")
-        : document.querySelector("html").classList.remove("dark");
-    }
-  };
 
   return (
     <nav
@@ -447,7 +410,7 @@ export default function navbar() {
                   return (
                     <Link href={element.slug} key={element.slug}>
                       <a
-                        className={`flex items-center ${
+                        className={`flex relative items-center ${
                           currentPath &&
                           currentPath === element.slug.split("/")[1]
                             ? "text-primary-600"
@@ -456,6 +419,7 @@ export default function navbar() {
                       >
                         <span className="mx-1">{element.icon}</span>
                         <span className="mx-1">{element.name}</span>
+                        {/* {element.isBeta ? <span className="animate-ping w-2 h-2 rounded-full bg-primary-600 absolute top-0 right-0"></span> : ""} */}
                       </a>
                     </Link>
                   );
@@ -545,79 +509,10 @@ export default function navbar() {
             </div>
           </div>
           <div className="group absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {/* Leaderboard Button */}
-            <Link href="/leaderboard">
-              <a className="mx-4 flex items-center hover:bg-gray-100 rounded-md p-4">
-                <svg
-                  className="w-4 h-4 mx-2 text-yellow-500 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0"
-                  y="0"
-                  enableBackground="new 0 0 490.2 490.2"
-                  version="1.1"
-                  viewBox="0 0 490.2 490.2"
-                  xmlSpace="preserve"
-                >
-                  <path d="M385.85 0h-281.6v45H8.05v73.9c0 53.1 43.2 96.3 96.3 96.3h12.5c18.2 40.1 54.5 70.2 98.6 79.6v60.4h-34.5c-10.6 0-19.3 8.6-19.3 19.3v25.3h-29.6v90.4h226v-90.4h-29.5v-25.3c0-10.6-8.6-19.3-19.3-19.3h-34.5v-60.4c44.1-9.5 80.4-39.5 98.6-79.6h12.5c53.1 0 96.3-43.2 96.3-96.3V45h-96.3V0zm-281.6 166.5c-26.2 0-47.5-21.3-47.5-47.5V93.8h47.5v63.5c0 3.1.1 6.2.3 9.2h-.3zm179.9 237.9v48.4h-78.2v-48.4h78.2zm24.8-277.9l-28.9 24.4 9.1 36.7c1.7 6.9-5.9 12.4-11.9 8.6l-32.1-20-32.1 20c-6 3.8-13.6-1.7-11.9-8.6l9.1-36.7-28.9-24.4c-5.4-4.6-2.6-13.5 4.5-14l37.7-2.7 14.3-35c2.7-6.6 12-6.6 14.7 0l14.3 35 37.7 2.7c7 .6 9.8 9.4 4.4 14zm124.4-32.7V119c0 26.2-21.3 47.5-47.5 47.5h-.3c.2-3 .3-6.1.3-9.2V93.8h47.5z"></path>
-                </svg>
-                <span>Leaderboard</span>
-              </a>
-            </Link>
-            {/* Leaderboard Button End */}
-            {/* Toogle Button */}
-            {/*             
-            <label
-              htmlFor="toogleA"
-              className="flex items-center cursor-pointer"
-            >
-              <div className="relative">
-                <input
-                  defaultChecked={darkThemeEnabled}
-                  id="toogleA"
-                  type="checkbox"
-                  className="hidden"
-                  onClick={(e) => handleThemeChange(e.target.checked)}
-                />
-                <div className="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                <div className="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-6 h-6 text-yellow-700 dark:hidden"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-6 h-6 dark:text-gray-100 hidden dark:block"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="ml-3 text-gray-700 font-medium"></div>
-            </label> */}
-            {/* Toggle ends here */}
-
             {/* Profile dropdown */}
             {!user ? (
               <Link href="/enter">
-                <a className="button bg-white rounded p-2 font-bold">
+                <a className="rounded-full p-2 font-bold mx-2 inline-flex py-2 px-6 text-lg border-2 border-gray-200 hover:bg-primary-500 hover:text-white transition-all duration-500">
                   Dashboard
                 </a>
               </Link>

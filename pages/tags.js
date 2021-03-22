@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import { getAllTags } from "../lib/index";
 import Image from "next/image";
 import Link from "next/link";

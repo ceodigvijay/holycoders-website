@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useContext } from "react";
-import Layout from "../../../components/layouts/layout";
+import Layout from "../../../components/layouts/global/index";
 import { Tag } from "../../../components/index";
 import { getUserByUsername, followUser } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";

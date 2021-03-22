@@ -16,8 +16,7 @@ export default function newCourse() {
       try {
         if (id && id !== "new") {
           const res = await getCourseWithId(id);
-          setCourse(res.data);
-          console.log(res);
+          setCourse(res.data.course);
         }
       } catch (error) {
         console.log(error);
@@ -38,7 +37,6 @@ export default function newCourse() {
         undefined,
         { shallow: true }
       );
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

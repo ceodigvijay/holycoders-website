@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import PageSEO from "../components/seo/page";
 function disclosure() {
   return (

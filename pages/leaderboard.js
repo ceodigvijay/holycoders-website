@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 
 function leaderboard() {
   var users = [...Array(97).keys()];

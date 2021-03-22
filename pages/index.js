@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layouts/layout";
+import Layout from "../components/layouts/global/index";
 import FeaturedNav from "../components/index/featuredNav";
 import { getAllPosts } from "../lib/index";
 import PostCollectionPage from "../components/collection/posts/postCollection";

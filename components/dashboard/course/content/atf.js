@@ -3,6 +3,15 @@ import React from "react";
 export default function mcq({ content, setContent }) {
   return (
     <>
+      <div>
+        <input
+          value={content.question}
+          onChange={(e) => setContent("question", e.target.value)}
+          type="text"
+          placeholder="Question"
+          className="w-full border-2 my-4 border-gray-200 rounded-md text-gray-700 text-5xl placeholder-gray-300 font-bold"
+        />
+      </div>
       <div className="my-6 text-center">
         <h2 className="text-gray-700 text-xl">
           Add your options in correct order
@@ -15,10 +24,7 @@ export default function mcq({ content, setContent }) {
       <div>
         {content.options.map((option, index) => {
           return (
-            <div
-              className="text-center"
-              key={option.title + option.position + index}
-            >
+            <div className="text-center" key={index}>
               <input
                 value={option.title}
                 onChange={(e) => {

@@ -9,7 +9,6 @@ export default function newCourse({
   totalContent,
   moveToModule,
 }) {
-  console.log(courseMeta);
   return (
     <section className="bg-gray-50 dark:bg-gray-700 font-nunito min-h-screen">
       <div className="w-full flex-wrap mx-auto grid grid-cols-9">
