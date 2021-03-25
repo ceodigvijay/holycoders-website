@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 export default function heroHead() {
   return (
     <section className="text-gray-700 body-font dark:bg-gray-800">
@@ -30,7 +31,7 @@ export default function heroHead() {
           </div>
         </div>
         <div className="md:w-1/2 w-5/6">
-          <img src="/home1.svg" loading="lazy" />
+          <Image src="/home1.svg" width="938" height="625" />
         </div>
       </div>
     </section>
