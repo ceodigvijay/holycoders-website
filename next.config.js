@@ -33,10 +33,6 @@ module.exports = {
         source: "/post-sitemap.xml",
         destination: "/api/sitemap/",
       },
-    ];
-  },
-  async rewrites() {
-    return [
       {
         source: "/course-sitemap.xml",
         destination: "/api/course-sitemap/",
