@@ -3,23 +3,29 @@ import React from "react";
 export default function mcq({ content, setContent }) {
   return (
     <>
-      <div>
+      <div className="my-4">
+        <h2 className="text-gray-400">Question</h2>
         <input
           value={content.question}
           onChange={(e) => setContent("question", e.target.value)}
           type="text"
           placeholder="Question"
-          className="w-full border-2 my-4 border-gray-200 rounded-md text-gray-700 text-5xl placeholder-gray-300 font-bold"
+          className="w-full border-2 border-gray-200 rounded-md text-gray-700 text-5xl placeholder-gray-300 font-bold"
         />
       </div>
       <div className="my-6 text-center">
-        <h2 className="text-gray-700 text-xl">Add your options</h2>
+        <h2 className="text-gray-400 text-xl">
+          Add your options (Automatically shuffled on frontend)
+        </h2>
       </div>
 
       <div>
         {content.options.map((option, index) => {
           return (
-            <div className="text-center" key={index}>
+            <div
+              className="text-center flex items-center justify-center"
+              key={index}
+            >
               <input
                 type="checkbox"
                 className="mx-4"
@@ -52,13 +58,26 @@ export default function mcq({ content, setContent }) {
                   setContent("options", newOptions);
                 }}
               >
-                Del
+                <svg
+                  className="w-6 h-6 text-red-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
             </div>
           );
         })}
       </div>
-      <div className="text-center">
+      <div className="flex items-center justify-center">
         <button
           onClick={() =>
             setContent("options", [
@@ -71,9 +90,23 @@ export default function mcq({ content, setContent }) {
               },
             ])
           }
-          className="py-2 px-10 border-2 border-primary-600 rounded-full"
+          className="flex items-center my-10 justify-center text-white rounded-md bg-secondary px-6 py-3"
         >
-          Add Option
+          <svg
+            className="w-6 h-6 mx-2"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Add Options</span>
         </button>
       </div>
     </>

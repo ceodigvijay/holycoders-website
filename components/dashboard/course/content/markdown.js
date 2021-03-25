@@ -14,12 +14,6 @@ export default function markdown() {
         className="prose dark:prose-dark lg:prose-lg max-w-none mt-10 border border-gray-100"
         // dark={true}
         placeholder="Start Writing Your Amazing Post..."
-        handleDOMEvents={{
-          focus: () => console.log("FOCUS"),
-          blur: () => console.log("BLUR"),
-          paste: (a) => console.log("PASTE"),
-          touchstart: () => console.log("TOUCH START"),
-        }}
       />
     </div>
   );

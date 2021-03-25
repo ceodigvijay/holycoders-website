@@ -124,7 +124,10 @@ export default function sidebar({ course, setCourse }) {
       setCourse(updatedCourse);
       setNewLesson({ title: "", section: -1 });
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured saving the course.",
+      });
     }
   };
   const saveCourseToDb = async () => {
@@ -136,7 +139,6 @@ export default function sidebar({ course, setCourse }) {
         message: "Successfully Saved the Course",
       });
     } catch (error) {
-      console.log(error);
       addNotification({
         type: "error",
         message: "Some error occured saving the course.",
@@ -157,7 +159,10 @@ export default function sidebar({ course, setCourse }) {
       setCourse(updatedCourse);
       setNewLesson({ title: "", section: -1 });
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured saving the course.",
+      });
     }
   };
 
@@ -170,12 +175,17 @@ export default function sidebar({ course, setCourse }) {
           const newCourse = { ...course };
           newCourse.sections[sectionIndex].lessons.splice(lessonIndex, 1);
           setCourse(newCourse);
+          //Save the course
+          saveCourseToDb();
         }
       } else {
         console.log("Cancelled");
       }
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured saving the course.",
+      });
     }
   };
 

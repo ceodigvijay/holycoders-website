@@ -22,7 +22,6 @@ export default function allPosts() {
       try {
         const res = await getAllCourses({page:page, limit: 12, authorOnly: true});
         data = res.data;
-        console.log(data);
       } catch (error) {
         addNotification({
           message:

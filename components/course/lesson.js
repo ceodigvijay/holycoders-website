@@ -3,6 +3,8 @@ import CourseLayout from "./layout";
 import Contents from "./content/index";
 import { getLessonWithSlug } from "../../lib/index";
 import { useRouter } from "next/router";
+import LessonSEO from "../seo/course/lessons";
+
 import Final from "./final";
 export default function lesson({ courseMeta, setCourseMeta, course }) {
   const router = useRouter();
@@ -56,6 +58,7 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
       setCurrentContentIndex(currentContentIndex - 1);
     }
   };
+  console.log(lesson);
   if (!lesson) {
     return "Loading";
   } else {
@@ -68,6 +71,16 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
         totalContent={lesson.contents.length}
         moveToModule={moveToModule}
       >
+        <LessonSEO
+          title={lesson.title}
+          metaTitle={lesson.meta_title}
+          metaDescription={lesson.meta_description}
+          publishedAt={lesson.published_at}
+          updatedAt={lesson.updated_at}
+          author={lesson.author[0]}
+          slug={lesson.slug}
+          courseSlug={course.slug}
+        />
         {lesson.contents.length &&
         currentContentIndex >= lesson.contents.length ? (
           <Final

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Lesson from "./lesson";
 import CourseInfo from "./courseInfo";
 import GlobalContext from "../../contexts/globalContext";
+import CourseSEO from "../seo/course/index";
 
 export default function course() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function course() {
     getData();
   }, [slug]);
 
-  if (courseData && courseData.course.slug !== slug) {
+  if (!courseData || (courseData && courseData.course.slug !== slug)) {
     return "Loading";
   }
 
@@ -52,6 +53,12 @@ export default function course() {
         courseMeta={courseData.meta}
         course={courseData.course}
       >
+        <CourseSEO
+          title={courseData.course.title}
+          metaTitle={courseData.course.meta_title}
+          metaDescription={courseData.course.meta_description}
+          courseSlug={courseData.course.slug}
+        />
         <CourseInfo courseData={courseData} setCourseData={setCourseData} />
       </CourseLayout>
     );

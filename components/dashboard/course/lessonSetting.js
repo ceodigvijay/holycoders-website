@@ -8,7 +8,7 @@ export default function lessonSetting({
   setSidebarClose,
 }) {
   return (
-    <div>
+    <>
       <div
         className={`fixed inset-0 overflow-scroll z-50  ${
           sidebarOpen ? "" : "hidden"
@@ -182,6 +182,6 @@ export default function lessonSetting({
           </section>
         </div>
       </div>
-    </div>
+    </>
   );
 }

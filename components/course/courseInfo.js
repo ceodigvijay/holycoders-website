@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { addEnrolment } from "../../lib/index";
+import GlobalContext from "../../contexts/globalContext";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
+import Link from "next/link";
 
 export default function CourseInfoPage({ courseData, setCourseData }) {
   const {
     course,
     meta: { enrolment },
   } = courseData;
-  console.log(enrolment);
   const [progress, setProgress] = useState({
     enrolment: false,
   });
+  const { user, addNotification } = useContext(GlobalContext);
 
   const handleEnrolmentClick = async () => {
     setProgress({ ...progress, enrolment: true });
@@ -23,10 +27,34 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
       };
       setCourseData(newCourseData);
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured. Please try again later.",
+      });
     }
     setProgress({ ...progress, enrolment: false });
   };
+
+  const renderers = {
+    code: ({ language, value }) => {
+      if (language && ["info", "warning", "tip"].includes(language)) {
+        return <p className={language}>{value}</p>;
+      }
+      return (
+        <pre>
+          <code className={`language-${language}`}>{value}</code>
+        </pre>
+      );
+    },
+    image: ({ src, alt }) => {
+      return (
+        <div className="text-center shadow-lg">
+          <img src={src} alt={alt} loading="lazy" />
+        </div>
+      );
+    },
+  };
+
   return (
     <div className="min-h-screen">
       <div className="">
@@ -38,55 +66,17 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
         <div className="text-center font-medium mb-10 text-lg text-gray-600">
           {course.introduction}
         </div>
-        <div className="flex justify-between">
-          <div className="flex flex-1 flex-col justify-center pr-10">
-            {/* Course Difficulty */}
-            <div className="flex items-center">
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((d, index) => {
-                  return (
-                    <svg
-                      className={`w-5 h-5 ${
-                        index === 0 ? "text-blue-400" : "text-gray-200"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  );
-                })}
-              </div>
-              <span className="mx-2 font-bold text-blue-400">Beginners</span>
-            </div>
-            {/* Course Rating */}
-            <div className="flex items-center">
-              {/* <span className="mx-2 text-yellow-400 font-bold">5.0</span> */}
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((d) => {
-                  return (
-                    <svg
-                      className="w-5 h-5 text-yellow-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  );
-                })}
-              </div>
-              <span className="mx-2 text-gray-600">34 Ratings</span>
-            </div>
+        <div className=" text-center">
+          <Image
+            src="/course.png"
+            width="620"
+            height="360"
+            className="rounded-md"
+          />
+          <div className="text-center w-full flex items-center justify-center my-10">
             {enrolment ? (
               <button
-                onClick={handleEnrolmentClick}
-                className={`text-center flex items-center justify-center mx-2 mt-20 bg-primary-600 rounded-full py-3 w-full px-10 text-white font-semibold`}
+                className={`text-center mx-auto flex items-center justify-center bg-primary-600 rounded-full py-3 px-10 text-white font-semibold`}
               >
                 <svg
                   className="w-6 h-6 mr-2"
@@ -102,12 +92,21 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                <span>Continue the course</span>
+                <span>Enrolled in the course</span>
               </button>
             ) : (
               <button
-                onClick={handleEnrolmentClick}
-                className={`text-center flex items-center justify-center mx-2 mt-20 bg-secondary rounded-full py-3 w-full px-10 text-white font-semibold`}
+                onClick={
+                  user
+                    ? handleEnrolmentClick
+                    : () => {
+                        addNotification({
+                          type: "primary",
+                          message: "Login to enrol in courses",
+                        });
+                      }
+                }
+                className={`text-center flex items-center justify-center mx-2 bg-secondary rounded-full py-3 px-10 text-white font-semibold`}
               >
                 {progress.enrolment ? (
                   "Please Wait ..."
@@ -132,19 +131,7 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
                 )}
               </button>
             )}
-            <button
-              onClick={() => console.log(courseData)}
-              className="text-center mx-2 mt-2 bg-gray-100 rounded-full py-3 w-full px-10 text-gray-700 font-semibold"
-            >
-              Upgrade for Certificate
-            </button>
           </div>
-          <Image
-            src="/course.png"
-            width="620"
-            height="360"
-            className="rounded-md"
-          />
         </div>
         <div className="">
           {/* Course Features */}
@@ -284,15 +271,17 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
           </div> */}
 
           {/* Course Description with read more */}
-          <section className="my-10">
+          <section className="my-10 prose dark:prose-dark prose-lg max-w-none mx-4">
             <h2 className="text-2xl font-semibold my-4">Description</h2>
-            <p>{course.description_raw}</p>
+            <ReactMarkdown
+              plugins={[gfm]}
+              renderers={renderers}
+              children={course.description_raw}
+            />
           </section>
           {/* Prerequisites */}
           <div className="my-10">
-            <h2 className="text-2xl font-semibold my-4 flex items-center">
-              Prerequisites
-            </h2>
+            <h2 className="text-2xl font-semibold my-4">Prerequisites</h2>
             <ul className="list-disc list-inside px-10">
               {course.prerequisite.map((prerequisite) => {
                 return <li>{prerequisite}</li>;

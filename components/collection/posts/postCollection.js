@@ -122,7 +122,7 @@ export default function postCollection({
           <div className="text-center mt-4 pb-28">
             <button
               onClick={() => (isloading ? "" : loadMorePosts())}
-              className={`m-auto flex bg-primary-500 px-10 py-4 text-lg items-center text-white font-semibold rounded-full transition-all duration-200 hover:bg-primary-600`}
+              className={`m-auto flex bg-primary-600 px-10 py-3 text-lg items-center text-white font-semibold rounded-full transition-all duration-200 hover:bg-primary-500`}
             >
               {isloading ? (
                 <svg

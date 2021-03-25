@@ -23,8 +23,6 @@ export default function comment(props) {
           props.contentId,
           props.contentType
         );
-        console.log("Comments");
-        console.log(res.data);
         const structuredComment = groupByKey(res.data, "parent_id");
         setComments(structuredComment);
       } catch (error) {

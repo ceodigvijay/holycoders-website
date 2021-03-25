@@ -1,6 +1,8 @@
 import React from "react";
 import { NextSeo, ArticleJsonLd } from "next-seo";
 import Head from "next/head";
+import cleanString from "../../../utils/cleanxss";
+
 export default function Seo({
   title,
   metaTitle,
@@ -8,8 +10,13 @@ export default function Seo({
   publishedAt,
   updatedAt,
   author,
-  url,
+  slug,
+  courseSlug,
 }) {
+  const url = `https://holycoders.com/learn/${cleanString(
+    courseSlug
+  )}/lesson/${cleanString(slug)}/`;
+
   const newMetaTitle = metaTitle
     ? metaTitle.replace(/"/g, "&quot;").replace(/'/g, "&apos;")
     : title.replace(/"/g, "&quot;").replace(/'/g, "&apos;");
@@ -51,7 +58,6 @@ export default function Seo({
           article: {
             publishedTime: publishedAt,
             modifiedTime: updatedAt,
-            authors: [author.profile],
           },
         }}
       />

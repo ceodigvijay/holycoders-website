@@ -64,7 +64,6 @@ export default function sidebar(props) {
             dateFormat="DD/MM/YYYY"
             timeFormat="HH:mm"
             onChange={(e) => {
-              console.log(e.toISOString());
               setPost({ ...post, publish_date: e.toISOString() });
             }}
           />

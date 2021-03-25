@@ -4,9 +4,9 @@ import { updateCourse } from "../../../lib/index";
 import { deleteCourse } from "../../../lib/index";
 import { useRouter } from "next/router";
 import ReactTags from "react-tag-autocomplete";
-import { searchTags } from "../../../lib/index";
+import { searchTags, handleImageUpload } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
-
+import ImagePicker from "../../Input/imagePicker";
 export default function setting({ course, setCourse }) {
   const [objective, setObjective] = useState("");
   const [prerequisites, setPrerequisites] = useState("");
@@ -17,18 +17,21 @@ export default function setting({ course, setCourse }) {
 
   const handleCourseDelete = async () => {
     try {
+      //Confirm From user to delete the course Permanently
       const confirmationMsg = prompt(
-        "Enter COMFIRM to delete course Permanently"
+        "Danger: Enter COMFIRM to delete course Permanently"
       );
       if (confirmationMsg === "CONFIRM") {
         const response = await deleteCourse(course._id);
-        console.log(response);
         router.push("/dashboard/course/");
       } else {
         console.log("Cancelled");
       }
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error in deleting the course. Please try again later.",
+      });
     }
   };
   async function getTags(query) {
@@ -44,11 +47,27 @@ export default function setting({ course, setCourse }) {
       console.log(error);
     }
   }
+
+  async function handleFeaturedImageUpload(e) {
+    e.preventDefault();
+    try {
+      const imageUrl = await handleImageUpload(e.target.files[0]);
+      setCourse({ ...course, featured_image: imageUrl.Location });
+    } catch (error) {
+      addNotification({
+        message: "Some error occured in uploading the image.",
+        type: "error",
+      });
+    }
+  }
+
   return (
     <div>
-      <div className="w-full h-48 border-2 bg-gray-100 flex items-center justify-center rounded-md">
-        Featured Image
-      </div>
+      <ImagePicker
+        handleImageDelete={() => setCourse({ ...course, featured_image: '' })}
+        handleImageUpload={handleFeaturedImageUpload}
+        image={course.featured_image}
+      />
       <input
         type="text"
         className="text-4xl font-semibold text-gray-700 text-center my-10 block rounded-md w-full border-2 border-gray-200"
@@ -56,45 +75,75 @@ export default function setting({ course, setCourse }) {
         onChange={(e) => setCourse({ ...course, title: e.target.value })}
       />
       <div className="grid grid-cols-6 gap-2">
-        <input
-          className="col-span-6 md:col-span-4 border-2 border-gray-200 rounded-md"
-          type="text"
-          placeholder="Slug"
-          value={course.slug}
-          onChange={(e) => setCourse({ ...course, slug: e.target.value })}
-        />
-        <input
-          className="col-span-6 md:col-span-1 border-2 border-gray-200 rounded-md"
-          type="number"
-          placeholder="Difficulty"
-          min="0"
-          max="10"
-          value={course.difficulty}
-          onChange={(e) => setCourse({ ...course, difficulty: e.target.value })}
-        />
-        <input
-          className="col-span-6 md:col-span-1 border-2 border-gray-200 rounded-md"
-          type="number"
-          placeholder="Minutes to read"
-          value={course.reading_time}
+        <div className="col-span-6 md:col-span-4 flex flex-col">
+          <label htmlFor="course-slug" className="text-gray-400">
+            Slug
+          </label>
+          <input
+            id="course-slug"
+            className="border-2 border-gray-200 rounded-md"
+            type="text"
+            placeholder="Slug"
+            value={course.slug}
+            onChange={(e) => setCourse({ ...course, slug: e.target.value })}
+          />
+        </div>
+        <div className="col-span-6 md:col-span-1 flex flex-col">
+          <label htmlFor="course-difficulty" className="text-gray-400">
+            Difficulty(1-10)
+          </label>
+          <input
+            id="course-difficulty"
+            className="col-span-6 md:col-span-1 border-2 border-gray-200 rounded-md"
+            type="number"
+            placeholder="Difficulty"
+            min="0"
+            max="10"
+            value={course.difficulty}
+            onChange={(e) =>
+              setCourse({ ...course, difficulty: e.target.value })
+            }
+          />
+        </div>
+        <div className="col-span-6 md:col-span-1 flex flex-col">
+          <label htmlFor="course-reading-time" className="text-gray-400">
+            Reading Time (mins)
+          </label>
+          <input
+            id="course-reading-time"
+            className="col-span-6 md:col-span-1 border-2 border-gray-200 rounded-md"
+            type="number"
+            placeholder="Minutes to read"
+            value={course.reading_time}
+            onChange={(e) =>
+              setCourse({ ...course, reading_time: e.target.value })
+            }
+            min="0"
+            max="10000"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col my-10">
+        <label htmlFor="course-intro" className="text-gray-400">
+          Short Introduction
+        </label>
+        <textarea
+          id="course-intro"
+          value={course.introduction}
           onChange={(e) =>
-            setCourse({ ...course, reading_time: e.target.value })
+            setCourse({ ...course, introduction: e.target.value })
           }
-          min="0"
-          max="10000"
+          placeholder="Introduction"
+          className="border-2 border-gray-200 rounded-md w-full"
         />
       </div>
-      <textarea
-        value={course.introduction}
-        onChange={(e) => setCourse({ ...course, introduction: e.target.value })}
-        placeholder="Introduction"
-        className="my-10 border-2 border-gray-200 rounded-md w-full"
-      />
+
       {/* Objective */}
-      <div>
+      <div className="my-10">
+        <h2 className="text-lg font-semibold">Objectives:</h2>
         {course.objective.map((p, index) => {
           return (
-            <div className="flex items-center">
+            <div className="flex items-center my-1">
               <span>{p}</span>
               <button
                 className="mx-2"
@@ -140,10 +189,11 @@ export default function setting({ course, setCourse }) {
         />
       </div>
       {/* Prerequisites */}
-      <div>
+      <div className="my-10">
+        <h2 className="text-lg font-semibold">Prerequisites:</h2>
         {course.prerequisite.map((p, index) => {
           return (
-            <div className="flex items-center">
+            <div className="flex items-center my-1">
               <span>{p}</span>
               <button
                 className="mx-2"
@@ -204,7 +254,8 @@ export default function setting({ course, setCourse }) {
           setCourse({ ...course, tags: newTags });
         }}
       />
-      <div className="px-6">
+      <div className="px-6 my-10">
+        <h2 className="text-gray-400">Description</h2>
         <MarkdownEditor
           onChange={(value) => {
             setCourse({
@@ -214,15 +265,9 @@ export default function setting({ course, setCourse }) {
           }}
           readOnly={false}
           defaultValue={course.description_raw}
-          className="prose dark:prose-dark lg:prose-lg max-w-none mt-10 border border-gray-100"
+          className="prose dark:prose-dark lg:prose-lg max-w-none border border-gray-100"
           // dark={true}
           placeholder="Description will go here"
-          handleDOMEvents={{
-            focus: () => console.log("FOCUS"),
-            blur: () => console.log("BLUR"),
-            paste: (a) => console.log("PASTE"),
-            touchstart: () => console.log("TOUCH START"),
-          }}
         />
       </div>
       <div className="mt-10">
@@ -317,7 +362,6 @@ export default function setting({ course, setCourse }) {
                 type: "success",
                 message: "Some error occured saving the course",
               });
-              console.log(error);
             }
           }}
           className="rounded-full bg-primary-400 text-xl font-semibold hover:bg-primary-500 text-white px-20 py-2"

@@ -11,7 +11,7 @@ import CourseContext from "../contexts/courseContext";
 import { useRouter } from "next/router";
 import Toast from "../components/toast/toast";
 import * as gtag from "../gtag";
-// import "react-datepicker/dist/react-datepicker.css";
+import 'katex/dist/katex.min.css' 
 
 //Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());

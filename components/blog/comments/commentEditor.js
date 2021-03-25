@@ -21,7 +21,7 @@ export default function commentEditor({
     depth: depth,
     parent_id: parentId,
   });
-  const { user } = useContext(GlobalContext);
+  const { user, addNotification } = useContext(GlobalContext);
 
   async function handleCommentSubmit() {
     if (comment.comment_raw) {
@@ -33,7 +33,10 @@ export default function commentEditor({
           setComment({ ...comment, comment_raw: "" });
         }
       } catch (error) {
-        console.log(error);
+        addNotification({
+          type: "error",
+          message: "Some error occured. Please try again later.",
+        });
       }
       setLoading(false);
     } else {
@@ -50,8 +53,10 @@ export default function commentEditor({
         // setComment({ ...comment, comment_raw: "" });
       }
     } catch (error) {
-      // TODO: Update failed notification
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured. Please try again later.",
+      });
     }
     setLoading(false);
   }

@@ -38,7 +38,7 @@ export default function FooterComponent() {
           <div className="flex flex-wrap justify-center">
             <div>
               <a
-                className="is-facebook px-6 py-4 rounded-md text-lg font-semibold flex items-center"
+                className="is-facebook px-6 py-4 rounded-md text-xl font-semibold flex items-center"
                 href="https://www.facebook.com/HolyCoders-103402337844119/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export default function FooterComponent() {
             </div>
             <div>
               <a
-                className="is-github px-6 py-4 rounded-md text-lg font-semibold flex items-center"
+                className="is-github px-6 py-4 rounded-md text-xl font-semibold flex items-center"
                 href="https://github.com/ceodigvijay"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -64,7 +64,7 @@ export default function FooterComponent() {
             </div>
             <div>
               <a
-                className="is-twitter px-6 py-4 rounded-md text-lg font-semibold flex items-center"
+                className="is-twitter px-6 py-4 rounded-md text-xl font-semibold flex items-center"
                 href="https://twitter.com/holycoders"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +77,7 @@ export default function FooterComponent() {
             </div>
             <div>
               <a
-                className="is-instagram px-6 py-4 rounded-md text-lg font-semibold flex items-center"
+                className="is-instagram px-6 py-4 rounded-md text-xl font-semibold flex items-center"
                 href="https://www.instagram.com/holy_coders/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -244,16 +244,16 @@ export default function FooterComponent() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/report/">
+                  <Link href="/credits/">
                     <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100">
-                      Report an Issue
+                      Credits
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/snippets/">
+                  <Link href="/report/">
                     <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100">
-                      Code Snippets
+                      Report an Issue
                     </a>
                   </Link>
                 </li>

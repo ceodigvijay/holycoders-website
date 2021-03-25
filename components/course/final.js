@@ -15,7 +15,6 @@ export default function finalChapter({
   isCourseFinished,
 }) {
   const { user } = useContext(UserContext);
-  console.log("Is course Finished " + isCourseFinished);
   const router = useRouter();
   useEffect(() => {
     const updateEnrolmentToDb = async () => {
@@ -101,7 +100,7 @@ export default function finalChapter({
       {/* End of warning Message */}
 
       <div className="text-center w-full my-10">
-        <Image src="/final.jpg" width="250" height="250" />
+        <Image src="/final.jpg" width="625" height="416" />
         <div className="font-semibold text-4xl text-gray-600 my-4">
           Lesson Completed
         </div>

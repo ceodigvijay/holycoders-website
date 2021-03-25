@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import CourseSidebar from "./sidebar";
+import CourseMobileSidebar from "./mobileSidebar";
+import Link from "next/link";
+
 export default function newCourse({
   isCourseInfoPage = false,
   courseMeta,
@@ -9,20 +12,92 @@ export default function newCourse({
   totalContent,
   moveToModule,
 }) {
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   return (
     <section className="bg-gray-50 dark:bg-gray-700 font-nunito min-h-screen">
       <div className="w-full flex-wrap mx-auto grid grid-cols-9">
-        <aside className="w-full col-span-2  text-xl leading-normal max-h-screen overflow-auto sticky top-0 left-0">
+        <aside className="w-full hidden md:block col-span-2 text-xl leading-normal max-h-screen overflow-auto sticky top-0 left-0">
           <CourseSidebar courseMeta={courseMeta} course={course} />
         </aside>
+        {mobileSidebarOpen ? (
+          <aside className="w-full md:hidden col-span-9 text-xl leading-normal max-h-screen overflow-auto sticky top-0 left-0">
+            <CourseMobileSidebar
+              courseMeta={courseMeta}
+              course={course}
+              closeMobileSidebar={() => setMobileSidebarOpen(false)}
+            />
+          </aside>
+        ) : (
+          ""
+        )}
 
-        <div className="w-full flex min-h-screen col-span-7 flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 lg:mt-0 text-gray-900 dark:text-gray-200 leading-normal">
+        <div className="w-full flex min-h-screen col-span-9 md:col-span-7 flex-col bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 lg:mt-0 text-gray-900 dark:text-gray-200 leading-normal">
           {isCourseInfoPage || currentContentIndex >= totalContent ? (
-            ""
+            <nav className="md:hidden flex items-center justify-between p-4">
+              <Link href="/learn">
+                <a className="flex items-center">
+                  {/* Chevron left */}
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                  <span>Back</span>
+                </a>
+              </Link>
+              <button
+                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+                className="sticky top-0 flex items-center"
+              >
+                <span>Contents</span>
+                <svg
+                  className="w-6 h-6 ml-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </nav>
           ) : (
             <>
               {/* Chapter Toolbar */}
               <div className="flex items-center align-middle px-3 py-3 bg-gray-50 sticky top-0">
+                <button
+                  className="md:hidden"
+                  onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+                >
+                  <svg
+                    className="w-6 h-6 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                </button>
                 <div>
                   {totalContent ? currentContentIndex + 1 : 0}/{totalContent}
                 </div>
@@ -83,13 +158,12 @@ export default function newCourse({
                     </svg>
                   </div>
                 </div>
-
-                <div>
-                  {/* Settings icon */}
-                  <button>
+                <Link href="/learn/">
+                  <a>
+                    {/* Close icon */}
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
                       className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -98,17 +172,11 @@ export default function newCourse({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        d="M6 18L18 6M6 6l12 12"
                       />
                     </svg>
-                  </button>
-                </div>
+                  </a>
+                </Link>
               </div>
             </>
           )}

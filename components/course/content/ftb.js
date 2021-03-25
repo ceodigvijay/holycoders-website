@@ -104,7 +104,6 @@ export default function index({moveToModule, content }) {
                 if (!isOptionUsed) {
                   for (let key in refs) {
                     if (!refs[key].innerHTML) {
-                      console.log(key);
                       refs[key].innerHTML = e.title;
                       //Insert answer at specific index
                       var newAnswer = [...answers];

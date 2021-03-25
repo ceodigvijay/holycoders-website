@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { deleteEnrolment } from "../../lib/index";
 import GlobalContext from "../../contexts/globalContext";
-export default function sidebar({ courseMeta, course }) {
+export default function sidebar({ courseMeta, course, closeMobileSidebar }) {
   const router = useRouter();
   const { addNotification } = useContext(GlobalContext);
   const handleDeleteEnrolment = async () => {
@@ -51,16 +51,9 @@ export default function sidebar({ courseMeta, course }) {
           </a>
         </Link>
 
-        <button
-          className="flex items-center"
-          onClick={() => {
-            router.push(`${router.asPath.split("lesson")[0]}`, undefined, {
-              shallow: true,
-            });
-          }}
-        >
-          <span className="mx-2 text-base">Course Info</span>
-          {/* Info icon */}
+        <button className="flex items-center" onClick={closeMobileSidebar}>
+          <span className="mx-2 text-base">Close</span>
+          {/* Close icon */}
           <svg
             className="w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +65,7 @@ export default function sidebar({ courseMeta, course }) {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              d="M6 18L18 6M6 6l12 12"
             />
           </svg>
         </button>
@@ -115,6 +108,7 @@ export default function sidebar({ courseMeta, course }) {
                         undefined,
                         { shallow: true }
                       );
+                      closeMobileSidebar();
                     }}
                   >
                     <div className="flex items-center">
@@ -179,7 +173,9 @@ export default function sidebar({ courseMeta, course }) {
           );
         })}
 
-        <div className="text-center text-gray-600">More Lessons in Progress</div>
+        <div className="text-center text-gray-600">
+          More Lessons in Progress
+        </div>
 
         <div
           style={{ filter: "grayscale(1)", opacity: "0.4" }}

@@ -4,13 +4,6 @@ import SideNav from "./sideNav";
 import { useRouter } from "next/router";
 import GlobalLayout from "../layout";
 import Seo from "../../seo/course/chapters";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretRight,
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 export default function Layout({ children, meta, allChapters, courseDetails }) {
   const router = useRouter();
   const currentPath = router.asPath;

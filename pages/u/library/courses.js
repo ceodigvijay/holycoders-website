@@ -13,7 +13,6 @@ export default function UserCoursesPage() {
       try {
         const response = await getEnrolmentWithCourseId();
         setEnrolmentsData(response.data);
-        console.log(response);
       } catch (error) {
         console.log(error);
       }

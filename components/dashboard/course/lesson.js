@@ -26,17 +26,17 @@ export default function lesson({ course, setCourse }) {
 
   const saveLessonToCloud = async () => {
     try {
+      const res = await updateLesson(lesson);
       addNotification({
         type: "success",
         message: "Successfully saved the lesson",
       });
-      const res = await updateLesson(lesson);
     } catch (error) {
+      var message = error?.response?.data?.message;
       addNotification({
         type: "error",
-        message: "Some error occured in saving the lesson",
+        message: message ? message : "Some error occured in saving the lesson",
       });
-      console.log(error);
     }
   };
 
@@ -98,23 +98,34 @@ export default function lesson({ course, setCourse }) {
           }
         }}
       >
-        {/* <button onClick={() => console.log(lesson)} className="text-gray-200">
-          Log Lesson
-        </button> */}
         {lesson.contents.length ? (
           lesson.contents.map((content, index) => {
             if (index === currentContentIndex) {
               return (
-                <Contents
-                  key={index}
-                  content={content}
-                  setContent={(field, value) => {
-                    const newLesson = { ...lesson };
-                    //Update appropriate content field TODO: validate field as they must be typo-proof
-                    newLesson.contents[index][field] = value;
-                    setLesson(newLesson);
-                  }}
-                />
+                <>
+                  <Contents
+                    key={index}
+                    content={content}
+                    setContent={(field, value) => {
+                      const newLesson = { ...lesson };
+                      //Update appropriate content field TODO: validate field as they must be typo-proof
+                      newLesson.contents[index][field] = value;
+                      setLesson(newLesson);
+                    }}
+                  />
+                  <div className="text-center">
+                    <button
+                      onClick={() => {
+                        const newLesson = { ...lesson };
+                        newLesson.contents.splice(index, 1);
+                        setLesson(newLesson);
+                      }}
+                      className="px-10 py-2 rounded-full bg-red-500 font-semibold text-lg text-white mt-52 mb-6"
+                    >
+                      Delete Content
+                    </button>
+                  </div>
+                </>
               );
             }
             return "";

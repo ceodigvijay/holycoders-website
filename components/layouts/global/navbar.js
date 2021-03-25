@@ -287,8 +287,29 @@ export default function navbar() {
 
   const userLinks = [
     {
+      slug: `/u/${user && user.username ? user.username : ""}/`,
+      name: "Profile",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-6 h-6 inline-block text-primary-100"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          />
+        </svg>
+      ),
+    },
+    {
       slug: "/dashboard/",
       name: "Dashboard",
+      isProtected: true,
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -302,6 +323,52 @@ export default function navbar() {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+          />
+        </svg>
+      ),
+    },
+    {
+      slug: "/u/library/",
+      name: "Library",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-6 h-6 inline-block text-primary-100"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+          />
+        </svg>
+      ),
+    },
+    {
+      slug: `/u/setting/`,
+      name: "Setting",
+      icon: (
+        <svg
+          className="w-6 h-6 inline-block text-primary-100"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
       ),
@@ -544,9 +611,7 @@ export default function navbar() {
                   aria-haspopup="true"
                 >
                   <span className="sr-only">Open user menu</span>
-                  <Link
-                    href={`/u/${user && user.username ? user.username : ""}/`}
-                  >
+            
                     <a className="flex items-center">
                       <img
                         className="h-12 w-12 rounded-full"
@@ -559,12 +624,11 @@ export default function navbar() {
                       />
                       <div className="flex flex-col mx-2">
                         <span className="font-bold text-lg">
-                          Digvijay Singh
+                          {user.username ? user.username : "No Name"}
                         </span>
-                        <span className="text-gray-500">Level 6</span>
+                        <span className="text-gray-500">{user.role}</span>
                       </div>
                     </a>
-                  </Link>
 
                   <div
                     className={`transition-all duration-200 ${
@@ -577,7 +641,11 @@ export default function navbar() {
                     aria-labelledby="user-menu"
                   >
                     {userLinks.map((item) => {
-                      return (
+                      return item.isProtected &&
+                        user &&
+                        !["admin", "editor", "teacher"].includes(user.role) ? (
+                        ""
+                      ) : (
                         <Link href={item.slug} key={item.slug}>
                           <a
                             className="flex items-center px-2 py-2 md:text-lg hover:bg-gray-100  dark:hover:bg-gray-800  font-semibold"

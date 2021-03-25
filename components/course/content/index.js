@@ -6,9 +6,14 @@ import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import Tex from "@matejmazur/react-katex";
+import math from "remark-math";
 
 export default function index({ moveToModule, content, setContent }) {
+  console.log(content.content_raw.replace(/\\\\/g, '\\'));
   const renderers = {
+    inlineMath: ({ value }) => <Tex math={value} />,
+    math: ({ value }) => <Tex block math={value} />,
     code: ({ language, value }) => {
       if (language && ["info", "warning", "tip"].includes(language)) {
         return <p className={language}>{value}</p>;
@@ -43,9 +48,9 @@ export default function index({ moveToModule, content, setContent }) {
         </h1>
         <article className="prose dark:prose-dark prose-lg lg:prose-xl max-w-none mx-2 my-6">
           <ReactMarkdown
+            plugins={[gfm, math]}
             renderers={renderers}
-            plugins={[gfm]}
-            children={content.content_raw}
+            children={content.content_raw.replace(/\\\\/g, '\\')}
           />
         </article>
       </div>

@@ -118,7 +118,7 @@ export default function libraryLayout({ children }) {
   return (
     <Layout>
       <div className="min-h-screen bg-primary-6 px-2 py-2 grid grid-cols-5 gap-2 mt-10">
-        <nav className="flex flex-col">
+        <nav className="flex flex-row flex-wrap md:flex-col col-span-5 md:col-span-1">
           {sidebarLinks.map((item) => {
             return (
               <Link href={`/u/library/${item.slug}/`}>
