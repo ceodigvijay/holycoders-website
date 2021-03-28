@@ -45,7 +45,7 @@ export default function Seo({
         "url": "https://holycoders.com/icon.svg"
       }
     },
-    ${newMetaDescription ? `"description":"${newMetaDescription}", ` : ""}
+    ${newMetaDescription ? `"description":"${newMetaDescription}"` : ""}
   }`;
   return (
     <>

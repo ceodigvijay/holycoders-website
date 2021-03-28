@@ -19,7 +19,7 @@ export default function heroHead() {
           </p>
           <div className="flex justify-center">
             <Link href="/enter/">
-              <a className="inline-flex transition-all duration-200 text-white cursor-pointer bg-primary-600 border-0 py-2 px-10 focus:outline-none hover:bg-primary-700 rounded-full text-2xl font-bold">
+              <a className="inline-flex transition-all duration-200 text-white cursor-pointer bg-primary-600 border-0 py-2 px-10 focus:outline-none hover:bg-primary-700 rounded-full text-lg font-semibold">
                 Enter Free
               </a>
             </Link>

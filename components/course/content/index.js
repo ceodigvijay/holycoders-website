@@ -10,7 +10,6 @@ import Tex from "@matejmazur/react-katex";
 import math from "remark-math";
 
 export default function index({ moveToModule, content, setContent }) {
-  console.log(content.content_raw.replace(/\\\\/g, '\\'));
   const renderers = {
     inlineMath: ({ value }) => <Tex math={value} />,
     math: ({ value }) => <Tex block math={value} />,

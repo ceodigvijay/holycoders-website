@@ -62,7 +62,11 @@ export default function index({ data }) {
                   <div className="rounded-md overflow-hidden relative">
                     <Image
                       className="object-cover object-center h-full w-full"
-                      src="/course.png"
+                      src={
+                        course.featured_image
+                          ? course.featured_image
+                          : "/course.png"
+                      }
                       width="640px"
                       height="360px"
                       alt="Website hacking and prevention"

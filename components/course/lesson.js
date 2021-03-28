@@ -58,7 +58,6 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
       setCurrentContentIndex(currentContentIndex - 1);
     }
   };
-  console.log(lesson);
   if (!lesson) {
     return "Loading";
   } else {

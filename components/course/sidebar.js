@@ -26,7 +26,6 @@ export default function sidebar({ courseMeta, course }) {
       });
     }
   };
-  console.log(courseMeta);
   return (
     <>
       <div className="flex align-middle items-center justify-between sticky top-0 mx-auto bg-gray-50 text-gray-600 px-2 py-3">
