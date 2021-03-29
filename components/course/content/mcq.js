@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function mcq({ content, moveToModule }) {
   const [options, setOptions] = useState(shuffle([...content.options]));
   const [answers, setAnswers] = useState(new Set());
   const [evaluation, setEvaluation] = useState("");
-
+  // useEffect(()=> setOptions(shuffle([...content.options])), [])
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,

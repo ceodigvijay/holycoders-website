@@ -14,7 +14,8 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await getLessonWithSlug(lessonSlug);
+        const res = await getLessonWithSlug(lessonSlug, course._id);
+        console.log(res.data);
         setLesson(res.data);
         setCurrentContentIndex(0);
       } catch (error) {
@@ -105,6 +106,7 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
                 className={`${index === currentContentIndex ? "" : "hidden"}`}
               >
                 <Contents
+                  key={content.title + content.type + index}
                   moveToModule={moveToModule}
                   content={content}
                   setContent={(field, value) => {
