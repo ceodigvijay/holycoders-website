@@ -34,7 +34,6 @@ export default function index({ moveToModule, content }) {
 
   return (
     <div className="py-6">
-      <button onClick={() => console.log(refs)}>Lof Refs</button>
       <div
         className="rounded-md p-4 hc_quiz"
         style={{ backgroundColor: "#2D2B57", whiteSpace: "pre" }}
