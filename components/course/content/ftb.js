@@ -3,7 +3,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Prism from "prismjs";
 
-export default function index({moveToModule, content }) {
+export default function index({ moveToModule, content }) {
   var refs = {};
   useEffect(() => {
     Prism.highlightAll();
@@ -34,15 +34,17 @@ export default function index({moveToModule, content }) {
 
   return (
     <div className="py-6">
+      <button onClick={() => console.log(refs)}>Lof Refs</button>
       <div
         className="rounded-md p-4 hc_quiz"
         style={{ backgroundColor: "#2D2B57", whiteSpace: "pre" }}
       >
-        {content.question.split("\n").map((c) => {
+        {content.question.split("\n").map((c, lineIndex) => {
           return (
             <>
               <span className="flex items-center">
                 {c.split("[--]").map((e, index) => {
+                  // refs[]
                   return (
                     <>
                       {e ? (
@@ -61,16 +63,17 @@ export default function index({moveToModule, content }) {
                         <span
                           className="border-2 border-yellow-400 text-white px-2 rounded-md inline-flex items-center cursor-pointer"
                           style={{ minWidth: "40px", minHeight: "40px" }}
-                          ref={(txt) => (refs[index] = txt)}
+                          ref={(txt) => (refs[lineIndex + index] = txt)}
                           onClick={() => {
-                            var titleToRemove = refs[index].innerHTML;
+                            var titleToRemove =
+                              refs[lineIndex + index].innerHTML;
                             var ans = [...answers];
                             var answered = ans.filter((a) => {
                               return a.title !== titleToRemove;
                             });
                             setAnswers(answered);
-                            refs[index].innerHTML = "";
-                            refs[index].disabled = true;
+                            refs[lineIndex + index].innerHTML = "";
+                            refs[lineIndex + index].disabled = true;
 
                             setEvaluation("");
                           }}
@@ -141,11 +144,17 @@ export default function index({moveToModule, content }) {
         <br />
 
         {evaluation === "correct" ? (
-          <button onClick={()=> moveToModule('next')} className="bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md">
+          <button
+            onClick={() => moveToModule("next")}
+            className="bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md"
+          >
             Continue
           </button>
         ) : (
-          <button onClick={()=> moveToModule('next')} className=" border-2 border-primary-500 font-bold text-primary-500 px-20 py-3 uppercase rounded-full text-md">
+          <button
+            onClick={() => moveToModule("next")}
+            className=" border-2 border-primary-500 font-bold text-primary-500 px-20 py-3 uppercase rounded-full text-md"
+          >
             Skip
           </button>
         )}
