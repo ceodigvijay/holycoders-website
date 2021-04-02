@@ -14,6 +14,7 @@ export default function lesson({ course, setCourse }) {
       try {
         const res = await getLessonWithId(lessonId);
         setLesson(res.data);
+        setCurrentContentIndex(0);
       } catch (error) {
         console.log(error);
       }
@@ -42,15 +43,16 @@ export default function lesson({ course, setCourse }) {
 
   const onAddNewContent = (type) => {
     var newLesson = { ...lesson };
+    //Insert the content at next index of the array
     if (type === "markdown") {
-      newLesson.contents.push({
+      newLesson.contents.splice(currentContentIndex + 1, 0, {
         type: "markdown",
         content_raw: "",
         content_html: "",
       });
       setLesson(newLesson);
     } else if (["ftb", "code-ftb", "mcq", "atf"].includes(type)) {
-      newLesson.contents.push({
+      newLesson.contents.splice(currentContentIndex + 1, 0,{
         type: type,
         title: "",
         language: "", // if lang html/js/css the final output can contain html/css/js

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import Prism from "prismjs";
 
 export default function index({ moveToModule, content }) {
   var refs = {};
-  useEffect(() => {
-    Prism.highlightAll();
-  });
+
   var countOfFtb = content.question.split("[--]").length - 1;
   const [evaluation, setEvaluation] = useState("");
   const [answers, setAnswers] = useState([]);

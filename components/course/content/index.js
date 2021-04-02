@@ -5,7 +5,7 @@ import MCQ from "./mcq";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import Tex from "@matejmazur/react-katex";
 import math from "remark-math";
 
@@ -28,7 +28,7 @@ export default function index({ moveToModule, content, setContent }) {
       );
     },
     image: ({ src, alt }) => {
-      return <img src={src} alt={alt} loading="lazy" />;
+      return <img src={src} alt={alt} loading="lazy" className="rounded-md mx-auto" />;
     },
   };
 

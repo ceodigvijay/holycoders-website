@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import FTB from "./ftb";
 import ATF from "./atf";
 import MCQ from "./mcq";
 import MarkdownEditor from "rich-markdown-editor";
-
+import { handleImageUpload } from "../../../../lib/index";
+import GlobalContext from "../../../../contexts/globalContext";
 export default function index({ content, setContent }) {
+  const { addNotification } = useContext(GlobalContext);
   return (
     <div className="px-6 py-2">
       <div className="text-gray-300 font-semibold my-5">
@@ -29,6 +31,36 @@ export default function index({ content, setContent }) {
         <div className="my-10">
           <h2 className="text-gray-400">Description</h2>
           <MarkdownEditor
+            uploadImage={async (file) => {
+              try {
+                //If filesize>1mb raise error
+                if (file && file.size >= 1000000) {
+                  addNotification({
+                    message: "Max File Size Limit is 1 MB",
+                    type: "error",
+                  });
+                  throw "FILE ERROR";
+                } else {
+                  const res = await handleImageUpload(file);
+                  return res.Location;
+                }
+              } catch (error) {
+                let message = "Some error occured";
+                if (
+                  error &&
+                  error.response.data &&
+                  error.response.data.code === "FILE_TOO_LARGE"
+                ) {
+                  message = "Max File Size Limit is 1 MB";
+                }
+                addNotification({
+                  message: message,
+                  type: "error",
+                });
+
+                throw error;
+              }
+            }}
             defaultValue={content.content_raw}
             onChange={(value) => setContent("content_raw", value())}
             className="prose dark:prose-dark lg:prose-lg max-w-none border-2 border-gray-200 rounded-md"
