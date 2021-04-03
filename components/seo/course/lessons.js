@@ -37,6 +37,7 @@ export default function Seo({
       "@type": "Person",
       "name": "${author.name}"
     },
+    ${newMetaDescription ? `"description":"${newMetaDescription}",` : ""}
     "publisher": {
       "@type": "Organization",
       "name": "HolyCoders",
@@ -44,8 +45,7 @@ export default function Seo({
         "@type": "ImageObject",
         "url": "https://holycoders.com/icon.svg"
       }
-    },
-    ${newMetaDescription ? `"description":"${newMetaDescription}"` : ""}
+    }
   }`;
   return (
     <>

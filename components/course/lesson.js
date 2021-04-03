@@ -15,7 +15,6 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
     const getData = async () => {
       try {
         const res = await getLessonWithSlug(lessonSlug, course._id);
-        console.log(res.data);
         setLesson(res.data);
         setCurrentContentIndex(0);
       } catch (error) {
