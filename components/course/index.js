@@ -9,7 +9,7 @@ import CourseSEO from "../seo/course/index";
 
 export default function course() {
   const router = useRouter();
-  const { slug, lesson } = router.query;
+  const { courseslug:slug, lesson } = router.query;
   const { courseData, setCourseData } = useContext(GlobalContext);
 
   useEffect(() => {
