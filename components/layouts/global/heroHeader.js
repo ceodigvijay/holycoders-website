@@ -15,7 +15,7 @@ export default function heroHead() {
             Start learning for free with interactive courses full of Examples
             and challenges. Videos are good for entertainment but not for
             learning. Stop wasting time and learn with interesting content for
-            FREE.
+            Free.
           </p>
           <div className="flex justify-center">
             <Link href="/enter/">
