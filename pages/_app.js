@@ -81,11 +81,11 @@ function MyApp({ Component, pageProps }) {
           : 500
       ) {
         case 401:
-          //If Auth token is missing (removed by expiry) then remove user value from localstorage
+          //If Auth token is invalid (removed by expiry) then remove user value from localstorage
           if (
             typeof window !== "undefined" &&
             error.response.data.exception &&
-            error.response.data.exception === "authTokenMissing"
+            error.response.data.exception === "INVALID_TOKEN"
           ) {
             setUserValue(null);
             localStorage.removeItem("hc_user");
