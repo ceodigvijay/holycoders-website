@@ -11,7 +11,7 @@ import CourseContext from "../contexts/courseContext";
 import { useRouter } from "next/router";
 import Toast from "../components/toast/toast";
 import * as gtag from "../gtag";
-import 'katex/dist/katex.min.css' 
+import "katex/dist/katex.min.css";
 
 //Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -89,6 +89,7 @@ function MyApp({ Component, pageProps }) {
           ) {
             setUserValue(null);
             localStorage.removeItem("hc_user");
+            router.push("/enter/");
           }
           break;
         case 404:
