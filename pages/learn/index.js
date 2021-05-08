@@ -9,7 +9,6 @@ import UserContext from "../../contexts/globalContext";
 export default function index({ data }) {
   const { courses, meta } = data;
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <Layout>
       <PageSEO
@@ -60,17 +59,21 @@ export default function index({ data }) {
                   className="col-span-12 md:col-span-6 lg:col-span-4 mb-10 px-4"
                 >
                   <div className="rounded-md overflow-hidden relative">
-                    <Image
-                      className="object-cover object-center h-full w-full"
-                      src={
-                        course.featured_image
-                          ? course.featured_image
-                          : "/course.png"
-                      }
-                      width="640px"
-                      height="360px"
-                      alt="Website hacking and prevention"
-                    />
+                    <Link href={`/learn/${course.slug}`}>
+                      <a>
+                        <Image
+                          className="object-cover object-center h-full w-full"
+                          src={
+                            course.featured_image
+                              ? course.featured_image
+                              : "/course.png"
+                          }
+                          width="640px"
+                          height="360px"
+                          alt="Website hacking and prevention"
+                        />
+                      </a>
+                    </Link>
                     {course.required_subscription === "premium" ? (
                       <span className="absolute px-2 py-1 rounded-md right-0 top-0 font-semibold bg-blue-600 border-2 border-white  text-white">
                         PRO
