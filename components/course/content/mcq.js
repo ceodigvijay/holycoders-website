@@ -61,7 +61,7 @@ export default function mcq({ content, moveToModule }) {
           return (
             <label
               for={`opt-${option.title + option.position}`}
-              className="col-span-12 md:col-span-6 text-xl bg-gray-100 p-4 rounded-md my-2 cursor-pointer hover:bg-gray-200"
+              className="col-span-12 md:col-span-6 text-xl bg-gray-100 dark:bg-gray-900 p-4 rounded-md my-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
               key={option.title + option.position + index}
             >
               {correctAnswersCount > 1 ? (
