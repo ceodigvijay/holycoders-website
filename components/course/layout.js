@@ -78,7 +78,7 @@ export default function newCourse({
           ) : (
             <>
               {/* Chapter Toolbar */}
-              <div className="flex items-center align-middle px-3 py-3 bg-gray-50 sticky top-0">
+              <div className="flex dark:bg-gray-700 items-center align-middle px-3 py-3 bg-gray-50 sticky top-0">
                 <button
                   className="md:hidden"
                   onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}

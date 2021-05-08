@@ -28,7 +28,7 @@ export default function sidebar({ courseMeta, course }) {
   };
   return (
     <>
-      <div className="flex align-middle items-center justify-between sticky top-0 mx-auto bg-gray-50 text-gray-600 px-2 py-3">
+      <div className="flex align-middle items-center justify-between sticky top-0 mx-auto bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-400 px-2 py-3">
         {/* Go Back Button */}
         <Link href="/learn">
           <a className="flex items-center">
@@ -105,7 +105,7 @@ export default function sidebar({ courseMeta, course }) {
                 }
                 return (
                   <button
-                    className={`text-gray-600 py-1 hover:text-gray-900 flex justify-between items-center w-full`}
+                    className={`text-gray-600 dark:text-gray-300 hover:text-gray-100 py-1 hover:text-gray-900 flex justify-between items-center w-full`}
                     onClick={() => {
                       router.push(
                         `${router.asPath.split("lesson")[0]}lesson/${

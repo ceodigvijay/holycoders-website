@@ -98,7 +98,7 @@ export default function index({ moveToModule, content }) {
           });
           return (
             <div
-              className="border-2 border-gray-200 bg-gray-50 text-gray-600 rounded-md hover:bg-gray-100 shadow-md cursor-pointer px-6 py-4 mx-4"
+              className="border-2 border-gray-200 bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 text-gray-600 rounded-md hover:bg-gray-100 shadow-md cursor-pointer px-6 py-4 mx-4"
               onClick={() => {
                 if (!isOptionUsed) {
                   for (let key in refs) {

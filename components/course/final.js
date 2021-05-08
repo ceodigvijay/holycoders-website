@@ -100,7 +100,7 @@ export default function finalChapter({
       {/* End of warning Message */}
 
       <div className="text-center w-full my-10">
-        <Image src="/final.jpg" width="625" height="416" />
+        <Image src="/final.jpg" width="425" height="276" />
         <div className="font-semibold text-4xl text-gray-600 my-4">
           Lesson Completed
         </div>
@@ -108,7 +108,7 @@ export default function finalChapter({
       <div className="flex flex-col items-center justify-center">
         <button
           onClick={moveToNextLesson}
-          className="flex items-center justify-between px-20 py-4  text-xl bg-primary-400 text-white hover:bg-primary-500 rounded-full font-bold my-2"
+          className="flex items-center justify-between px-20 py-3 text-xl bg-primary-500 text-white hover:bg-primary-400 rounded-full font-bold my-2"
         >
           <span>Next Lesson</span>
           <svg

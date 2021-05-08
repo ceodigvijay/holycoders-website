@@ -59,11 +59,11 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
     <div className="min-h-screen">
       <div className="">
         {/* Course Title */}
-        <h1 className="text-center font-bold text-5xl mt-10 mb-4 text-gray-700">
+        <h1 className="text-center font-bold text-5xl mt-10 mb-4 text-gray-700 dark:text-gray-200">
           {course.title}
         </h1>
         {/* Course Introduction */}
-        <div className="text-center font-medium mb-10 text-lg text-gray-600">
+        <div className="text-center font-medium mb-10 text-lg text-gray-600 dark:text-gray-300">
           {course.introduction}
         </div>
         <div className=" text-center">
@@ -136,13 +136,13 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
         <div className="">
           {/* Course Features */}
           <section className="text-gray-600 body-font my-20">
-            <h2 className="text-2xl font-semibold my-4">What will you learn</h2>
+            <h2 className="text-2xl font-semibold my-4 dark:text-gray-200">What will you learn</h2>
             <div className="mx-auto">
               <div className="flex flex-wrap items-center">
                 {course.objective.map((objective) => {
                   return (
                     <div className="p-2">
-                      <div className="bg-gray-100 rounded flex p-4 h-full items-center">
+                      <div className="bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded flex p-4 h-full items-center">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -313,7 +313,7 @@ export default function CourseInfoPage({ courseData, setCourseData }) {
           <div className="flex flex-wrap items-center justify-center">
             {[1, 2, 3, 4].map((t) => {
               return (
-                <div className="m-2 bg-gray-100 px-5 py-1 rounded-full">
+                <div className="m-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 px-5 py-1 rounded-full">
                   Tag {t}
                 </div>
               );

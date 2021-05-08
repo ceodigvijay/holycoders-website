@@ -16,12 +16,12 @@ export default function notfound() {
   return (
     <>
       <div className="text-center h-screen  flex flex-col justify-center items-center">
-        <div className="text-3xl md:text-5xl lg:text-6xl dark:text-gray-100">
-          Error 404
+        <div className="text-3xl md:text-5xl text-gray-700 font-semibold lg:text-6xl dark:text-gray-100">
+          Page Not Found
         </div>
         <Link href="/">
-          <a className="border-2 border-primary-100 px-4 py-2 rounded-lg my-4 hover:bg-primary-600 hover:text-white">
-            Back to home
+          <a className="px-6 py-3 rounded-full my-8 font-bold text-lg bg-primary-400 hover:bg-primary-500 uppercase text-white">
+            GO TO HOME
           </a>
         </Link>
       </div>

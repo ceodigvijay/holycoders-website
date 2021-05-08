@@ -579,7 +579,7 @@ export default function navbar() {
             {/* Profile dropdown */}
             {!user ? (
               <Link href="/enter">
-                <a className="rounded-full p-2 font-bold mx-2 inline-flex py-2 px-6 text-lg border-2 border-gray-200 hover:bg-primary-500 hover:text-white transition-all duration-500">
+                <a className="rounded-full p-2 font-bold mx-2 inline-flex py-2 px-6 text-lg border-2 border-gray-200 hover:bg-primary-400 hover:border-primary-400 dark:text-gray-200 hover:text-white transition-all duration-500">
                   Dashboard
                 </a>
               </Link>
@@ -623,10 +623,10 @@ export default function navbar() {
                         alt="user"
                       />
                       <div className="flex flex-col mx-2">
-                        <span className="font-bold text-lg">
+                        <span className="font-bold text-lg dark:text-gray-200">
                           {user.username ? user.username : "No Name"}
                         </span>
-                        <span className="text-gray-500">{user.role}</span>
+                        <span className="text-gray-500 dark:text-gray-200">{user.role}</span>
                       </div>
                     </a>
 

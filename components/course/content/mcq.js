@@ -66,7 +66,7 @@ export default function mcq({ content, moveToModule }) {
             >
               {correctAnswersCount > 1 ? (
                 <input
-                  id={`opt-${index}`}
+                  id={`opt-${option.title + option.position}`}
                   type="checkbox"
                   className="mx-4"
                   onClick={(v) => {
@@ -81,7 +81,7 @@ export default function mcq({ content, moveToModule }) {
                 />
               ) : (
                 <input
-                  id={`opt-${index}`}
+                  id={`opt-${option.title + option.position}`}
                   type="radio"
                   name="ans_opts"
                   className="mx-4"

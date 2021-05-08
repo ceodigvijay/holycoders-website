@@ -5,7 +5,7 @@ import MCQ from "./mcq";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Tex from "@matejmazur/react-katex";
 import math from "remark-math";
 
@@ -28,28 +28,35 @@ export default function index({ moveToModule, content, setContent }) {
       );
     },
     image: ({ src, alt }) => {
-      return <img src={src} alt={alt} loading="lazy" className="rounded-md mx-auto" />;
+      return (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="rounded-md mx-auto"
+        />
+      );
     },
   };
 
   return (
     <div className="px-6 py-2">
-      <div className="text-gray-300 font-semibold">
+      {/* <div className="text-gray-300 font-semibold">
         {content.type === "markdown" ? "Markdown" : ""}
         {content.type === "atf" ? "Arrange the Following" : ""}
         {content.type === "code-ftb" ? "Code Fill in the blanks" : ""}
         {content.type === "ftb" ? "Fill in the blanks" : ""}
         {content.type === "mcq" ? "Multiple Choice Questions" : ""}
-      </div>
+      </div> */}
       <div>
-        <h1 className="text-4xl text-center font-bold text-gray-700">
+        <h1 className="text-4xl text-center font-bold text-gray-700 dark:text-gray-300">
           {content.title}
         </h1>
         <article className="prose dark:prose-dark prose-lg lg:prose-xl max-w-none mx-2 my-6">
           <ReactMarkdown
             plugins={[gfm, math]}
             renderers={renderers}
-            children={content.content_raw.replace(/\\\\/g, '\\')}
+            children={content.content_raw.replace(/\\\\/g, "\\")}
           />
         </article>
       </div>

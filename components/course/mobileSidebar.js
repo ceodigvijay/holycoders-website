@@ -99,7 +99,7 @@ export default function sidebar({ courseMeta, course, closeMobileSidebar }) {
                 }
                 return (
                   <button
-                    className={`text-gray-600 py-1 hover:text-gray-900 flex justify-between items-center w-full`}
+                    className={`text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 py-1 hover:text-gray-900 flex justify-between items-center w-full`}
                     onClick={() => {
                       router.push(
                         `${router.asPath.split("lesson")[0]}lesson/${
