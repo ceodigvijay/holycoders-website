@@ -6,10 +6,10 @@ import Lesson from "./lesson";
 import CourseInfo from "./courseInfo";
 import GlobalContext from "../../contexts/globalContext";
 import CourseSEO from "../seo/course/index";
-
+import Spinner from "../spinner";
 export default function course() {
   const router = useRouter();
-  const { courseslug:slug, lesson } = router.query;
+  const { courseslug: slug, lesson } = router.query;
   const { courseData, setCourseData } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -30,7 +30,11 @@ export default function course() {
   }, [slug]);
 
   if (!courseData || (courseData && courseData.course.slug !== slug)) {
-    return "Loading";
+    return (
+      <div className="w-full h-full h-screen dark:bg-gray-800 relative">
+        <Spinner />
+      </div>
+    );
   }
 
   if (lesson) {

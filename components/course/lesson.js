@@ -4,7 +4,7 @@ import Contents from "./content/index";
 import { getLessonWithSlug } from "../../lib/index";
 import { useRouter } from "next/router";
 import LessonSEO from "../seo/course/lessons";
-
+import Spinner from "../spinner";
 import Final from "./final";
 export default function lesson({ courseMeta, setCourseMeta, course }) {
   const router = useRouter();
@@ -59,7 +59,11 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
     }
   };
   if (!lesson) {
-    return "Loading";
+    return (
+      <div className="w-full h-full h-screen dark:bg-gray-800 relative">
+        <Spinner />
+      </div>
+    );
   } else {
     return (
       <CourseLayout
