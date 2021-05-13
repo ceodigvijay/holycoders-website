@@ -34,6 +34,7 @@
     "nprogress": "^0.2.0",
     "prismjs": "^1.22.0",
     "react": "16.13.1",
+    "react-adsense": "^0.1.0",
     "react-beautiful-dnd": "^13.0.0",
     "react-datetime": "^3.0.4",
     "react-dom": "16.13.1",
