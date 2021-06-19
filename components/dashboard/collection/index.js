@@ -51,7 +51,7 @@ export default function listView({
     <>
       <section className="text-gray-600 dark:text-gray-400 body-font">
         <div className="container px-5 pb-8 mx-auto">
-          <div className="my-8 flex flex-wrap items-center justify-between">
+          <div className="mb-8 flex flex-wrap items-center justify-between">
             <div>
               <input
                 className="border border-gray-200 dark:border-gray-600 dark:text-gray-200 inline rounded-lg md:pr-40 text-lg dark:bg-gray-700"
@@ -97,7 +97,6 @@ export default function listView({
             <div className="my-4 md:my-0">
               <Link href={`/dashboard/${pathname}/new/`}>
                 <a className="px-6 py-3 flex items-center font-bold text-lg mx-auto bg-primary-600 text-gray-100 rounded-full">
-                  <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -112,7 +111,6 @@ export default function listView({
                         d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                  </span>
                   <span>New {type}</span>
                 </a>
               </Link>

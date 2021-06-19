@@ -1,7 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ReactTags from "react-tag-autocomplete";
-import { searchTags } from "../../../lib/index";
 import moment from "moment";
 import {
   faExclamationTriangle,
@@ -10,31 +8,11 @@ import {
 import GlobalContext from "../../../contexts/globalContext";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
+import { TagInput } from "../../index";
 
-export default function sidebar(props) {
+export default function sidebar({ post, setPost, deletePost }) {
   const { user } = useContext(GlobalContext);
-  const { post, setPost } = props;
-  const [suggestions, setSuggestions] = useState([]);
-  const [date, setDate] = useState(
-    post.publish_date
-      ? moment(post.publish_date).format("DD/MM/YYYY HH:mm")
-      : ""
-  );
 
-  async function getTags(query) {
-    try {
-      const res = await searchTags(query, 5);
-      var data = res.data;
-      data.map((element) => {
-        element.id = element._id;
-        return element;
-      });
-      setSuggestions(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const reactTags = React.createRef();
   return (
     <div className="sidebar">
       <label htmlFor="se_url" className="my-2">
@@ -71,31 +49,23 @@ export default function sidebar(props) {
       ) : (
         ""
       )}
-      <ReactTags
-        ref={reactTags}
-        tags={post.tags}
-        suggestions={suggestions}
-        onInput={(e) => getTags(e)}
-        onDelete={(i) => {
-          const tags = post.tags.slice(0);
-          tags.splice(i, 1);
-          setPost({ ...post, tags });
-        }}
-        onAddition={(tag) => {
-          const tags = [...post.tags, tag];
-          setPost({ ...post, tags });
-        }}
-      />
+
+      <div style={{ maxWidth: "300px" }} className="my-4">
+        <TagInput
+          value={post.tags}
+          onChange={(tags) => setPost({ ...post, tags: tags })}
+        />
+      </div>
+
       <select
         style={{ width: "100%" }}
         className="setting-input my-2"
         value={post.category}
         onChange={(e) => setPost({ ...post, category: e.target.value })}
       >
-        <option value="tutorial">Tutorial</option>
+        <option value="tutorial">Tutorial (Deprecated)</option>
         <option value="news">News</option>
         <option value="snippets">Snippets</option>
-        <option value="opinion">Opinion</option>
         <option value="general">General</option>
         <option value="case-study">Case Study</option>
       </select>
@@ -169,7 +139,7 @@ export default function sidebar(props) {
         </button>
         <button
           className="flex items-center px-1 py-2 mx-1 text-red-600 rounded-md"
-          onClick={props.deletePost}
+          onClick={deletePost}
         >
           <span className="mx-1">
             <FontAwesomeIcon icon={faTrashAlt} />
@@ -180,7 +150,7 @@ export default function sidebar(props) {
         </button>
       </div>
 
-      <style global jsx>
+      <style jsx>
         {`
           .select {
             margin: 5px 0 20px 0;

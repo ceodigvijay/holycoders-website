@@ -4,34 +4,47 @@ import Image from "next/image";
 export default function heroHead() {
   return (
     <section className="text-gray-700 body-font dark:bg-gray-800">
-      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div className="container mx-auto flex px-5 md:flex-row flex-col items-center">
         <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900 dark:text-gray-100">
-            Learning should be Interactive{" "}
+          <p className="bg-blue-100 rounded-full pr-4 pl-2 py-1 my-4">
+            <span className="bg-blue-500 text-white px-2 mr-2 rounded-full">New</span>Python Course for Beginners
+          </p>
+          <h1 className="title-font sm:text-6xl text-3xl mb-4 font-bold text-gray-800 dark:text-gray-100">
+            Learning
             <br className="hidden lg:inline-block" />
-            for Devs
+            New Tech Skills
+            <br className="hidden lg:inline-block" />
+            Faster and Better
           </h1>
-          <p className="mb-8 leading-relaxed dark:text-gray-400">
-            Start learning for free with interactive courses full of Examples
-            and challenges. Videos are good for entertainment but not for
+          {/* <p className="mb-8 leading-relaxed dark:text-gray-500 text-lg">
+            Videos are good for entertainment but not for
             learning. Stop wasting time and learn with interesting content for
             Free.
-          </p>
-          <div className="flex justify-center">
+          </p> */}
+          <div className="flex  justify-center my-6">
             <Link href="/enter/">
-              <a className="inline-flex transition-all duration-200 text-white cursor-pointer bg-primary-600 border-0 py-2 px-10 focus:outline-none hover:bg-primary-700 rounded-full text-lg font-semibold">
-                Enter Free
-              </a>
-            </Link>
-            <Link href="/learn/">
-              <a className="ml-4 hidden transition-all duration-200 md:flex items-center cursor-pointer text-gray-700 bg-gray-100 dark:bg-gray-600 dark:text-gray-300 border-0 py-2 px-10 font-semibold focus:outline-none hover:bg-gray-300 rounded-full text-lg">
-                Courses
+              <a className="inline-flex items-center transition-all duration-200 text-white cursor-pointer bg-primary-600 border-0 py-3 px-12 focus:outline-none hover:bg-primary-700 rounded-full text-lg font-semibold">
+                <span>Get Started</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 ml-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
               </a>
             </Link>
           </div>
         </div>
         <div className="md:w-1/2 w-5/6">
-          <Image src="/home1.svg" width="938" height="625" />
+          <Image src="/home3.svg" width="600" height="600" />
         </div>
       </div>
     </section>

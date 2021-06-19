@@ -100,7 +100,7 @@ export default function finalChapter({
       {/* End of warning Message */}
 
       <div className="text-center w-full my-10">
-        <Image src="/final.jpg" width="425" height="276" />
+        <Image src="/final2.svg" width="300" height="300" />
         <div className="font-semibold text-4xl text-gray-600 my-4">
           Lesson Completed
         </div>

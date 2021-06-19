@@ -3,16 +3,14 @@ import MarkdownEditor from "rich-markdown-editor";
 import { updateCourse } from "../../../lib/index";
 import { deleteCourse } from "../../../lib/index";
 import { useRouter } from "next/router";
-import ReactTags from "react-tag-autocomplete";
-import { searchTags, handleImageUpload } from "../../../lib/index";
+import { TagInput } from "../../index";
+import { handleImageUpload } from "../../../lib/index";
 import GlobalContext from "../../../contexts/globalContext";
 import ImagePicker from "../../Input/imagePicker";
 export default function setting({ course, setCourse }) {
   const [objective, setObjective] = useState("");
   const [prerequisites, setPrerequisites] = useState("");
   const router = useRouter();
-  const [suggestions, setSuggestions] = useState([]);
-  const reactTags = React.createRef();
   const { addNotification } = useContext(GlobalContext);
 
   const handleCourseDelete = async () => {
@@ -34,19 +32,6 @@ export default function setting({ course, setCourse }) {
       });
     }
   };
-  async function getTags(query) {
-    try {
-      const res = await searchTags(query, 5);
-      var data = res.data;
-      data.map((element) => {
-        element.id = element._id;
-        return element;
-      });
-      setSuggestions(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   async function handleFeaturedImageUpload(e) {
     e.preventDefault();
@@ -64,7 +49,7 @@ export default function setting({ course, setCourse }) {
   return (
     <div>
       <ImagePicker
-        handleImageDelete={() => setCourse({ ...course, featured_image: '' })}
+        handleImageDelete={() => setCourse({ ...course, featured_image: "" })}
         handleImageUpload={handleFeaturedImageUpload}
         image={course.featured_image}
       />
@@ -76,7 +61,10 @@ export default function setting({ course, setCourse }) {
       />
       <div className="grid grid-cols-6 gap-2">
         <div className="col-span-6 md:col-span-4 flex flex-col">
-          <label htmlFor="course-slug" className="text-gray-400">
+          <label
+            htmlFor="course-slug"
+            className="text-lg font-semibold text-gray-600"
+          >
             Slug
           </label>
           <input
@@ -89,7 +77,10 @@ export default function setting({ course, setCourse }) {
           />
         </div>
         <div className="col-span-6 md:col-span-1 flex flex-col">
-          <label htmlFor="course-difficulty" className="text-gray-400">
+          <label
+            htmlFor="course-difficulty"
+            className="text-lg font-semibold text-gray-600"
+          >
             Difficulty(1-10)
           </label>
           <input
@@ -106,8 +97,11 @@ export default function setting({ course, setCourse }) {
           />
         </div>
         <div className="col-span-6 md:col-span-1 flex flex-col">
-          <label htmlFor="course-reading-time" className="text-gray-400">
-            Reading Time (mins)
+          <label
+            htmlFor="course-reading-time"
+            className="text-lg font-semibold text-gray-600"
+          >
+            Read Time (mins)
           </label>
           <input
             id="course-reading-time"
@@ -124,7 +118,10 @@ export default function setting({ course, setCourse }) {
         </div>
       </div>
       <div className="flex flex-col my-10">
-        <label htmlFor="course-intro" className="text-gray-400">
+        <label
+          htmlFor="course-intro"
+          className="text-lg font-semibold text-gray-600"
+        >
           Short Introduction
         </label>
         <textarea
@@ -140,7 +137,7 @@ export default function setting({ course, setCourse }) {
 
       {/* Objective */}
       <div className="my-10">
-        <h2 className="text-lg font-semibold">Objectives:</h2>
+        <h2 className="text-lg font-semibold text-gray-600">Objectives:</h2>
         {course.objective.map((p, index) => {
           return (
             <div className="flex items-center my-1">
@@ -190,7 +187,7 @@ export default function setting({ course, setCourse }) {
       </div>
       {/* Prerequisites */}
       <div className="my-10">
-        <h2 className="text-lg font-semibold">Prerequisites:</h2>
+        <h2 className="text-lg font-semibold text-gray-600">Prerequisites:</h2>
         {course.prerequisite.map((p, index) => {
           return (
             <div className="flex items-center my-1">
@@ -239,20 +236,10 @@ export default function setting({ course, setCourse }) {
         />
       </div>
       {/* Tags */}
-      <ReactTags
-        ref={reactTags}
-        tags={course.tags}
-        suggestions={suggestions}
-        onInput={(e) => getTags(e)}
-        onDelete={(i) => {
-          var newTags = [...course.tags];
-          newTags.splice(index, 1);
-          setCourse({ ...course, tags: newTags });
-        }}
-        onAddition={(tag) => {
-          const newTags = [...course.tags, tag];
-          setCourse({ ...course, tags: newTags });
-        }}
+      <h2 className="text-lg font-semibold text-gray-600">Tags:</h2>
+      <TagInput
+        value={course.tags}
+        onChange={(tags) => setCourse({ ...course, tags: tags })}
       />
       <div className="px-6 my-10">
         <h2 className="text-gray-400">Description</h2>

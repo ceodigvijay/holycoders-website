@@ -101,10 +101,11 @@ export default function mcq({ content, moveToModule }) {
       <div className="text-center">
         <button
           onClick={evaluateAnswers}
-          className="py-2 px-10 border-2 bg-blue-600 text-white font-semibold my-10 text-2xl rounded-full"
+          className="py-2 px-10 bg-secondary-500 hover:bg-secondary-400 focus:outline-none text-white font-semibold mt-4 mb-10 text-2xl rounded-full"
         >
           Evaluate
         </button>
+        <br />
 
         {/* Evaluation Message and Next Navigation */}
         <div className={`${evaluation === "" ? "invisible" : ""} text-center`}>
@@ -119,7 +120,7 @@ export default function mcq({ content, moveToModule }) {
           <div
             className={`${
               evaluation === "incorrect" ? "" : "hidden"
-            } text-red-400 text-xl`}
+            } text-red-500 text-xl font-semibold`}
           >
             Try Again
           </div>
@@ -128,7 +129,7 @@ export default function mcq({ content, moveToModule }) {
           {evaluation === "correct" ? (
             <button
               onClick={() => moveToModule("next")}
-              className="bg-primary-500 font-bold text-white px-20 py-3 uppercase rounded-full text-md"
+              className="bg-primary-500 hover:bg-primary-400 font-bold focus:outline-none text-white px-20 py-3 uppercase rounded-full text-md"
             >
               Continue
             </button>

@@ -21,8 +21,8 @@ export default function pagination({ currentPage, pageCount, changePage }) {
       <a
         className={`${
           isFirstPage
-            ? "cursor-not-allowed text-gray-600"
-            : "bg-primary-600 cursor-pointer"
+            ? "cursor-not-allowed text-gray-400"
+            : "bg-primary-600 font-bold cursor-pointer"
         } flex  items-center px-6 py-4 rounded-lg text-gray-100 `}
         onClick={() => (isFirstPage ? "" : changePage(currentPage - 1))}
         disabled={isFirstPage}
@@ -51,8 +51,8 @@ export default function pagination({ currentPage, pageCount, changePage }) {
       <a
         className={`${
           isLastPage
-            ? "cursor-not-allowed text-gray-600"
-            : "bg-primary-600 cursor-pointer"
+            ? "cursor-not-allowed text-gray-400"
+            : "bg-primary-600 font-bold cursor-pointer"
         } flex items-center px-6 py-4 rounded-lg text-gray-100`}
         onClick={() => (isLastPage ? "" : changePage(currentPage + 1))}
         disabled={isLastPage}

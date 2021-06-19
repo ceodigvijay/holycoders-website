@@ -51,6 +51,12 @@ export default function navbar() {
       icon: "",
     },
     {
+      slug: "/practice/",
+      name: "Practice",
+      isBeta: true,
+      icon: "",
+    },
+    {
       slug: "/blog/",
       name: "Blog",
       icon: "",

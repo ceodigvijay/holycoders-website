@@ -95,6 +95,27 @@ export default function dashboardLayout({ children }) {
       ),
     },
     {
+      title: "Questions",
+      link: "/dashboard/question/",
+      isProtected: true,
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Courses",
       link: "/dashboard/course/",
       isProtected: true,
@@ -146,7 +167,7 @@ export default function dashboardLayout({ children }) {
   return (
     <Layout>
       <AuthWrapper>
-        <div className="bg-primary-6 px-2 py-2 min-h-screen grid grid-cols-5 gap-2">
+        <div className="bg-primary-6 px-2 py-2 min-h-screen grid grid-cols-5 gap-2 my-6">
           <nav className="col-span-1">
             <ul className="flex-col items-center justify-start">
               {dashNavs.map((element) => {
@@ -160,9 +181,9 @@ export default function dashboardLayout({ children }) {
                   <li key={element.link}>
                     <Link href={element.link}>
                       <a
-                        className={`flex items-center px-6 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700  ${
+                        className={`flex items-center px-6 py-2 rounded-full hover:text-gray-800 dark:text-gray-100  ${
                           isActive
-                            ? "text-gray-700 bg-gray-100 dark:text-gray-200 font-semibold"
+                            ? "text-gray-800 dark:text-gray-100 font-bold"
                             : "text-gray-500 dark:text-gray-400"
                         }`}
                       >
@@ -175,7 +196,7 @@ export default function dashboardLayout({ children }) {
               })}
             </ul>
           </nav>
-          <main className="dashboard-content md:px-2 pt-4 pb-40 col-span-4">
+          <main className="dashboard-content md:px-2 col-span-4">
             {children}
           </main>
         </div>

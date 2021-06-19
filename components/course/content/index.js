@@ -39,6 +39,12 @@ export default function index({ moveToModule, content, setContent }) {
     },
   };
 
+  //Fix '/' and '.' characters at the end of markdown
+  var newRawContent = content.content_raw;
+  if (["\\", "."].includes(newRawContent.split("\n").reverse()[1])) {
+    newRawContent = newRawContent.slice(0, -2);
+  }
+
   return (
     <div className="px-6 py-2">
       {/* <div className="text-gray-300 font-semibold">
@@ -56,14 +62,14 @@ export default function index({ moveToModule, content, setContent }) {
           <ReactMarkdown
             plugins={[gfm, math]}
             renderers={renderers}
-            children={content.content_raw.replace(/\\\\/g, "\\")}
+            children={newRawContent.replace(/\\\\/g, "\\")}
           />
         </article>
       </div>
       {content.type === "markdown" ? (
         <div className="text-center mt-20 mb-10">
           <button
-            className="bg-primary-500 font-bold text-white px-20 py-3 hover:bg-primary-400 uppercase rounded-full text-md"
+            className="bg-primary-500 font-bold text-white px-20 py-3 hover:bg-primary-400 uppercase rounded-full text-md focus:outline-none"
             onClick={() => moveToModule("next")}
           >
             Continue

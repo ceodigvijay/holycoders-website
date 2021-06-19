@@ -17,6 +17,7 @@ function Error({ statusCode }) {
       <div className="text-3xl md:text-5xl lg:text-6xl dark:text-gray-100">
         Error {statusCode}
       </div>
+      
       <Link href="/">
         <a className=" border-2 border-primary-100 px-4 py-2 rounded-lg my-4 hover:bg-primary-600 hover:text-white">
           Back to home
