@@ -17,7 +17,7 @@ export default function index({ data }) {
         description="Specially designed courses to learn new things easily. The courses contains chapters divided for learning complex things easily for both beginners and advanced programmers."
       />
       <section className="text-gray-700 body-font">
-        <div className="container px-5 py-6 mx-auto">
+        <div className="container px-2 md:px-6 py-6 mx-auto">
           {user ? (
             <div className="flex flex-col items-center py-12 justify-between my-6 text-white w-full rounded-md course-hero">
               <h2 className="text-4xl font-bold mx-4 my-6">

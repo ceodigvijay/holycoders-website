@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Editor from "rich-markdown-editor";
 import Link from "next/link";
 import Sidebar from "react-sidebar";
@@ -6,6 +6,7 @@ import SidebarComponents from "./sidebar";
 import { motion, AnimatePresence } from "framer-motion";
 import TestCaseEditor from "./testcase";
 import { updateQuestion, deleteQuestion } from "../../../lib/index";
+import GlobalContext from "../../../contexts/globalContext";
 const Accordion = ({ i, expanded, setExpanded, children, deleteHandle }) => {
   const isOpen = i === expanded;
 
@@ -66,14 +67,22 @@ export default function QuestionEditor({ question, setQuestion }) {
   });
   const [testCaseEditIndex, setTestCaseEditIndex] = useState(-1);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { addNotification } = useContext(GlobalContext);
 
   const updateQuestionToDb = async () => {
     try {
-      const res = await updateQuestion(question);
-      console.log(res);
+      const response = await updateQuestion(question);
+      if (response && response.data.ok) {
+        addNotification({
+          type: "success",
+          message: "Question updated Successfully",
+        });
+      }
     } catch (error) {
-      console.log(error);
-      console.log(question);
+      addNotification({
+        type: "error",
+        message: "Some error occured in updating the question",
+      });
     }
   };
   const deleteQuestionToDB = async () => {
@@ -83,12 +92,20 @@ export default function QuestionEditor({ question, setQuestion }) {
       );
       if (doublechk === "CONFIRM") {
         const response = await deleteQuestion(question._id);
-        console.log(response);
+        if (response && response.data.ok) {
+          addNotification({
+            type: "success",
+            message: "Question Deleted Successfully",
+          });
+        }
       } else {
         console.log("Cancelled");
       }
     } catch (error) {
-      console.log(error);
+      addNotification({
+        type: "error",
+        message: "Some error occured in deleting the question",
+      });
     }
   };
 

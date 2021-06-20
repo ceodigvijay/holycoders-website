@@ -99,11 +99,17 @@ function user({ user, meta, error }) {
                 </p>
                 {/* FeatureBox */}
                 <div className="flex flex-row flex-wrap align-middle justify-center text-center mb-6">
-                  {["100k+", "26", "13"].map((n) => {
+                  {[
+                    { label: "Followers", value: meta?.userFollowerCount },
+                    { label: "Following", value: meta?.userFollowingCount },
+                    { label: "Posts", value: meta?.userPostCount },
+                  ].map((item) => {
                     return (
                       <div className="flex flex-col items-center border-r-2 border-gray-200 px-8">
-                        <p className="font-extrabold text-black text-lg">{n}</p>
-                        <p className="text-sm text-gray-500">Followers</p>
+                        <p className="font-extrabold text-black text-lg">
+                          {item.value}
+                        </p>
+                        <p className="text-sm text-gray-500">{item.label}</p>
                       </div>
                     );
                   })}
@@ -212,91 +218,89 @@ function user({ user, meta, error }) {
 
               {/* Social Start */}
               <section>
-     <div className="flex items-center justify-center pb-8">
-              {user.social.website ? (
-                <a
-                  href={user.social.website}
-                  className="mx-2"
-                  rel="norefferer noopener"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
-                </a>
-              ) : (
-                ""
-              )}
-              {user.social.facebook ? (
-                <a
-                  href={user.social.facebook}
-                  className="mx-2"
-                  rel="norefferer noopener"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebookSquare}
-                    color="#3b5998"
-                    size="3x"
-                  />
-                </a>
-              ) : (
-                ""
-              )}
-              {user.social.twitter ? (
-                <a
-                  href={user.social.twitter}
-                  className="mx-2"
-                  rel="norefferer noopener"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon
-                    icon={faTwitterSquare}
-                    color="#00acee"
-                    size="3x"
-                  />
-                </a>
-              ) : (
-                ""
-              )}
-              {user.social.github ? (
-                <a
-                  href={user.social.github}
-                  className="mx-2"
-                  rel="norefferer noopener"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon
-                    icon={faGithubSquare}
-                    color="#211f1f"
-                    size="3x"
-                  />
-                </a>
-              ) : (
-                ""
-              )}
-              {user.social.stackoverflow ? (
-                <a
-                  href={user.social.stackoverflow}
-                  className="mx-2"
-                  rel="norefferer noopener"
-                  target="_blank"
-                >
-                  <FontAwesomeIcon
-                    icon={faStackOverflow}
-                    color="#f48024"
-                    size="3x"
-                  />
-                </a>
-              ) : (
-                ""
-              )}
-            </div>
-          </section>
+                <div className="flex items-center justify-center pb-8">
+                  {user.social.website ? (
+                    <a
+                      href={user.social.website}
+                      className="mx-2"
+                      rel="norefferer noopener"
+                      target="_blank"
+                    >
+                      <FontAwesomeIcon icon={faGlobe} color="#666" size="3x" />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                  {user.social.facebook ? (
+                    <a
+                      href={user.social.facebook}
+                      className="mx-2"
+                      rel="norefferer noopener"
+                      target="_blank"
+                    >
+                      <FontAwesomeIcon
+                        icon={faFacebookSquare}
+                        color="#3b5998"
+                        size="3x"
+                      />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                  {user.social.twitter ? (
+                    <a
+                      href={user.social.twitter}
+                      className="mx-2"
+                      rel="norefferer noopener"
+                      target="_blank"
+                    >
+                      <FontAwesomeIcon
+                        icon={faTwitterSquare}
+                        color="#00acee"
+                        size="3x"
+                      />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                  {user.social.github ? (
+                    <a
+                      href={user.social.github}
+                      className="mx-2"
+                      rel="norefferer noopener"
+                      target="_blank"
+                    >
+                      <FontAwesomeIcon
+                        icon={faGithubSquare}
+                        color="#211f1f"
+                        size="3x"
+                      />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                  {user.social.stackoverflow ? (
+                    <a
+                      href={user.social.stackoverflow}
+                      className="mx-2"
+                      rel="norefferer noopener"
+                      target="_blank"
+                    >
+                      <FontAwesomeIcon
+                        icon={faStackOverflow}
+                        color="#f48024"
+                        size="3x"
+                      />
+                    </a>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </section>
               {/* Social End */}
             </div>
             {/* Top Right End */}
           </section>
-
-          
         </div>
       )}
     </Layout>

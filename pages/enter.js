@@ -85,7 +85,7 @@ function login({ redirectTo } = {}) {
 
   return (
     <Layout>
-      <div className="text-center max-w-md min-h-screen m-auto pt-12">
+      <div className="text-center max-w-md min-h-screen m-auto pt-12 px-4">
         <div className=""></div>
         <svg
           className="w-32 h-32 inline-block"
@@ -112,10 +112,10 @@ function login({ redirectTo } = {}) {
           </g>
         </svg>
 
-        <h1 className="title text-4xl uppercase font-semibold my-8 text-gray-800 dark:text-gray-200">
-          Sign in to continue
+        <h1 className="title text-4xl font-bold my-8 text-gray-800 dark:text-gray-200">
+          Sign in to Continue
         </h1>
-        <div className="social-login-container">
+        <div className="social-login-container my-12">
           <GoogleLogin
             clientId="885921349889-e662rdgo7ccc2gd2i97dgl4glkue0isk.apps.googleusercontent.com"
             buttonText="Login"

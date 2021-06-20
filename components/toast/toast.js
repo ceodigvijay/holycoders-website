@@ -2,8 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlobalContext from "../../contexts/globalContext";
 import { add, remove } from "./utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Toast = () => {
   const { notification, setNotificationValue } = useContext(GlobalContext);
