@@ -6,7 +6,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 // // module.exports = withBundleAnalyzer({})
 
 module.exports = {
-  pageExtensions: ["js", "jsx", "mdx"],
   images: {
     domains: [
       "static.holycoders.com",
