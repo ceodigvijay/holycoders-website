@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import CourseLayout from "./layout";
-import Contents from "./content/index";
 import { getLessonWithSlug } from "../../lib/index";
 import { useRouter } from "next/router";
 import LessonSEO from "../seo/course/lessons";
 import Spinner from "../spinner";
 import Final from "./final";
+import Renderer from "../StarryEditor/Renderer";
 export default function lesson({ courseMeta, setCourseMeta, course }) {
   const router = useRouter();
   const { lesson: lessonSlug } = router.query;
@@ -51,7 +51,10 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
   };
 
   const moveToModule = (direction) => {
-    if (direction === "next" && lesson.contents.length > currentContentIndex) {
+    if (
+      direction === "next" &&
+      lesson.content.blocks.length > currentContentIndex
+    ) {
       setCurrentContentIndex(currentContentIndex + 1);
     }
     if (direction === "previous" && currentContentIndex > 0) {
@@ -71,7 +74,7 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
         isCourseInfoPage={lessonSlug ? false : true}
         course={course}
         currentContentIndex={currentContentIndex}
-        totalContent={lesson.contents.length}
+        totalContent={lesson.content.blocks.length}
         moveToModule={moveToModule}
       >
         <LessonSEO
@@ -84,8 +87,8 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
           slug={lesson.slug}
           courseSlug={course.slug}
         />
-        {lesson.contents.length &&
-        currentContentIndex >= lesson.contents.length ? (
+        {lesson.content.blocks.length &&
+        currentContentIndex >= lesson.content.blocks.length ? (
           <Final
             moveToNextLesson={moveToNextLesson}
             lessonId={lesson._id}
@@ -101,29 +104,13 @@ export default function lesson({ courseMeta, setCourseMeta, course }) {
         ) : (
           ""
         )}
-        {lesson.contents.length ? (
-          lesson.contents.map((content, index) => {
-            // if (index === currentContentIndex) {
-            return (
-              <div
-                className={`${index === currentContentIndex ? "" : "hidden"}`}
-              >
-                <Contents
-                  key={content.title + content.type + index}
-                  moveToModule={moveToModule}
-                  content={content}
-                  setContent={(field, value) => {
-                    const newLesson = { ...lesson };
-                    //Update appropriate content field TODO: validate field as they must be typo-proof
-                    newLesson.contents[index][field] = value;
-                    setLesson(newLesson);
-                  }}
-                />
-              </div>
-            );
-            // }
-            // return "";
-          })
+        {lesson.content.blocks.length ? (
+          <Renderer
+            moveToModule={moveToModule}
+            content={lesson.content}
+            activeModuleIndex={currentContentIndex}
+            type="COURSE"
+          />
         ) : (
           <div className="mt-10 text-center">
             <div className="text-4xl font-semibold">

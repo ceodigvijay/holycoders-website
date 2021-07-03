@@ -4,7 +4,6 @@ export default function mcq({ content, moveToModule }) {
   const [options, setOptions] = useState(shuffle([...content.options]));
   const [answers, setAnswers] = useState(new Set());
   const [evaluation, setEvaluation] = useState("");
-  // useEffect(()=> setOptions(shuffle([...content.options])), [])
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -52,7 +51,6 @@ export default function mcq({ content, moveToModule }) {
 
   return (
     <>
-      <h2 className="text-gray-700 text-xl my-6 ">{content.question}</h2>
       <div className="grid grid-cols-12 gap-2">
         {options.map((option, index) => {
           if (option.position) {
@@ -60,13 +58,13 @@ export default function mcq({ content, moveToModule }) {
           }
           return (
             <label
-              for={`opt-${option.title + option.position}`}
+              for={option.key}
               className="col-span-12 md:col-span-6 text-xl bg-gray-100 dark:bg-gray-900 p-4 rounded-md my-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
-              key={option.title + option.position + index}
+              key={option.key}
             >
               {correctAnswersCount > 1 ? (
                 <input
-                  id={`opt-${option.title + option.position}`}
+                  id={option.key}
                   type="checkbox"
                   className="mx-4"
                   onClick={(v) => {
@@ -81,7 +79,7 @@ export default function mcq({ content, moveToModule }) {
                 />
               ) : (
                 <input
-                  id={`opt-${option.title + option.position}`}
+                  id={option.key}
                   type="radio"
                   name="ans_opts"
                   className="mx-4"
@@ -93,7 +91,7 @@ export default function mcq({ content, moveToModule }) {
                 />
               )}
 
-              <span>{option.title}</span>
+              <span>{option.text}</span>
             </label>
           );
         })}

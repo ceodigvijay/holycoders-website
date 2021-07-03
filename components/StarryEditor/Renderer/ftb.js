@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export default function index({ moveToModule, content }) {
   var refs = {};
-
-  var countOfFtb = content.question.split("[--]").length - 1;
+  var countOfFtb = content.code.split("[--]").length - 1;
   const [evaluation, setEvaluation] = useState("");
   const [answers, setAnswers] = useState([]);
 
@@ -35,7 +34,7 @@ export default function index({ moveToModule, content }) {
         className="rounded-md p-4 hc_quiz"
         style={{ backgroundColor: "#2D2B57", whiteSpace: "pre" }}
       >
-        {content.question.split("\n").map((c, lineIndex) => {
+        {content.code.split("\n").map((c, lineIndex) => {
           return (
             <>
               <span className="flex items-center">
@@ -65,7 +64,7 @@ export default function index({ moveToModule, content }) {
                               refs[lineIndex + index].innerHTML;
                             var ans = [...answers];
                             var answered = ans.filter((a) => {
-                              return a.title !== titleToRemove;
+                              return a.text !== titleToRemove;
                             });
                             setAnswers(answered);
                             refs[lineIndex + index].innerHTML = "";
@@ -91,19 +90,20 @@ export default function index({ moveToModule, content }) {
           var isOptionUsed = false;
           //Check if correct option is used
           answers.forEach((answer) => {
-            if (answer.title === e.title) {
+            if (answer.text === e.text) {
               isOptionUsed = true;
               return;
             }
           });
           return (
             <div
+              key={e.key}
               className="border-2 border-gray-200 bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 text-gray-600 rounded-md hover:bg-gray-100 shadow-md cursor-pointer px-6 py-4 mx-4"
               onClick={() => {
                 if (!isOptionUsed) {
                   for (let key in refs) {
                     if (!refs[key].innerHTML) {
-                      refs[key].innerHTML = e.title;
+                      refs[key].innerHTML = e.text;
                       //Insert answer at specific index
                       var newAnswer = [...answers];
                       newAnswer.splice(key, 0, e);
@@ -114,7 +114,7 @@ export default function index({ moveToModule, content }) {
                 }
               }}
             >
-              <span className={isOptionUsed ? "invisible" : ""}>{e.title}</span>
+              <span className={isOptionUsed ? "invisible" : ""}>{e.text}</span>
             </div>
           );
         })}

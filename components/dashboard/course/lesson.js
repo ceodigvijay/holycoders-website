@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import CourseLayout from "./layout";
-import Contents from "./content/index";
 import { getLessonWithId, updateLesson } from "../../../lib/index";
 import { useRouter } from "next/router";
 import GlobalContext from "../../../contexts/globalContext";
+import StarryEditor from "../../StarryEditor";
 
 export default function lesson({ course, setCourse }) {
   const { addNotification } = useContext(GlobalContext);
@@ -41,57 +41,26 @@ export default function lesson({ course, setCourse }) {
     }
   };
 
-  const onAddNewContent = (type) => {
-    var newLesson = { ...lesson };
-    //Insert the content at next index of the array
-    if (type === "markdown") {
-      newLesson.contents.splice(currentContentIndex + 1, 0, {
-        type: "markdown",
-        content_raw: "",
-        content_html: "",
-      });
-      setLesson(newLesson);
-    } else if (["ftb", "code-ftb", "mcq", "atf"].includes(type)) {
-      newLesson.contents.splice(currentContentIndex + 1, 0,{
-        type: type,
-        title: "",
-        language: "", // if lang html/js/css the final output can contain html/css/js
-        final_output: "", // output for code-ftb, final message for mcq and final note for markdown
-        enable_keyboard: false, //for ftb with no options, (add one option with position 1 for evaluation)
-        content_raw: "",
-        content_html: "",
-        question: "",
-        options: [],
-      });
-      // Option object type{
-      //   title: 'Some answer'
-      //   position: 1, //>1 is correct followed by correct  next option choosed (now 2) and 0 means false,
-      //   explanation_raw: string
-      //   explanation_html: string
-      //     }
-      setLesson(newLesson);
-    } else {
-      alert("Not Defined");
-    }
-  };
-
   if (!lesson) {
     return "Loading";
   } else {
     return (
       <CourseLayout
+        contentState={lesson.content}
+        setContentState={(newContentState) =>
+          setLesson({ ...lesson, content: newContentState })
+        }
         course={course}
         setCourse={setCourse}
         lesson={lesson}
         setLesson={setLesson}
         updateLesson={saveLessonToCloud}
         currentContentIndex={currentContentIndex}
-        totalContent={lesson.contents.length}
-        onAddContent={onAddNewContent}
+        totalContent={lesson.content.blocks.length}
         moveToModule={(direction) => {
           if (
             direction === "next" &&
-            lesson.contents.length - 1 > currentContentIndex
+            lesson.content.blocks.length - 1 > currentContentIndex
           ) {
             setCurrentContentIndex(currentContentIndex + 1);
           }
@@ -100,38 +69,15 @@ export default function lesson({ course, setCourse }) {
           }
         }}
       >
-        {lesson.contents.length ? (
-          lesson.contents.map((content, index) => {
-            if (index === currentContentIndex) {
-              return (
-                <>
-                  <Contents
-                    key={index}
-                    content={content}
-                    setContent={(field, value) => {
-                      const newLesson = { ...lesson };
-                      //Update appropriate content field TODO: validate field as they must be typo-proof
-                      newLesson.contents[index][field] = value;
-                      setLesson(newLesson);
-                    }}
-                  />
-                  <div className="text-center">
-                    <button
-                      onClick={() => {
-                        const newLesson = { ...lesson };
-                        newLesson.contents.splice(index, 1);
-                        setLesson(newLesson);
-                      }}
-                      className="px-10 py-2 rounded-full bg-red-500 font-semibold text-lg text-white mt-52 mb-6"
-                    >
-                      Delete Content
-                    </button>
-                  </div>
-                </>
-              );
+        {lesson.content.blocks.length ? (
+          <StarryEditor
+            contentState={lesson.content}
+            setContentState={(newContentState) =>
+              setLesson({ ...lesson, content: newContentState })
             }
-            return "";
-          })
+            type="COURSE"
+            activeContentIndex={currentContentIndex}
+          />
         ) : (
           <div className="mt-10 text-center">
             <div className="text-4xl font-semibold">No Content Found</div>

@@ -88,8 +88,8 @@ export default function atf({ content, moveToModule }) {
               >
                 {options.map((item, index) => (
                   <Draggable
-                    key={item.position}
-                    draggableId={item.title}
+                    key={item.key}
+                    draggableId={item.key}
                     index={index}
                   >
                     {(provided, snapshot) => (
@@ -121,7 +121,7 @@ export default function atf({ content, moveToModule }) {
                               d="M8 9l4-4 4 4m0 6l-4 4-4-4"
                             />
                           </svg>
-                          <span>{item.title}</span>
+                          <span>{item.text}</span>
                         </div>
                       </div>
                     )}

@@ -167,7 +167,7 @@ export default function dashboardLayout({ children }) {
   return (
     <Layout>
       <AuthWrapper>
-        <div className="bg-primary-6 px-2 py-2 min-h-screen grid grid-cols-5 gap-2 my-6">
+        <div className="bg-primary-6 px-2 min-h-screen grid grid-cols-5 gap-2 py-6">
           <nav className="col-span-5 md:col-span-1">
             <ul className="flex-col items-center justify-start">
               {dashNavs.map((element) => {
