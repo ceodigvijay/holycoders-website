@@ -169,6 +169,17 @@ const fullArticle = ({
             />
           </div>
           <div className="text-center col-span-5 lg:col-span-1">
+            <div className="grid bg-gray-700 sticky top-0 rounded px-2 py-2 text-white font-bold">
+              <p>Join Our Youtube Channel</p>
+              <a
+                href="https://www.youtube.com/channel/UChuKVKyXIcsv4vb9QD9PDTQ?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 block py-3 my-6 bg-red-600 text-white rounded font-bold"
+              >
+                Subscribe
+              </a>
+            </div>
             {/* <Image
               src="/content/images/dummy/laid1.png"
               alt="ad"
